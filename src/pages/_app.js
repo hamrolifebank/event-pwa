@@ -9,17 +9,11 @@ import createEmotionCache from "../utils/createEmotionCache";
 // theme
 import ThemeProvider from "../theme";
 import { SettingsProvider } from "@components/settings";
-import { AppAuthProvider } from "@contexts/AuthContext";
+import store from "@redux/store";
+import { Provider } from "react-redux";
 
-// locales
-// components
 
-// Check our docs
-// https://docs.minimals.cc/authentication/js-version
 
-// import { AuthProvider } from "../auth/JwtContext";
-
-// ----------------------------------------------------------------------
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -39,15 +33,15 @@ export default function MyApp(props) {
       <Head>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
-      <AppAuthProvider>
+      <Provider store={store}>
         <SettingsProvider>
-          {/* <AuthProvider> */}
+         
           <ThemeProvider>
             {getLayout(<Component {...pageProps} />)}
           </ThemeProvider>
-          {/* </AuthProvider> */}
+          
         </SettingsProvider>
-      </AppAuthProvider>
+      </Provider>
     </CacheProvider>
   );
 }
