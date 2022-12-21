@@ -3,16 +3,17 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import Main from "./Main";
 import Header from "./header";
+import { BottomNavigation } from "@components/bottom-navigation";
 import AuthGuard from "@guards/AuthGuard";
 
 // ----------------------------------------------------------------------
 
-DashboardLayout.propTypes = {
+DashboardLayoutwithFooter.propTypes = {
   children: PropTypes.node,
   pageTitle: PropTypes.string.isRequired,
 };
 
-export default function DashboardLayout({ pageTitle, children }) {
+export default function DashboardLayoutwithFooter({ pageTitle, children }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -33,6 +34,8 @@ export default function DashboardLayout({ pageTitle, children }) {
           minHeight: { lg: 1 },
         }}
       >
+        <BottomNavigation />
+
         <Main>{children}</Main>
       </Box>
     </>
