@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { LoginPage } from "@sections/loginPage";
 import GuestGuard from "@guards/GuestGuard";
+
 
 const Login = (props) => {
   return (
     <div>
-      <GuestGuard>Login Page</GuestGuard>
+      <GuestGuard>{LoginPage}</GuestGuard>
     </div>
   );
 };
