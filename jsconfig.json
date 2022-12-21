@@ -12,7 +12,8 @@
       "@services/*": ["src/services/*"],
       "@assets/*": ["src/assets/*"],
       "@contexts/*": ["src/contexts/*"],
-      "@guards/*": ["src/guards/*"]
+      "@guards/*": ["src/guards/*"],
+      "@redux/*": ["src/redux/*"],
     }
   },
   "include": ["src/**/*"],

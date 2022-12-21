@@ -1,12 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
-// next
-import { useRouter } from "next/router";
-// components
-import LoadingScreen from "../components/LoadingScreen";
-//
-import Login from "@pages/auth/login";
-import { useAppAuthContext } from "@contexts/AuthContext";
+
 
 // ----------------------------------------------------------------------
 
@@ -14,7 +7,7 @@ AuthGuard.propTypes = {
   children: PropTypes.node,
 };
 
-const certainCondition = true;
+
 
 // Wrap this for all pages that require authentication
 
