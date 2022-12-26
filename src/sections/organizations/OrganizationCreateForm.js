@@ -13,9 +13,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { addOrganization } from "@redux/reducers/organizationReducer";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const OrganizationCreateForm = () => {
+  const dispatch = useDispatch();
+  const { push } = useRouter();
   const [field, setField] = useState({
     name: "",
     email: "",
@@ -65,6 +70,17 @@ const OrganizationCreateForm = () => {
 
   const handleFromSubmit = (e) => {
     e.preventDefault();
+    const newOrganization = {
+      name: field.name,
+      email: field.email,
+      phone: field.phone,
+      address: field.address,
+      isBloodBank: field.isBloodBank,
+    };
+
+    dispatch(addOrganization(newOrganization));
+
+    push("/organization");
   };
 
   return (

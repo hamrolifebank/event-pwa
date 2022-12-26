@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-
+import organizationReducer from "./reducers/organizationReducer";
 
 const store = configureStore({
   reducer: {
-//    put your reducers here
+    organizations: organizationReducer,
   },
 });
 
