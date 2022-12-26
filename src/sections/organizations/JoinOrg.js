@@ -4,7 +4,6 @@ import {
   Container,
   Grid,
   IconButton,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
@@ -69,6 +68,14 @@ export default function JoinOrg() {
     },
   ];
 
+  const filteredList = org.filter((list) => {
+    if (input === "") {
+      return list;
+    } else {
+      return list.label.toLowerCase().includes(input);
+    }
+  });
+
   return (
     <Container>
       <IconButton color="primary" onClick={arrowBack}>
@@ -78,7 +85,7 @@ export default function JoinOrg() {
 
       <Autocomplete
         disablePortal
-        options="org names to map for searching goes here"
+        options={org.map((list) => list.label)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -91,9 +98,13 @@ export default function JoinOrg() {
           />
         )}
       />
-      {org.map((org) => (
-        <Card variant="outlined" sx={{ p: 2, boxShadow: 5, mb: 2 }}>
-          <Grid container xs={12}>
+      {filteredList.map((org) => (
+        <Card
+          key={org.label}
+          variant="outlined"
+          sx={{ p: 2, boxShadow: 5, mb: 2 }}
+        >
+          <Grid container item xs={12}>
             <Grid item xs={9}>
               <Typography sx={style} gap={2}>
                 <Icon icon="mdi:business-card-outline" />
