@@ -13,35 +13,58 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 const OrganizationCreateForm = () => {
+  const [field, setField] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    isBloodBank: false,
+  });
+
   const formTextfields = [
     {
       label: "Name of Organization",
+      name: "name",
+      value: field.name,
       type: "text",
       adornmentIcon: "octicon:organization-24",
     },
     {
       label: "Email",
+      name: "email",
+      value: field.email,
       type: "email",
       adornmentIcon: "octicon:mail-24",
     },
     {
       label: "Phone no.",
+      name: "phone",
+      value: field.phone,
       type: "number",
       adornmentIcon: "octicon:device-mobile-24",
     },
     {
       label: "Address",
+      name: "address",
+      value: field.address,
       type: "text",
       adornmentIcon: "octicon:location-24",
     },
   ];
 
+  const handleFieldChange = (e) => {
+    if (e.target.name === "is-blood-bank") {
+      setField({ ...field, isBloodBank: e.target.checked });
+    } else {
+      setField({ ...field, [e.target.name]: e.target.value });
+    }
+  };
+
   const handleFromSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
   };
 
   return (
@@ -61,7 +84,10 @@ const OrganizationCreateForm = () => {
           <TextField
             key={i}
             label={field.label}
+            name={field.name}
             type={field.type}
+            value={field.value}
+            onChange={handleFieldChange}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -71,7 +97,16 @@ const OrganizationCreateForm = () => {
             }}
           />
         ))}
-        <FormControlLabel control={<Checkbox />} label="Is Blood Bank?" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              value={field.isBloodBank}
+              name="is-blood-bank"
+              onChange={handleFieldChange}
+            />
+          }
+          label="Is Blood Bank?"
+        />
 
         <PrimaryButton type="submit">submit</PrimaryButton>
       </Stack>
