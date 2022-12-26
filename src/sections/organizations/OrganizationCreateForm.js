@@ -1,3 +1,4 @@
+import { PrimaryButton } from "@components/button";
 import { Icon } from "@iconify/react";
 import {
   Box,
@@ -70,8 +71,9 @@ const createForm = () => {
             }}
           />
         ))}
+        <FormControlLabel control={<Checkbox />} label="Is Blood Bank?" />
 
-        <Button type="submit">submit</Button>
+        <PrimaryButton type="submit">submit</PrimaryButton>
       </Stack>
     </Container>
   );
