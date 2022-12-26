@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const createForm = () => {
+const OrganizationCreateForm = () => {
   const formTextfields = [
     {
       label: "Name of Organization",
@@ -79,4 +79,4 @@ const createForm = () => {
   );
 };
 
-export default createForm;
+export default OrganizationCreateForm;
