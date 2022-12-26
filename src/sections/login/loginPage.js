@@ -5,19 +5,19 @@ import { Icon } from "@iconify/react";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
-// import { PrimaryButton, SecondaryButton } from "@components/Button";
+
 import library from "@utils/wallet";
 import { useDispatch } from "react-redux";
-
+import { storeWallet } from "@redux/reducers/userReducer";
 export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
   const dispatch=useDispatch()
-  // const { addPublicAddress, addWallet } = useAppAuthContext();
+
 
   const handleCreateWallet = async () => {
     const wallet = await library.createWallet();
-
+dispatch (storeWallet(wallet.publicKey))
    
   };
   
