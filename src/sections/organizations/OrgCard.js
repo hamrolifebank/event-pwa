@@ -9,26 +9,23 @@ import {
 import { Icon } from "@iconify/react";
 
 export default function OrgCard() {
+  const style = {
+    // img: { backgroundImage: `url(${Image})` },
+    card: { display: "flex", alignItems: "center", flexWrap: "wrap" },
+  };
   return (
-    <Card sx={{ p: 2, boxShadow: 5, color: theme.palette.grey[600] }}>
-      <Icon icon="noto:drop-of-blood" />
-      {/* <ListItem>
-        <ListItemIcon>
-          <Icon icon="mdi:business-card-outline" />
-        </ListItemIcon>
-        <ListItemText>Org name</ListItemText>
-      </ListItem> */}
-      <Typography>
+    <Card sx={{ p: 2, boxShadow: 5 }}>
+      <Typography sx={style.card} gap={2}>
         <Icon icon="mdi:business-card-outline" />
         Org name
       </Typography>
-      <Typography>
+      <Typography sx={style.card} gap={2}>
         <Icon icon="material-symbols:location-on-outline" /> Org location
       </Typography>
-      <Typography>
+      <Typography sx={style.card} gap={2}>
         <Icon icon="ic:outline-email" /> E-mail
       </Typography>
-      <Typography>
+      <Typography sx={style.card} gap={2}>
         <Icon icon="material-symbols:phone-enabled-outline-sharp" />
         phone number
       </Typography>

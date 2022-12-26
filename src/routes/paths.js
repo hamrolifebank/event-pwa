@@ -8,8 +8,12 @@ const ROOTS_DASHBOARD = "/";
 const ROOTS_ASSETS = "/assets";
 
 const ROOTS_EVENTS = "/events";
-const ROOTS_DONATIONS = "/organization";
+const ROOTS_ORGANIZATION = "/organization";
 const ROOTS_PROFILE = "/profile";
+
+export const PATH_JOINORG = {
+  joinOrg: "/join-org-form",
+};
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
@@ -19,8 +23,8 @@ export const PATH_DASHBOARD = {
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
 };
-export const PATH_DONATIONS = {
-  root: ROOTS_DONATIONS,
+export const PATH_ORGANIZATION = {
+  root: ROOTS_ORGANIZATION,
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
@@ -61,7 +65,7 @@ export const BOTTOM_NAVIGATION_OPTIONS = [
     },
   },
   {
-    path: PATH_DONATIONS.root,
+    path: PATH_ORGANIZATION.root,
     // label: "Donations",
     icon: "ion:business-outline",
     sx: { color: "white" },

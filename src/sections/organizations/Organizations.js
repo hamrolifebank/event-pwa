@@ -1,18 +1,23 @@
 import { Button, Card, Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { Icon } from "@iconify/react";
 import React from "react";
 import OrgCard from "./OrgCard";
+import { PrimaryButton } from "@components/button";
+import { useRouter } from "next/router";
+import { PATH_JOINORG } from "@routes/paths";
 
 export default function Organizations() {
+  const { push } = useRouter();
+
+  const handleJoin = () => {
+    push(PATH_JOINORG.joinOrg);
+  };
   return (
     <Container>
-      <Button variant="contained" fullWidth sx={{ mb: 2, mt: 2 }}>
-        Create organization
-      </Button>
-      <Button variant="contained" fullWidth sx={{ mb: 2 }}>
+      <PrimaryButton sx={{ mt: 2, mb: 2 }}>Create organization</PrimaryButton>
+      <PrimaryButton sx={{ mb: 2 }} onClick={handleJoin}>
         Join organization
-      </Button>
+      </PrimaryButton>
       <hr style={{ border: "0.5px dashed black" }} />
       <Grid container gap={1}>
         <Grid item xs>
