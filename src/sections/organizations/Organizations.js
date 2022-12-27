@@ -19,8 +19,19 @@ export default function Organizations() {
         Join organization
       </PrimaryButton>
       <hr style={{ border: "0.5px dashed black" }} />
-      <Grid container item xs={12} gap={1}>
-        <Grid item xs={6}>
+      <Typography
+        variant="h4"
+        display="flex"
+        justifyContent="center"
+        sx={{ mb: 1 }}
+      >
+        Your Organizations
+      </Typography>
+      <Grid container item xs={12} gap={0.6}>
+        <Grid item xs={5.9}>
+          <OrgCard />
+        </Grid>
+        <Grid item xs={5.9}>
           <OrgCard />
         </Grid>
       </Grid>

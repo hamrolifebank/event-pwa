@@ -8,7 +8,7 @@ export default function OrgCard() {
     card: { display: "flex", alignItems: "center", flexWrap: "wrap" },
   };
   return (
-    <Card variant="outlined" sx={{ p: 2, boxShadow: 5 }} style={style.img}>
+    <Card variant="outlined" sx={{ p: 1, boxShadow: 5 }} style={style.img}>
       <Typography sx={style.card} gap={2}>
         <Icon icon="mdi:business-card-outline" />
         Org name
