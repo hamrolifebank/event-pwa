@@ -19,8 +19,11 @@ export default function JoinOrg() {
   const { push } = useRouter();
 
   const handleInput = (e) => {
-    console.log(e.target.value);
     setInput(e.target.value.toLowerCase());
+  };
+
+  const handleJoin = () => {
+    console.log("request join");
   };
 
   const arrowBack = () => {
@@ -81,7 +84,6 @@ export default function JoinOrg() {
       <IconButton color="primary" onClick={arrowBack}>
         <ArrowBackIosIcon />
       </IconButton>
-      {/* <InputLabel>Search Organizations</InputLabel> */}
 
       <Autocomplete
         disablePortal
@@ -112,7 +114,9 @@ export default function JoinOrg() {
               </Typography>
             </Grid>
             <Grid item xs={3}>
-              <PrimaryButton sx={{ height: 25 }}>JOIN</PrimaryButton>
+              <PrimaryButton sx={{ height: 25 }} onClick={handleJoin}>
+                JOIN
+              </PrimaryButton>
             </Grid>
           </Grid>
           <Typography sx={style} gap={2}>

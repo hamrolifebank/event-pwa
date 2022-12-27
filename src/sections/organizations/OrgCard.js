@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  Card,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 
 export default function OrgCard() {
   const style = {
-    // img: { backgroundImage: `url(${Image})` },
+    img: {},
     card: { display: "flex", alignItems: "center", flexWrap: "wrap" },
   };
   return (
-    <Card sx={{ p: 2, boxShadow: 5 }}>
+    <Card variant="outlined" sx={{ p: 2, boxShadow: 5 }} style={style.img}>
       <Typography sx={style.card} gap={2}>
         <Icon icon="mdi:business-card-outline" />
         Org name
