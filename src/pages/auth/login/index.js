@@ -1,15 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import GuestGuard from "@guards/GuestGuard";
+import LoginPage from "@sections/login/loginPage";
+import DashboardLayout from "@layouts/dashboard";
 
-const Login = (props) => {
+const PAGE_TITLE = "Login";
+Login.getLayout = (page) => (
+  <DashboardLayout pageTitle={PAGE_TITLE}>{page}</DashboardLayout>
+);
+export default function Login() {
   return (
     <div>
-      <GuestGuard>Login Page</GuestGuard>
+      <LoginPage />
     </div>
   );
-};
-
-Login.propTypes = {};
-
-export default Login;
+}
