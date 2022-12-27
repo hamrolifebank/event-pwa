@@ -18,13 +18,10 @@ export default function LoginPage() {
   const handleCreateWallet = async () => {
     const wallet = await library.createWallet();
 dispatch (storeWallet(wallet.publicKey))
-   
   };
   
   const handlecallbackresponse = (response) => {
-    console.log("the token is", response.credential);
     const decodeddata = jwtDecode(response.credential);
-    console.log(decodeddata);
     if(decodeddata.email_verified===true){
       handleCreateWallet()
     }
@@ -32,8 +29,7 @@ dispatch (storeWallet(wallet.publicKey))
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id:
-        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+ client_id:"27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
       callback: handlecallbackresponse,
     });
 
