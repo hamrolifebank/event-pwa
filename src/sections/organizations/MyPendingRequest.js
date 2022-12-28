@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function PendingReq() {
+export default function MyPendingRequest() {
   return <div>List of requests</div>;
 }
