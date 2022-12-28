@@ -4,7 +4,7 @@ import React from "react";
 import OrgCard from "./OrgCard";
 import { PrimaryButton } from "@components/button";
 import { useRouter } from "next/router";
-import { PATH_JOINORG } from "@routes/paths";
+import { PATH_JOINORG, PATH_PENDINGREQ } from "@routes/paths";
 
 export default function Organizations() {
   const { push } = useRouter();
@@ -12,8 +12,16 @@ export default function Organizations() {
   const handleJoin = () => {
     push(PATH_JOINORG.joinOrg);
   };
+
+  const handleRequest = () => {
+    push(PATH_PENDINGREQ.pendingReq);
+  };
+
   return (
     <Container>
+      <PrimaryButton sx={{ mt: 2 }} onClick={handleRequest}>
+        Pending requests
+      </PrimaryButton>
       <PrimaryButton sx={{ mt: 2, mb: 2 }}>Create organization</PrimaryButton>
       <PrimaryButton sx={{ mb: 2 }} onClick={handleJoin}>
         Join organization

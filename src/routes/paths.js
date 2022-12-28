@@ -14,6 +14,9 @@ const ROOTS_PROFILE = "/profile";
 export const PATH_JOINORG = {
   joinOrg: "/join-org-form",
 };
+export const PATH_PENDINGREQ = {
+  pendingReq: "/pending-req",
+};
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
