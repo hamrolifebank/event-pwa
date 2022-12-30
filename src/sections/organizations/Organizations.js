@@ -4,17 +4,17 @@ import React from "react";
 import OrgCard from "./OrgCard";
 import { PrimaryButton } from "@components/button";
 import { useRouter } from "next/router";
-import { PATH_JOINORG, PATH_MYPENDINGREQUEST } from "@routes/paths";
+import { PATH_ORGANIZATION } from "@routes/paths";
 
 export default function Organizations() {
   const { push } = useRouter();
 
   const handleJoin = () => {
-    push(PATH_JOINORG.joinOrg);
+    push(PATH_ORGANIZATION.joinOrg);
   };
 
   const handleRequest = () => {
-    push(PATH_MYPENDINGREQUEST.pendingRequest);
+    push(PATH_ORGANIZATION.pendingRequest);
   };
 
   return (

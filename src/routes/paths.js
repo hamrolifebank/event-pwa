@@ -11,13 +11,6 @@ const ROOTS_EVENTS = "/events";
 const ROOTS_ORGANIZATION = "/organization";
 const ROOTS_PROFILE = "/profile";
 
-export const PATH_JOINORG = {
-  joinOrg: "/join-org-form",
-};
-export const PATH_MYPENDINGREQUEST = {
-  pendingRequest: "/pending-requests",
-};
-
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   one: path(ROOTS_DASHBOARD, "/one"),
@@ -28,6 +21,8 @@ export const PATH_EVENTS = {
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
+  joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
+  pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
@@ -69,7 +64,7 @@ export const BOTTOM_NAVIGATION_OPTIONS = [
   },
   {
     path: PATH_ORGANIZATION.root,
-    // label: "Donations",
+    // label: "Organizations",
     icon: "ion:business-outline",
     sx: { color: "white" },
   },
