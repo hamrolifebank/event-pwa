@@ -36,3 +36,7 @@ export const ICON = {
   NAV_ITEM_HORIZONTAL: 22,
   NAV_ITEM_MINI: 22,
 };
+export const STORAGE = {
+  LOCAL_STORAGE: "localStorage",
+  INDEX_DB: "indexDB",
+};

@@ -11,6 +11,7 @@
       "@config": ["src/config.js"],
       "@services/*": ["src/services/*"],
       "@assets/*": ["src/assets/*"],
+      "@sections/*": ["src/sections/*"],
       "@contexts/*": ["src/contexts/*"],
       "@guards/*": ["src/guards/*"],
       "@redux/*": ["src/redux/*"],
