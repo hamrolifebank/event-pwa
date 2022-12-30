@@ -13,6 +13,10 @@ export default function Organizations() {
     push(PATH_ORGANIZATION.joinOrg);
   };
 
+  const handleCreate = () => {
+    push(PATH_ORGANIZATION.createOrg);
+  };
+
   const handleRequest = () => {
     push(PATH_ORGANIZATION.pendingRequest);
   };
@@ -22,7 +26,9 @@ export default function Organizations() {
       <PrimaryButton sx={{ mt: 2 }} onClick={handleRequest}>
         Pending requests
       </PrimaryButton>
-      <PrimaryButton sx={{ mt: 2, mb: 2 }}>Create organization</PrimaryButton>
+      <PrimaryButton sx={{ mt: 2, mb: 2 }} onClick={handleCreate}>
+        Create organization
+      </PrimaryButton>
       <PrimaryButton sx={{ mb: 2 }} onClick={handleJoin}>
         Join organization
       </PrimaryButton>
