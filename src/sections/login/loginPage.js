@@ -6,28 +6,33 @@ import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { createUser } from "@services/createUser";
+import uploadFile from "./driveupload";
+var { ethers } = require("ethers");
+
 export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
 
   const handleCreateWallet = async () => {
-    const wallet = await library.createWallet();
-    return wallet.address;
+    const wallet = ethers.Wallet.createRandom();
+    return wallet;
   };
 
   const handlecallbackresponse = async (response) => {
     console.log("the token is", response.credential);
     const decodeddata = jwtDecode(response.credential);
     console.log(decodeddata);
-    const userwalletaddress = await handleCreateWallet();
+    let userwalletaddress = await handleCreateWallet();
     const userTabledata = {
       firstname: decodeddata.name,
       lastname: decodeddata.name,
       email: decodeddata.email,
       phone: "test",
-      userethaddress: "test",
+      userethaddress: userwalletaddress.address,
     };
-    createUser(userTabledata);
+    await createUser(userTabledata);
+    userwalletaddress = JSON.parse(userwalletaddress);
+    uploadFile(userwalletaddress);
   };
 
   useEffect(() => {
