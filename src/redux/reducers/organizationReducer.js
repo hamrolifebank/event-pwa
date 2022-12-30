@@ -2,10 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const organizationSlice = createSlice({
   name: "organization",
-  initialState: [
-    { organization: "Organization 1" },
-    { organization: "Organization 2" },
-  ],
+  initialState: [],
   reducers: {
     getOrganizations(state, action) {
       return action.payload;
