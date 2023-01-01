@@ -1,3 +1,5 @@
+import organizationService from "@services/organizationService";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const organizationSlice = createSlice({
@@ -15,13 +17,15 @@ const organizationSlice = createSlice({
 
 export const initializeOrganizations = () => {
   return async (dispatch) => {
+    const data = await organizationService.getAll();
     dispatch(getOrganizations(data));
   };
 };
 
 export const addOrganization = (organization) => {
   return async (dispatch) => {
-    await dispatch(setOrganization(organization));
+    const newOrganization = await organizationService.create(organization);
+    await dispatch(setOrganization(newOrganization));
   };
 };
 
