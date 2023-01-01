@@ -9,7 +9,7 @@ const EventCard = () => {
       <Paper
         sx={{
           display: "flex",
-          mb: 2,
+          mb: 1,
           justifyContent: "space-between",
 
           padding: "12px 20px 12px 12px",
@@ -48,7 +48,7 @@ const EventCard = () => {
               gap: "5px",
               alignItems: "center",
               textDecoration: "underline",
-              color: "primary.main",
+              color: "secondary.main",
             }}
           >
             <Icon icon="material-symbols:location-on" />

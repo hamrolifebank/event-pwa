@@ -14,6 +14,8 @@ const Events = () => {
         UPCOMING EVENTS
       </Typography>
       <EventCard />
+      <EventCard />
+      <EventCard />
     </Container>
   );
 };
