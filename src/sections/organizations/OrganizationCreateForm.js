@@ -1,4 +1,4 @@
-import { PrimaryButton } from "@components/button";
+import { PrimaryButton, SecondaryButton } from "@components/button";
 import { Icon } from "@iconify/react";
 import {
   Box,
@@ -68,7 +68,7 @@ const OrganizationCreateForm = () => {
     }
   };
 
-  const handleFromSubmit = (e) => {
+  const handleFromSubmit = async (e) => {
     e.preventDefault();
     const newOrganization = {
       name: field.name,
@@ -78,7 +78,7 @@ const OrganizationCreateForm = () => {
       isBloodBank: field.isBloodBank,
     };
 
-    dispatch(addOrganization(newOrganization));
+    await dispatch(addOrganization(newOrganization));
 
     push("/organization");
   };
@@ -125,6 +125,9 @@ const OrganizationCreateForm = () => {
         />
 
         <PrimaryButton type="submit">submit</PrimaryButton>
+        <SecondaryButton onClick={() => push("/organization")}>
+          cancel
+        </SecondaryButton>
       </Stack>
     </Container>
   );
