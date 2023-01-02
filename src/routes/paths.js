@@ -7,7 +7,7 @@ function path(root, sublink) {
 const ROOTS_DASHBOARD = "/";
 const ROOTS_ASSETS = "/assets";
 
-const ROOTS_EVENTS = "/events";
+const ROOTS_EVENTS = "/event";
 const ROOTS_ORGANIZATION = "/organization";
 const ROOTS_PROFILE = "/profile";
 
