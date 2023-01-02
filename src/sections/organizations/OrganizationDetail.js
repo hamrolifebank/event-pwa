@@ -10,21 +10,6 @@ const OrganizationDetail = () => {
   const { query } = useRouter();
   const { id } = query;
 
-  const items = [
-    {
-      id: 1,
-      icon: "eva:phone-call-fill",
-    },
-    {
-      id: 2,
-      icon: "eva:phone-call-fill",
-    },
-    {
-      id: 3,
-      icon: "eva:phone-call-fill",
-    },
-  ];
-
   return (
     <Container>
       <Box
