@@ -18,6 +18,7 @@ export const PATH_DASHBOARD = {
 
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
+  createEvent: path(ROOTS_EVENTS, "/create"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
