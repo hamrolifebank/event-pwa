@@ -42,8 +42,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id:
-        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+ client_id:"27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
       callback: handlecallbackresponse,
     });
 

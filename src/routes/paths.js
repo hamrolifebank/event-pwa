@@ -7,8 +7,8 @@ function path(root, sublink) {
 const ROOTS_DASHBOARD = "/";
 const ROOTS_ASSETS = "/assets";
 
-const ROOTS_EVENTS = "/events";
-const ROOTS_DONATIONS = "/organization";
+const ROOTS_EVENTS = "/event";
+const ROOTS_ORGANIZATION = "/organization";
 const ROOTS_PROFILE = "/profile";
 
 export const PATH_DASHBOARD = {
@@ -19,8 +19,11 @@ export const PATH_DASHBOARD = {
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
 };
-export const PATH_DONATIONS = {
-  root: ROOTS_DONATIONS,
+export const PATH_ORGANIZATION = {
+  root: ROOTS_ORGANIZATION,
+  createOrg: path(ROOTS_ORGANIZATION, "/create"),
+  joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
+  pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
@@ -61,8 +64,8 @@ export const BOTTOM_NAVIGATION_OPTIONS = [
     },
   },
   {
-    path: PATH_DONATIONS.root,
-    // label: "Donations",
+    path: PATH_ORGANIZATION.root,
+    // label: "Organizations",
     icon: "ion:business-outline",
     sx: { color: "white" },
   },
