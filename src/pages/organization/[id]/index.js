@@ -1,7 +1,6 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
 import OrganizationDetail from "@sections/organizations/OrganizationDetail";
-import { Organizations } from "src/sections/organizations";
 
 const PAGE_TITLE = "OrganizationDetail";
 

@@ -24,6 +24,7 @@ export const PATH_ORGANIZATION = {
   createOrg: path(ROOTS_ORGANIZATION, "/create"),
   joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
   pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
+  upcommingEvents: path(ROOTS_ORGANIZATION, "/upcomming-events"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,

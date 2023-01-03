@@ -3,11 +3,12 @@ import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
 import { Grid, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
+import { PATH_ORGANIZATION } from "@routes/paths";
 import { useRouter } from "next/router";
 import React from "react";
 
 const OrganizationDetail = () => {
-  const { query } = useRouter();
+  const { query, push, asPath } = useRouter();
   const { id } = query;
 
   return (
@@ -28,15 +29,11 @@ const OrganizationDetail = () => {
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mt: 2,
-        }}
-      >
-        <Typography variant="h4">Nepal Red Cross - Kathmandu</Typography>
-      </Box>
+      <Grid container justifyContent="center" mt={2}>
+        <Grid item>
+          <Typography variant="h3">Bharatpur Redcross society </Typography>
+        </Grid>
+      </Grid>
 
       <Grid
         container
@@ -68,7 +65,9 @@ const OrganizationDetail = () => {
 
       <Stack spacing={2} sx={{ mt: 2 }}>
         <PrimaryButton>Create event</PrimaryButton>
-        <PrimaryButton>View upcomming events</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
+          View upcomming events
+        </PrimaryButton>
         <PrimaryButton>View past events</PrimaryButton>
         <PrimaryButton>View donors</PrimaryButton>
         <PrimaryButton>View members</PrimaryButton>
