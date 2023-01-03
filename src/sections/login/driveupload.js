@@ -34,7 +34,7 @@ export const uploadFile = async (userwalletaddress) => {
       },
       media: {
         mimeType: "application/json",
-        body: fs.createReadStream(userwalletaddress),
+        body: userwalletaddress,
       },
     });
     console.log(response.data);

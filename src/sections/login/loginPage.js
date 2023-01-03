@@ -4,7 +4,7 @@ import { Container, display } from "@mui/system";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
-import { createUser } from "@services/createUser";
+import { checkUser, createUser } from "@services/createUser";
 import { Icon } from "@iconify/react";
 
 import uploadFile from "./driveupload";
@@ -20,20 +20,24 @@ export default function LoginPage() {
   };
 
   const handlecallbackresponse = async (response) => {
-    console.log("the token is", response.credential);
     const decodeddata = jwtDecode(response.credential);
-    console.log(decodeddata);
-    let userwalletaddress = await handleCreateWallet();
-    const userTabledata = {
-      firstname: decodeddata.name,
-      lastname: decodeddata.name,
-      email: decodeddata.email,
-      phone: "test",
-      userethaddress: userwalletaddress.address,
-    };
-    await createUser(userTabledata);
-    // userwalletaddress = JSON.parse(userwalletaddress);
-    // uploadFile(userwalletaddress);
+    let subscribedUser = await checkUser(decodeddata.email);
+    console.log("the lofinpage", subscribedUser);
+    if (subscribedUser) {
+      return false;
+    } else {
+      let userwalletaddress = await handleCreateWallet();
+      const userTabledata = {
+        firstname: decodeddata.name,
+        lastname: decodeddata.name,
+        email: decodeddata.email,
+        phone: "test",
+        userethaddress: userwalletaddress.address,
+      };
+      await createUser(userTabledata);
+      userwalletaddress = JSON.parse(userwalletaddress);
+      uploadFile(userwalletaddress);
+    }
   };
 
   useEffect(() => {
@@ -77,11 +81,13 @@ export default function LoginPage() {
             justifyItems: "center",
             alignItems: "center",
             flexDirection: "column",
-            backgroundColor: "#C72020",
+            backgroundColor: "#1ab394",
             color: "white",
             mt: "20px",
-            pt: "10px",
-            pb: "10px",
+            pt: "20px",
+            pb: "20px",
+            ml: "30px",
+            mr: "30px",
             mb: "20px",
           }}
         >
@@ -100,9 +106,10 @@ export default function LoginPage() {
         >
           <Typography> Please choose login method </Typography>
 
-          <Button id="signInbutton" onClick={() => handlecallbackresponse()}>
-            <Icon icon="logos:google-icon" />
-          </Button>
+          <Button
+            id="signInbutton"
+            onClick={() => handlecallbackresponse()}
+          ></Button>
         </Box>
       </Container>
     </>

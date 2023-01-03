@@ -14,3 +14,16 @@ export const createUser = async (userTabledata) => {
     return error.response.data;
   }
 };
+
+export const checkUser = async (email) => {
+  try {
+    console.log("the checkuser entered", email);
+    const response = await axios.get(`${API}/getUser`, {
+      method: "GET",
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
