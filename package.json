@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch",
-    "testdb": "nodemon scripts.js"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.5",
