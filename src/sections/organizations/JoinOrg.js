@@ -13,10 +13,22 @@ import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PrimaryButton } from "@components/button";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 
 export default function JoinOrg() {
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+  const org = useSelector((state) => state.organizations);
   const { push } = useRouter();
+
+  useEffect(() => {
+    dispatch(initializeOrganizations());
+  }, []);
+
+  if (!org || !org.length) return null; // loading screen can be returned here
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
@@ -32,50 +44,11 @@ export default function JoinOrg() {
 
   const style = { display: "flex", alignItems: "center", flexWrap: "wrap" };
 
-  const org = [
-    {
-      label: "Shawshank",
-      location: "washington",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-    {
-      label: "Godfather",
-      location: "sydney",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-    {
-      label: "Helper",
-      location: "stockholm",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-    {
-      label: "Dark Knight",
-      location: "rome",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-    {
-      label: "Angry Men",
-      location: "paris",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-    {
-      label: "Schindler's List",
-      location: "california",
-      email: "abc@gmail.com",
-      number: 12345,
-    },
-  ];
-
   const filteredList = org.filter((list) => {
     if (input === "") {
       return list;
     } else {
-      return list.label.toLowerCase().includes(input);
+      return list.name.toLowerCase().includes(input);
     }
   });
 
@@ -87,7 +60,7 @@ export default function JoinOrg() {
 
       <Autocomplete
         disablePortal
-        options={org.map((list) => list.label)}
+        options={org.map((list) => list.name)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -102,7 +75,7 @@ export default function JoinOrg() {
       />
       {filteredList.map((org) => (
         <Card
-          key={org.label}
+          key={org.id}
           variant="outlined"
           sx={{ p: 2, boxShadow: 5, mb: 2 }}
         >
@@ -110,7 +83,7 @@ export default function JoinOrg() {
             <Grid item xs={9}>
               <Typography sx={style} gap={2}>
                 <Icon icon="mdi:business-card-outline" />
-                {org.label}
+                {org.name}
               </Typography>
             </Grid>
             <Grid item xs={3}>
@@ -120,14 +93,14 @@ export default function JoinOrg() {
             </Grid>
           </Grid>
           <Typography sx={style} gap={2}>
-            <Icon icon="material-symbols:location-on-outline" /> {org.location}
+            <Icon icon="material-symbols:location-on-outline" /> {org.address}
           </Typography>
           <Typography sx={style} gap={2}>
             <Icon icon="ic:outline-email" /> {org.email}
           </Typography>
           <Typography sx={style} gap={2}>
             <Icon icon="material-symbols:phone-enabled-outline-sharp" />
-            {org.number}
+            {org.phone}
           </Typography>
         </Card>
       ))}
