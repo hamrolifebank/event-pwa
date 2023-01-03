@@ -1,5 +1,6 @@
 import { PrimaryButton, SecondaryButton } from "@components/button";
-import { Icon } from "@iconify/react";
+import Iconify from "@components/iconify/Iconify";
+
 import {
   Box,
   Button,
@@ -104,10 +105,11 @@ const OrganizationCreateForm = () => {
             type={field.type}
             value={field.value}
             onChange={handleFieldChange}
+            required
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Icon icon={field.adornmentIcon} />
+                  <Iconify icon={field.adornmentIcon} />
                 </InputAdornment>
               ),
             }}

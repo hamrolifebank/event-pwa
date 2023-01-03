@@ -16,6 +16,7 @@ const Events = () => {
       <PrimaryButton sx={{ mt: 2 }} onClick={createEventNavigator}>
         Create event
       </PrimaryButton>
+
       <PrimaryButton sx={{ mt: 2, mb: 2 }}>View upcoming event</PrimaryButton>
       <PrimaryButton sx={{ mb: 2 }}>View past event</PrimaryButton>
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
