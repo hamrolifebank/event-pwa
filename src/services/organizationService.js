@@ -9,7 +9,7 @@ const getAll = async () => {
 const create = async (organization) => {
   const newOrganization = await api.post("/organization", organization);
 
-  return newOrganization.data;
+  return newOrganization.data.data;
 };
 
 export default { getAll, create };
