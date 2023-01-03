@@ -2,7 +2,8 @@ import api from "./client";
 
 const getAll = async () => {
   const organizations = await api.get("/organization");
-  return organizations.data;
+
+  return organizations.data.data;
 };
 
 const create = async (organization) => {
