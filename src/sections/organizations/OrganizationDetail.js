@@ -38,6 +38,8 @@ const OrganizationDetail = () => {
         <Typography
           sx={{
             color: "info.main",
+            fontSize: "14px",
+            fontWeight: "700",
           }}
         >
           Edit profile
