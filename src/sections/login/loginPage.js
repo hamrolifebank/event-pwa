@@ -12,24 +12,24 @@ import { storeWallet } from "@redux/reducers/userReducer";
 export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
-  const dispatch=useDispatch()
-
+  const dispatch = useDispatch();
 
   const handleCreateWallet = async () => {
     const wallet = await library.createWallet();
-dispatch (storeWallet(wallet.publicKey))
+    dispatch(storeWallet(wallet.publicKey));
   };
-  
+
   const handlecallbackresponse = (response) => {
     const decodeddata = jwtDecode(response.credential);
-    if(decodeddata.email_verified===true){
-      handleCreateWallet()
+    if (decodeddata.email_verified === true) {
+      handleCreateWallet();
     }
   };
 
   useEffect(() => {
     google.accounts.id.initialize({
- client_id:"27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      client_id:
+        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
       callback: handlecallbackresponse,
     });
 
@@ -40,7 +40,6 @@ dispatch (storeWallet(wallet.publicKey))
   }, []);
 
   return (
-
     <Container>
       <Container id="signInbutton" />
     </Container>
