@@ -1,13 +1,11 @@
-import { Button, Box, Typography, Paper } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { Container, display } from "@mui/system";
+import { Container } from "@mui/system";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
-import { checkUser, createUser } from "@services/createUser";
-import { Icon } from "@iconify/react";
+import { checkUser, createUser, googleDrive } from "@services/createUser";
 
-import uploadFile from "./driveupload";
 var { ethers } = require("ethers");
 
 export default function LoginPage() {
@@ -22,7 +20,6 @@ export default function LoginPage() {
   const handlecallbackresponse = async (response) => {
     const decodeddata = jwtDecode(response.credential);
     let subscribedUser = await checkUser(decodeddata.email);
-    console.log("the lofinpage", subscribedUser);
     if (subscribedUser) {
       return false;
     } else {
@@ -35,14 +32,15 @@ export default function LoginPage() {
         userethaddress: userwalletaddress.address,
       };
       await createUser(userTabledata);
-      userwalletaddress = JSON.parse(userwalletaddress);
-      uploadFile(userwalletaddress);
+      userwalletaddress = JSON.stringify(userwalletaddress);
+      await googleDrive();
     }
   };
 
   useEffect(() => {
     google.accounts.id.initialize({
- client_id:"27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      client_id:
+        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
       callback: handlecallbackresponse,
     });
 
