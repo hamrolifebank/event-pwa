@@ -7,7 +7,7 @@ function path(root, sublink) {
 const ROOTS_DASHBOARD = "/";
 const ROOTS_ASSETS = "/assets";
 
-const ROOTS_EVENTS = "/events";
+const ROOTS_EVENTS = "/event";
 const ROOTS_ORGANIZATION = "/organization";
 const ROOTS_PROFILE = "/profile";
 
@@ -18,6 +18,7 @@ export const PATH_DASHBOARD = {
 
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
+  createEvent: path(ROOTS_EVENTS, "/create"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
