@@ -1,19 +1,19 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import { Organizations } from "src/sections/organizations";
+import JoinOrg from "src/sections/organizations/JoinOrg";
 
-const PAGE_TITLE = "Organizations";
+const PAGE_TITLE = "Join_Organizations";
 
-OrganizationPage.getLayout = (page) => (
+JoinOrganizationPage.getLayout = (page) => (
   <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
     {page}
   </DashboardlayoutwithFooter>
 );
 
-export default function OrganizationPage() {
+export default function JoinOrganizationPage() {
   return (
     <Page title={PAGE_TITLE}>
-      <Organizations />
+      <JoinOrg />
     </Page>
   );
 }
