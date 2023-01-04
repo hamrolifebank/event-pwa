@@ -36,7 +36,7 @@ model Event {
   eventPrivateKey String      @db.VarChar(255)
   eventEthAddress String      @db.VarChar(255)
   creatorId       Int
-  creators        UserEvent[]
+  users           UserEvent[]
 }
 
 model UserEvent {
