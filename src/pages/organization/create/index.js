@@ -1,8 +1,11 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import { Organizations } from "src/sections/organizations";
+import {
+  OrganizationCreateForm,
+  Organizations,
+} from "src/sections/organizations/";
 
-const PAGE_TITLE = "Organizations";
+const PAGE_TITLE = "Create Organization";
 
 OrganizationPage.getLayout = (page) => (
   <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
@@ -13,7 +16,7 @@ OrganizationPage.getLayout = (page) => (
 export default function OrganizationPage() {
   return (
     <Page title={PAGE_TITLE}>
-      <Organizations />
+      <OrganizationCreateForm />
     </Page>
   );
 }
