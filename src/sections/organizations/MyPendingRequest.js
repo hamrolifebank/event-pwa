@@ -18,14 +18,6 @@ export default function MyPendingRequest() {
   const theme = useTheme();
   const { push } = useRouter();
 
-  const handleAccept = () => {
-    console.log("accepted");
-  };
-
-  const handleReject = () => {
-    console.log("rejected");
-  };
-
   const arrowBack = () => {
     push(PATH_ORGANIZATION.root);
   };
@@ -64,15 +56,10 @@ export default function MyPendingRequest() {
           </Grid>
         </Grid>
         <Box display="flex" justifyContent="flex-end" gap={2} sx={{ pt: 1 }}>
-          <Button variant="contained" size="small" onClick={handleAccept}>
+          <Button variant="contained" size="small">
             Accept
           </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            size="small"
-            onClick={handleReject}
-          >
+          <Button variant="outlined" color="error" size="small">
             Decline
           </Button>
         </Box>
