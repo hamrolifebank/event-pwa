@@ -1,7 +1,6 @@
 import Page from "@components/Page";
 import DashboardLayout from "@layouts/dashboard/DashboardLayout";
 import DashboardLayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-
 const PAGE_TITLE = "Home";
 
 Home.getLayout = (page) => (
