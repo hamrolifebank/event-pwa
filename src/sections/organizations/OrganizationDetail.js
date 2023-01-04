@@ -83,7 +83,9 @@ const OrganizationDetail = () => {
         <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>
-        <PrimaryButton>View past events</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/past-events`)}>
+          View past events
+        </PrimaryButton>
         <PrimaryButton>View donors</PrimaryButton>
         <PrimaryButton>View members</PrimaryButton>
         <WarningButton onClick={handleOpen}>Leave organization</WarningButton>
