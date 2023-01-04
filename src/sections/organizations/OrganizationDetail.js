@@ -14,7 +14,6 @@ const OrganizationDetail = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleLeave = () => console.log("leave");
 
   const style = {
     position: "absolute",
@@ -98,9 +97,7 @@ const OrganizationDetail = () => {
               Are you sure you want to leave Bharatpur Redcross society ?
             </Typography>
             <Typography id="modal-description" sx={{ mt: 3 }}>
-              <WarningButton onClick={handleLeave}>
-                Leave organization
-              </WarningButton>
+              <WarningButton>Leave organization</WarningButton>
               <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
             </Typography>
           </Box>
