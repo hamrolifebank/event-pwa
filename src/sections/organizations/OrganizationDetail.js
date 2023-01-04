@@ -1,7 +1,7 @@
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid, Modal, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import { useRouter } from "next/router";
@@ -10,6 +10,22 @@ import React from "react";
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
   const { id } = query;
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleLeave = () => console.log("leave");
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "80%",
+    bgcolor: "background.paper",
+    boxShadow: 30,
+    p: 4,
+  };
 
   return (
     <Container>
@@ -71,7 +87,24 @@ const OrganizationDetail = () => {
         <PrimaryButton>View past events</PrimaryButton>
         <PrimaryButton>View donors</PrimaryButton>
         <PrimaryButton>View members</PrimaryButton>
-        <WarningButton>Leave organization</WarningButton>
+        <WarningButton onClick={handleOpen}>Leave organization</WarningButton>
+        <Modal
+          open={open}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-title" variant="h6" component="h2">
+              Are you sure you want to leave Bharatpur Redcross society ?
+            </Typography>
+            <Typography id="modal-description" sx={{ mt: 3 }}>
+              <WarningButton onClick={handleLeave}>
+                Leave organization
+              </WarningButton>
+              <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+            </Typography>
+          </Box>
+        </Modal>
       </Stack>
     </Container>
   );
