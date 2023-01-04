@@ -20,9 +20,7 @@ export const checkUser = async (email) => {
       email,
     });
     return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const googleDrive = async () => {
@@ -31,7 +29,5 @@ export const googleDrive = async () => {
       method: "GET",
     });
     return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
