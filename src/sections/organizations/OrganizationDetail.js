@@ -84,7 +84,9 @@ const OrganizationDetail = () => {
           View upcomming events
         </PrimaryButton>
         <PrimaryButton>View past events</PrimaryButton>
-        <PrimaryButton>View donors</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/donor`)}>
+          View donors
+        </PrimaryButton>
         <PrimaryButton>View members</PrimaryButton>
         <WarningButton onClick={handleOpen}>Leave organization</WarningButton>
         <Modal
