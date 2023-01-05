@@ -8,6 +8,7 @@ export const createUser = async (userTabledata) => {
       method: "POST",
       userTabledata,
     });
+    return response.data;
   } catch (error) {
     return error.response.data;
   }
@@ -25,8 +26,6 @@ export const checkUser = async (email) => {
 
 export const googleDrive = async (tokenResponse, userwalletaddress) => {
   try {
-    console.log("the googel drive enterd", userwalletaddress);
-
     const response = await axios.post(`${API}/uploadToDrive`, {
       method: "POST",
       tokenResponse,

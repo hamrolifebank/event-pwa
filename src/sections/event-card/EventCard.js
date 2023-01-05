@@ -14,7 +14,6 @@ import { useState } from "react";
 const EventCard = ({ event, publicaddress }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
-
   const handleClick = (event) => {
     setAnchor(event.currentTarget);
   };
@@ -70,7 +69,7 @@ const EventCard = ({ event, publicaddress }) => {
           </Typography>
         </Box>
 
-        {new Date("2023 - 09 - 12") > currentDate ? (
+        {new Date("2023/09/12").getTime() > currentDate.getTime() ? (
           <Box>
             <Button
               aria-describedby="QR code"

@@ -22,20 +22,17 @@ export default function LoginPage() {
     return wallet;
   };
   const uploadDrive = () => {
-    console.log("the upload drive entered");
     testclient.requestAccessToken();
   };
 
   const handlecallbackresponse = async (response) => {
     const decodeddata = jwtDecode(response.credential);
-    console.log("the devcoded", decodeddata);
     let subscribedUser = await checkUser(decodeddata.email);
     if (subscribedUser) {
       dispatch(storeWallet(subscribedUser));
       router.push("/");
     } else {
       userwalletaddress = await handleCreateWallet();
-      console.log("the userwalletaddress", userwalletaddress.publicKey);
       const userTabledata = {
         firstname: decodeddata.given_name,
         lastname: decodeddata.family_name,
@@ -43,17 +40,15 @@ export default function LoginPage() {
         phone: "test",
         userethaddress: userwalletaddress.publicKey,
       };
-      localStorage.setItem("user", JSON.stringify(userTabledata));
-      await createUser(userTabledata);
-      dispatch(storeWallet(userTabledata));
+      let newuser = await createUser(userTabledata);
+      dispatch(storeWallet(newuser));
       await uploadDrive();
     }
   };
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id:
-        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      client_id: process.env.clientIdfromgoogle,
       callback: handlecallbackresponse,
     });
 
@@ -64,11 +59,9 @@ export default function LoginPage() {
     });
 
     testclient = google.accounts.oauth2.initTokenClient({
-      client_id:
-        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      client_id: process.env.clientIdfromgoogle,
       scope: " https://www.googleapis.com/auth/drive",
       callback: async (tokenResponse) => {
-        console.log("the callbacj is", tokenResponse);
         if (tokenResponse && tokenResponse.access_token) {
           await googleDrive(tokenResponse, userwalletaddress);
           router.push("/");

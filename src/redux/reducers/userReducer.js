@@ -16,7 +16,6 @@ export const storeWallet = (subscribedUser) => {
     const { user, token } = subscribedUser;
     setPublicKey(user.userethaddress);
     setUser(token);
-    // console.log("the store dispatch enterd", publicAddress);
     dispatch(addUser(user));
   };
 };
