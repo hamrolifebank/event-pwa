@@ -1,12 +1,18 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
 import DonorCard from "@sections/event-card/DonorCard";
+import { useRouter } from "next/router";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const OrgDonor = () => {
+  const router = useRouter();
   return (
     <Container>
-      <Grid container justify="center" mt={2} spacing={1}>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
+      <Grid container justify="center" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h3" align="center">
             Bharatpur Redcross society
