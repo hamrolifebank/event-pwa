@@ -1,14 +1,18 @@
 import React from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 
 import QRCode from "react-qr-code";
 import { Container } from "@mui/system";
 import { useSelector } from "react-redux";
-import { EventCard } from "@sections/eventCard";
+import EventCard from "@sections/event-card/EventCard";
+import { useRouter } from "next/router";
+import { PATH_EVENTS } from "@routes/paths";
 
 const Home = () => {
   let publicAddress = useSelector((state) => state.user);
+  const { push } = useRouter();
+
   return (
     <Container>
       <Box
@@ -54,15 +58,15 @@ const Home = () => {
       >
         Your upcoming events
       </Typography>
-      <EventCard publicAddress={publicAddress} />
-      <Typography
+      <EventCard publicaddress={publicAddress} />
+      <Link
         variant="h6"
         component="h2"
-        sx={{ color: "#CF3D3C", textAlign: "center" }}
-        // onClick={() => fetchEvents}
+        sx={{ color: "#CF3D3C", textAlign: "center", underline: "hover" }}
+        onClick={() => push(PATH_EVENTS.root)}
       >
         Load more events
-      </Typography>
+      </Link>
     </Container>
   );
 };

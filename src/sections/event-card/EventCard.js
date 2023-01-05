@@ -1,9 +1,23 @@
 import PropTypes from "prop-types";
-import { Box, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Popover,
+  Paper,
+  Typography,
+  Container,
+} from "@mui/material";
 import { Icon } from "@iconify/react";
-import { PrimaryButton } from "@components/button";
+import QRCode from "react-qr-code";
+import { useState } from "react";
 
-const EventCard = () => {
+const EventCard = ({ event, publicaddress }) => {
+  const [anchor, setAnchor] = useState(null);
+  const currentDate = new Date();
+
+  const handleClick = (event) => {
+    setAnchor(event.currentTarget);
+  };
   return (
     <>
       <Paper
@@ -26,7 +40,7 @@ const EventCard = () => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            HBL doner center
+            HBL donor center
           </Typography>
           <Typography
             sx={{
@@ -38,7 +52,7 @@ const EventCard = () => {
             }}
           >
             <Icon icon="mdi:clock-time-eight-outline" />
-            20 Nov 2022
+            20 Nov 2023
           </Typography>
 
           <Typography
@@ -52,15 +66,73 @@ const EventCard = () => {
             }}
           >
             <Icon icon="material-symbols:location-on" />
-            Shankamul, Kathmandu
+            Shankhamul, Kathmandu
           </Typography>
         </Box>
-        <Box>
-          <PrimaryButton>QR code</PrimaryButton>
-        </Box>
+
+        {new Date("2023 - 09 - 12") > currentDate ? (
+          <Box>
+            <Button
+              aria-describedby="QR code"
+              variant="contained"
+              onClick={handleClick}
+            >
+              QR code
+            </Button>
+            <Popover
+              id="QR code"
+              open={Boolean(anchor)}
+              anchorEl={anchor}
+              onClose={() => {
+                setAnchor(null);
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              anchorPosition={{
+                vertical: "top ",
+                horizontal: "center",
+              }}
+            >
+              <Container>
+                <Box
+                  sx={{
+                    borderRadius: 2,
+                    mb: 3,
+                    mr: 1,
+                    ml: 1,
+                  }}
+                >
+                  <Box display="flex" justifyContent="center">
+                    <Typography variant="h5" sx={{ pb: 1 }}>
+                      SCAN ME
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center">
+                    <QRCode
+                      title="Organization QR-code"
+                      value={`${publicaddress}`}
+                      level="M"
+                      bgColor={"#FFFFFF"}
+                      fgColor={"#000000"}
+                      size={180}
+                      padding={1}
+                    />
+                  </Box>
+                </Box>
+              </Container>
+            </Popover>
+          </Box>
+        ) : null}
       </Paper>
     </>
   );
+};
+
+EventCard.propTypes = {
+  event: PropTypes.object.isRequired,
+  publicaddress: PropTypes.string.isRequired,
 };
 
 export default EventCard;
