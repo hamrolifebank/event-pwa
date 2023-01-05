@@ -1,9 +1,9 @@
 import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
-import PastEventCard from "@sections/event-card/PastEventCard";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EventCard from "@sections/event-card/EventCard";
 
 const PastEvents = () => {
   const router = useRouter();
@@ -27,11 +27,11 @@ const PastEvents = () => {
       </Grid>
 
       <Stack spacing={1} mt={2}>
-        <PastEventCard />
-        <PastEventCard />
-        <PastEventCard />
-        <PastEventCard />
-        <PastEventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
       </Stack>
       <BorderlessButton sx={{ color: "error.dark" }}>
         Load more...
