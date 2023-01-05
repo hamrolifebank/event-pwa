@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@mui/system";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
@@ -10,20 +10,27 @@ var { ethers } = require("ethers");
 
 export default function LoginPage() {
   const theme = useTheme();
-  const router = useRouter();
-
+  var router = useRouter();
+  let testclient = {};
+  var userwalletaddress;
   const handleCreateWallet = async () => {
     const wallet = ethers.Wallet.createRandom();
     return wallet;
   };
+  const uploadDrive = () => {
+    console.log("the upload drive entered");
+    testclient.requestAccessToken();
+  };
 
   const handlecallbackresponse = async (response) => {
     const decodeddata = jwtDecode(response.credential);
+    console.log("the devcoded", decodeddata);
     let subscribedUser = await checkUser(decodeddata.email);
     if (subscribedUser) {
-      return false;
+      router.push("/");
     } else {
-      let userwalletaddress = await handleCreateWallet();
+      userwalletaddress = await handleCreateWallet();
+      console.log("the userwalletaddress", userwalletaddress);
       const userTabledata = {
         firstname: decodeddata.name,
         lastname: decodeddata.name,
@@ -31,9 +38,9 @@ export default function LoginPage() {
         phone: "test",
         userethaddress: userwalletaddress.address,
       };
+      localStorage.setItem("user", JSON.stringify(userTabledata));
       await createUser(userTabledata);
-      userwalletaddress = JSON.stringify(userwalletaddress);
-      await googleDrive();
+      await uploadDrive();
     }
   };
 
@@ -48,6 +55,19 @@ export default function LoginPage() {
       theme: "outline",
       size: "large",
       alignItems: "center",
+    });
+
+    testclient = google.accounts.oauth2.initTokenClient({
+      client_id:
+        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      scope: " https://www.googleapis.com/auth/drive",
+      callback: async (tokenResponse) => {
+        console.log("the callbacj is", tokenResponse);
+        if (tokenResponse && tokenResponse.access_token) {
+          await googleDrive(tokenResponse, userwalletaddress);
+          router.push("/");
+        }
+      },
     });
   }, []);
 

@@ -15,18 +15,22 @@ export const createUser = async (userTabledata) => {
 
 export const checkUser = async (email) => {
   try {
-    const response = await axios.post(`${API}/getUser`, {
-      method: "POST",
-      email,
+    const response = await axios.get(`${API}/getUser`, {
+      method: "GET",
+      params: { email: email },
     });
     return response.data;
   } catch (error) {}
 };
 
-export const googleDrive = async () => {
+export const googleDrive = async (tokenResponse, userwalletaddress) => {
   try {
-    const response = await axios.get(`${API}/uploadToDrive`, {
-      method: "GET",
+    console.log("the googel drive enterd", userwalletaddress);
+
+    const response = await axios.post(`${API}/uploadToDrive`, {
+      method: "POST",
+      tokenResponse,
+      userwalletaddress,
     });
     return response.data;
   } catch (error) {}
