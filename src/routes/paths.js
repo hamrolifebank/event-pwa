@@ -26,6 +26,7 @@ export const PATH_ORGANIZATION = {
   joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
   pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
   upcommingEvents: path(ROOTS_ORGANIZATION, "/upcomming-events"),
+  yourPendingRequest: path(ROOTS_ORGANIZATION, "/view-your-pending-req"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
