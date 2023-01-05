@@ -47,7 +47,7 @@ const PendingReqCard = () => {
             size="small"
             sx={{ bgcolor: "error.dark" }}
           >
-            withdraw
+            WITHDRAW
           </Button>
         </Box>
       </Paper>
