@@ -5,12 +5,16 @@ import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
+import { useDispatch, useSelector } from "react-redux";
+import { storeWallet } from "@redux/reducers/userReducer";
 
 var { ethers } = require("ethers");
 
 export default function LoginPage() {
   const theme = useTheme();
   var router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   let testclient = {};
   var userwalletaddress;
   const handleCreateWallet = async () => {
@@ -27,19 +31,21 @@ export default function LoginPage() {
     console.log("the devcoded", decodeddata);
     let subscribedUser = await checkUser(decodeddata.email);
     if (subscribedUser) {
+      dispatch(storeWallet(subscribedUser));
       router.push("/");
     } else {
       userwalletaddress = await handleCreateWallet();
-      console.log("the userwalletaddress", userwalletaddress);
+      console.log("the userwalletaddress", userwalletaddress.publicKey);
       const userTabledata = {
-        firstname: decodeddata.name,
-        lastname: decodeddata.name,
+        firstname: decodeddata.given_name,
+        lastname: decodeddata.family_name,
         email: decodeddata.email,
         phone: "test",
-        userethaddress: userwalletaddress.address,
+        userethaddress: userwalletaddress.publicKey,
       };
       localStorage.setItem("user", JSON.stringify(userTabledata));
       await createUser(userTabledata);
+      dispatch(storeWallet(userTabledata));
       await uploadDrive();
     }
   };
