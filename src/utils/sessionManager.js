@@ -15,7 +15,9 @@ export const setCurrentUser = (value) => {
 export const setPublicKey = (value) => {
   localData.setInStorage("publicKey", value);
 };
-
+export const setUser = (value) => {
+  localData.setInStorage("user", value);
+};
 export const getPublicKey = () => {
   return localData.getFromStorage("publicKey");
 };

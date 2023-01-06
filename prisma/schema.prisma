@@ -16,9 +16,9 @@ model User {
   lastname       String
   email          String @unique
   phone          String
-  userethaddress String
+  userethaddress String @unique
 
-  @@index(email)
+  @@index([email, userethaddress])
 }
 
 model Organization {
