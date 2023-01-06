@@ -3,7 +3,7 @@ import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import PendingReqCard from "@sections/event-card/pending-req-card";
+import PendingReqCard from "@sections/event-card/PendingReqCard";
 
 const YourPendingRequest = () => {
   const router = useRouter();
