@@ -1,7 +1,10 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Chip, Paper, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { useTheme } from "@mui/material/styles";
 
 const ApprovePendingReqCard = () => {
+  const theme = useTheme();
+
   return (
     <>
       <Paper
@@ -26,6 +29,17 @@ const ApprovePendingReqCard = () => {
           >
             Sarita Tamang
           </Typography>
+          <Chip
+            label=" Nepal Red Cross"
+            icon={
+              <Icon
+                icon="ic:sharp-verified"
+                color={theme.palette.warning.main}
+                height="18px"
+                width="18px"
+              />
+            }
+          />
           <Typography
             sx={{
               fontSize: "subtitle2.fontSize",
