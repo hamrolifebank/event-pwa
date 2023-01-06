@@ -12,10 +12,6 @@ export default function Organizations() {
   const { push } = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(initializeOrganizations());
-  }, []);
-
   const handleJoin = () => {
     push(PATH_ORGANIZATION.joinOrg);
   };

@@ -6,6 +6,12 @@ const getAll = async () => {
   return organizations.data.data;
 };
 
+const getMyPendingRequests = async () => {
+  const myPendingRequests = await api.get("/organization/my-pendingrequests");
+
+  return myPendingRequests.data.data;
+};
+
 const create = async (organization) => {
   const newOrganization = await api.post("/organization", organization);
 
@@ -17,11 +23,8 @@ const join = async (organizationId) => {
   const joinedOrganization = await api.post(`/organization/join`, {
     organizationId,
   });
-  console.log(
-    "[organizationService.js--[19]], joinedOrganization",
-    joinedOrganization
-  );
+
   return joinedOrganization.data.data;
 };
 
-export default { getAll, create, join };
+export default { getAll, getMyPendingRequests, create, join };

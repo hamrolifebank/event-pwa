@@ -8,17 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PrimaryButton } from "@components/button";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  initializeOrganizations,
-  joinOrganization,
-} from "@redux/reducers/organizationReducer";
+import { joinOrganization } from "@redux/reducers/yourPendingRequestReducer";
+import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 
 export default function JoinOrg() {
   const [input, setInput] = useState("");
@@ -26,12 +24,15 @@ export default function JoinOrg() {
   const organizations = useSelector((state) => state.organizations);
   const { push } = useRouter();
 
+  useEffect(() => {
+    dispatch(initializeOrganizations());
+  }, []);
+
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
 
   const handleJoin = async (orgId) => {
-    console.log("request join");
     dispatch(joinOrganization(orgId));
   };
 

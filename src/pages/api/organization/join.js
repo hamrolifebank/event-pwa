@@ -17,7 +17,11 @@ export default async function handler(req, res) {
             },
           },
         });
-        res.status(201).json({ success: true, data: newUserOrganization });
+        const joinedOrganization = await prisma.Organization.findUnique({
+          where: { id: Number(req.body.organizationId) },
+        });
+
+        res.status(201).json({ success: true, data: joinedOrganization });
       } catch (error) {
         res.status(400).json({ success: false });
       }

@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 
-const PendingReqCard = () => {
+const PendingReqCard = ({ item }) => {
   return (
     <>
       <Paper
@@ -24,7 +24,7 @@ const PendingReqCard = () => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            Nepal Red Cross - kathmandu
+            {item.name}
           </Typography>
 
           <Typography
@@ -38,7 +38,7 @@ const PendingReqCard = () => {
             }}
           >
             <Icon icon="material-symbols:location-on" />
-            Shankamul, Kathmandu
+            {item.address}
           </Typography>
         </Box>
         <Box>
