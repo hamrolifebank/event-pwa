@@ -1,4 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import axios from "axios";
+import library from "@utils/wallet";
+
+const eventRegistrationUrl = "http://localhost:5000/api/events/register";
 
 const prisma = new PrismaClient({ log: ["query"] });
 export default async function handler(req, res) {
@@ -16,11 +20,55 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
+        const createEventWallet = async () => {
+          return await library.createWallet();
+        };
+        let wallet = await createEventWallet();
+        let eventEthAddress = wallet.address;
+        let eventPrivateKey = wallet.privateKey;
+
+        const {
+          creatorId,
+          benificaryBloodBank,
+          createrEthAddress,
+          organization,
+          eventName,
+          contactPerson,
+          contactNumber,
+          contractAddress,
+          noOfTarget,
+          location,
+          latitude,
+          longitude,
+          startTimeStamp,
+          endTimeStamp,
+        } = req.body;
         const event = await prisma.event.create({
-          data: req.body,
+          data: {
+            creatorId,
+            eventEthAddress: eventEthAddress,
+            eventPrivateKey: eventPrivateKey,
+          },
         });
 
-        res.status(201).json({ success: true, data: event });
+        const registeredEvent = await axios.post(eventRegistrationUrl, {
+          benificaryBloodBank,
+          eventEthAddress,
+          createrEthAddress,
+          organization,
+          eventName,
+          contactPerson,
+          contactNumber,
+          contractAddress,
+          noOfTarget,
+          location,
+          latitude,
+          longitude,
+          startTimeStamp,
+          endTimeStamp,
+        });
+        console.log("Response from registry: ", registeredEvent.data);
+        res.status(201).json({ registeredEvent: registeredEvent.data });
       } catch (error) {
         res.status(400).json({ success: false });
       }

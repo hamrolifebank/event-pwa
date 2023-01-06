@@ -22,18 +22,18 @@ const CreateEvent = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
 
-  const createEventWallet = async () => {
-    return await library.createWallet();
-  };
-  const eventEthAddress = createEventWallet();
-
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date("2014-08-18T21:11:54")
   );
   const [endDateAndTimevalue, setEndDateAndTimeValue] = useState(
     new Date("2014-08-18T21:09:34")
   );
+
+  const dummyCreatorEthAddress = Math.floor(1000 + Math.random() * 9000);
+  const a = JSON.stringify(dummyCreatorEthAddress);
+  console.log(a);
   const [field, setField] = useState({
+    creatorId: 3652145,
     benificaryBloodBank: "",
     organization: "",
     eventName: "",
@@ -45,9 +45,8 @@ const CreateEvent = () => {
     longitude: "",
     startTimeStamp: "",
     endTimeStamp: "",
-    eventEthAddress: eventEthAddress.address,
-    createrEthAddress: "",
-    contractAddress: "",
+    createrEthAddress: a,
+    contractAddress: "allj0900jpiert",
   });
 
   const handleInput = (e) => {
@@ -67,21 +66,22 @@ const CreateEvent = () => {
     e.preventDefault();
 
     const event = {
+      creatorId: field.creatorId,
+      createrEthAddress: field.createrEthAddress,
+      contractAddress: field.contractAddress,
       benificaryBloodBank: field.benificaryBloodBank,
       organization: field.organization,
       eventName: field.eventName,
       contactPerson: field.contactPerson,
       contactNumber: field.contactNumber,
-      noOfTarget: field.noOfTarget,
+      noOfTarget: Number(field.noOfTarget),
       location: field.location,
-      latitude: field.latitude,
-      longitude: field.longitude,
-      eventEthAddress: field.eventEthAddress,
+      latitude: Number(field.latitude),
+      longitude: Number(field.longitude),
       startTimeStamp: startDateAndTimevalue,
       endTimeStamp: endDateAndTimevalue,
     };
-    // await dispatch(createEvent(field));
-    console.log(event);
+    await dispatch(createEvent(event));
   };
 
   return (

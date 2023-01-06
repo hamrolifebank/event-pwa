@@ -1,8 +1,8 @@
 import api from "./client";
 
-export const create = async (eventData) => {
+const create = async (eventData) => {
   try {
-    const response = await api.post("/event", eventData);
+    const response = await api.post("/api/event", eventData);
 
     return response.data;
   } catch (error) {
@@ -10,12 +10,14 @@ export const create = async (eventData) => {
   }
 };
 
-export const getAll = async () => {
+const getAll = async () => {
   try {
-    const response = await api.get("/event");
+    const response = await api.get("/api/event");
 
     return response.data;
   } catch (error) {
     return error.response.data;
   }
 };
+
+export default { create, getAll };
