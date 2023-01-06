@@ -11,6 +11,7 @@ import { PATH_EVENTS } from "@routes/paths";
 
 const Home = () => {
   let user = useSelector((state) => state.user);
+  user = user ? user : [];
   const { push } = useRouter();
 
   return (

@@ -4,7 +4,7 @@ const API = "/api";
 
 export const createUser = async (userTabledata) => {
   try {
-    const response = await axios.post(`${API}/userCreation`, {
+    const response = await axios.post(`${API}/user`, {
       method: "POST",
       userTabledata,
     });
@@ -16,10 +16,11 @@ export const createUser = async (userTabledata) => {
 
 export const checkUser = async (email) => {
   try {
-    const response = await axios.get(`${API}/getUser`, {
+    const response = await axios.get(`${API}/user`, {
       method: "GET",
       params: { email: email },
     });
+
     return response.data;
   } catch (error) {}
 };

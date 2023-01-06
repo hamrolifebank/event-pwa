@@ -41,6 +41,7 @@ export default function LoginPage() {
         userethaddress: userwalletaddress.publicKey,
       };
       let newuser = await createUser(userTabledata);
+
       dispatch(storeWallet(newuser));
       await uploadDrive();
     }
