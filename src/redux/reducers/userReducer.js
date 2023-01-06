@@ -1,19 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setPublicKey } from "@utils/sessionManager";
+import { setPublicKey, setUser } from "@utils/sessionManager";
 const walletSlice = createSlice({
   name: "user",
   initialState: null,
   reducers: {
     addUser(state, action) {
-      return action.payload;
+      return { ...action.payload };
     },
   },
 });
 export const { addUser } = walletSlice.actions;
 export default walletSlice.reducer;
-export const storeWallet = (publicAddress) => {
+export const storeWallet = (subscribedUser) => {
   return async (dispatch) => {
-    setPublicKey(publicAddress);
-    dispatch(addUser(publicAddress));
+    const { user, token } = subscribedUser;
+    setPublicKey(user.userethaddress);
+    setUser(token);
+    dispatch(addUser(user));
   };
 };

@@ -10,6 +10,7 @@ const WarningButton = ({ children, ...props }) => {
         sx={{
           bgcolor: "error.dark",
           gap: 1,
+          mb: 2,
         }}
         fullWidth
         {...props}

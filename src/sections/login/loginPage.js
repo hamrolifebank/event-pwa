@@ -5,42 +5,49 @@ import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
-
-var { ethers } = require("ethers");
+import { useDispatch, useSelector } from "react-redux";
+import { storeWallet } from "@redux/reducers/userReducer";
+import library from "@utils/wallet";
 
 export default function LoginPage() {
   const theme = useTheme();
-  const router = useRouter();
-
+  var router = useRouter();
+  const dispatch = useDispatch();
+  let testclient = {};
+  var userwalletaddress;
   const handleCreateWallet = async () => {
-    const wallet = ethers.Wallet.createRandom();
+    const wallet = await library.createWallet();
     return wallet;
+  };
+  const uploadDrive = () => {
+    testclient.requestAccessToken();
   };
 
   const handlecallbackresponse = async (response) => {
     const decodeddata = jwtDecode(response.credential);
     let subscribedUser = await checkUser(decodeddata.email);
     if (subscribedUser) {
-      return false;
+      dispatch(storeWallet(subscribedUser));
+      router.push("/");
     } else {
-      let userwalletaddress = await handleCreateWallet();
+      userwalletaddress = await handleCreateWallet();
       const userTabledata = {
-        firstname: decodeddata.name,
-        lastname: decodeddata.name,
+        firstname: decodeddata.given_name,
+        lastname: decodeddata.family_name,
         email: decodeddata.email,
         phone: "test",
-        userethaddress: userwalletaddress.address,
+        userethaddress: userwalletaddress.publicKey,
       };
-      await createUser(userTabledata);
-      userwalletaddress = JSON.stringify(userwalletaddress);
-      await googleDrive();
+      let newuser = await createUser(userTabledata);
+
+      dispatch(storeWallet(newuser));
+      await uploadDrive();
     }
   };
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id:
-        "27150830036-8p5j941rqteiet6eed3tir991911eajs.apps.googleusercontent.com",
+      client_id: process.env.clientIdfromgoogle,
       callback: handlecallbackresponse,
     });
 
@@ -49,11 +56,22 @@ export default function LoginPage() {
       size: "large",
       alignItems: "center",
     });
+
+    testclient = google.accounts.oauth2.initTokenClient({
+      client_id: process.env.clientIdfromgoogle,
+      scope: " https://www.googleapis.com/auth/drive",
+      callback: async (tokenResponse) => {
+        if (tokenResponse && tokenResponse.access_token) {
+          await googleDrive(tokenResponse, userwalletaddress);
+          router.push("/");
+        }
+      },
+    });
   }, []);
 
   return (
     <>
-      <Container>
+      <Container sx={{ width: "100%" }}>
         <Box
           sx={{
             display: "flex",
@@ -62,14 +80,19 @@ export default function LoginPage() {
             flexDirection: "column",
           }}
         >
-          <Box sx={{ width: "100%", height: "60" }}>
+          <Box sx={{ width: "100%", height: "60%" }}>
             <img
               src="https://assets.rumsan.com/esatya/hlb-blk-rumsan.png"
               alt="logo"
             />
           </Box>
           <Box>
-            <Typography variant="subtitle2">Vein-to-Vein</Typography>
+            <Typography
+              variant="h3"
+              sx={{ color: `${theme.palette.primary.main}` }}
+            >
+              Vein-to-Vein
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -78,21 +101,55 @@ export default function LoginPage() {
             justifyItems: "center",
             alignItems: "center",
             flexDirection: "column",
-            backgroundColor: "#1ab394",
-            color: "white",
-            mt: "20px",
-            pt: "20px",
-            pb: "20px",
-            ml: "30px",
-            mr: "30px",
-            mb: "20px",
+            width: "100%",
           }}
         >
-          <Typography>Your Blood</Typography>
-          <Typography>Donation Journey</Typography>
-          <Typography>is Getting Smarter</Typography>
-        </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyItems: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              backgroundColor: "#1ab394",
+              color: "white",
+              mt: "20px",
+              pt: "20px",
+              pb: "20px",
+              ml: "30px",
+              mr: "30px",
+              mb: "20px",
+            }}
+          >
+            <Typography variant={"body1"}>Your Blood</Typography>
+            <Typography variant={"body1"}>Donation Journey</Typography>
+            <Typography variant={"body1"}>is Getting Smarter</Typography>
+          </Box>
+          <Container
+            sx={{
+              textAlign: "center",
+              borderBottom: "1px solid #a1aaad",
+              lineHeight: " 0.1em",
+              margin: "10px 0 20px",
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                color: `${theme.palette.primary.main}`,
+                background: "#fff",
+                padding: " 0 5px",
+              }}
+            >
+              Please choose login method
+            </Typography>
+          </Container>
 
+          <Button
+            id="signInbutton"
+            onClick={() => handlecallbackresponse()}
+          ></Button>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -100,14 +157,7 @@ export default function LoginPage() {
             alignItems: "center",
             flexDirection: "column",
           }}
-        >
-          <Typography> Please choose login method </Typography>
-
-          <Button
-            id="signInbutton"
-            onClick={() => handlecallbackresponse()}
-          ></Button>
-        </Box>
+        ></Box>
       </Container>
     </>
   );

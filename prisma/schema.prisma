@@ -19,7 +19,7 @@ model User {
   userethaddress String
   events         UserEvent[]
 
-  @@index(email)
+  @@index([email, userethaddress])
 }
 
 model Organization {
