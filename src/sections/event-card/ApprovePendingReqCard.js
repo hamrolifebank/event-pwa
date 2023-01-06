@@ -24,21 +24,32 @@ const ApprovePendingReqCard = () => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            Nepal Red Cross - kathmandu
+            Sarita Tamang
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "subtitle2.fontSize",
+              color: "grey.600",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+            }}
+          >
+            <Icon icon="ic:outline-email" />
+            saritatmg123@gmail.com
           </Typography>
 
           <Typography
             sx={{
               fontSize: "subtitle2.fontSize",
+              color: "grey.600",
               display: "flex",
-              gap: "5px",
               alignItems: "center",
-              textDecoration: "underline",
-              color: "secondary.main",
+              gap: "5px",
             }}
           >
-            <Icon icon="material-symbols:location-on" />
-            Shankamul, Kathmandu
+            <Icon icon="material-symbols:call-outline-sharp" />
+            +977 9825543621
           </Typography>
         </Box>
       </Paper>

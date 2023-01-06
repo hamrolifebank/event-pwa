@@ -25,7 +25,7 @@ export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
   createOrg: path(ROOTS_ORGANIZATION, "/create"),
   joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
-  pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
+  pendingRequest: path(ROOTS_ORGANIZATION, "/approve-pending-req"),
   upcommingEvents: path(ROOTS_ORGANIZATION, "/upcomming-events"),
   yourPendingRequest: path(ROOTS_ORGANIZATION, "/view-your-pending-req"),
 };
