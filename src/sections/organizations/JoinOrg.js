@@ -1,9 +1,12 @@
 import {
   Autocomplete,
+  Box,
   Card,
   Container,
   Grid,
   IconButton,
+  Modal,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -12,28 +15,40 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { PrimaryButton } from "@components/button";
+import { PrimaryButton, SecondaryButton } from "@components/button";
 import { useDispatch, useSelector } from "react-redux";
 
 import { joinOrganization } from "@redux/reducers/yourPendingRequestReducer";
 import { initializeOrganizations } from "@redux/reducers/organizationReducer";
+import WarningButton from "@components/button/WarningButton";
+import {
+  initializeYourNotJoinedOrganizations,
+  updateOrganizationToBeJoined,
+} from "@redux/reducers/myNotJoinedOrgReducer";
 
 export default function JoinOrg() {
   const [input, setInput] = useState("");
+  const [open, setOpen] = React.useState({ isOpen: false, org: null });
+
   const dispatch = useDispatch();
-  const organizations = useSelector((state) => state.organizations);
+  const notJoinedOrg = useSelector((state) => state.myNotJoinedOrganizations);
+
   const { push } = useRouter();
 
   useEffect(() => {
-    dispatch(initializeOrganizations());
+    dispatch(initializeYourNotJoinedOrganizations());
   }, []);
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
 
+  const handleOpen = (org) => setOpen({ isOpen: true, org: org });
+  const handleClose = () => setOpen({ isOpen: false, org: null });
+
   const handleJoin = async (orgId) => {
     dispatch(joinOrganization(orgId));
+    dispatch(updateOrganizationToBeJoined(orgId));
   };
 
   const arrowBack = () => {
@@ -42,13 +57,6 @@ export default function JoinOrg() {
 
   const style = { display: "flex", alignItems: "center", flexWrap: "wrap" };
 
-  const notJoinedOrg = organizations.filter(
-    (organization) =>
-      !organization.UserOrganizations.some(
-        (item) => item.userId && item.userId === 1
-      )
-  );
-  console.log("[JoinOrg.js--[49]], notJoinedOrg", notJoinedOrg);
   if (!notJoinedOrg || !notJoinedOrg.length) return null; // loading screen can be returned here
 
   const filteredList = notJoinedOrg.filter((list) => {
@@ -96,10 +104,55 @@ export default function JoinOrg() {
             <Grid item xs={3}>
               <PrimaryButton
                 sx={{ height: 25 }}
-                onClick={() => handleJoin(org.id)}
+                onClick={() => handleOpen(org)}
               >
                 JOIN
               </PrimaryButton>
+              <Modal
+                open={open.isOpen}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "80%",
+                    bgcolor: "background.paper",
+                    boxShadow: 30,
+                    p: 4,
+                  }}
+                >
+                  <Typography id="modal-title" variant="h6" component="h2">
+                    Are you sure you want to join{" "}
+                    <Typography
+                      sx={{
+                        color: "primary.main",
+                        fontWeight: "bold",
+                        display: "inline",
+                      }}
+                    >
+                      {open.org?.name}
+                    </Typography>
+                    ?
+                  </Typography>
+                  <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
+                    <PrimaryButton
+                      onClick={() => {
+                        handleJoin(open.org.id);
+                        handleClose();
+                      }}
+                    >
+                      Join
+                    </PrimaryButton>
+                    <SecondaryButton onClick={handleClose}>
+                      Cancel
+                    </SecondaryButton>
+                  </Stack>
+                </Box>
+              </Modal>
             </Grid>
           </Grid>
           <Typography sx={style} gap={2}>
