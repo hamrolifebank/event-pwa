@@ -1,22 +1,19 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import {
-  OrganizationCreateForm,
-  Organizations,
-} from "src/sections/organizations/";
+import UpcomingEvents from "@sections/organizations/UpcomingEvents";
 
-const PAGE_TITLE = "Create Organization";
+const PAGE_TITLE = "Upcoming Events";
 
-OrganizationPage.getLayout = (page) => (
+OrganizationUpcommingEvents.getLayout = (page) => (
   <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
     {page}
   </DashboardlayoutwithFooter>
 );
 
-export default function OrganizationPage() {
+export default function OrganizationUpcommingEvents() {
   return (
     <Page title={PAGE_TITLE}>
-      <OrganizationCreateForm />
+      <UpcomingEvents />
     </Page>
   );
 }

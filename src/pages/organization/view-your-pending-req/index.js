@@ -1,22 +1,19 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import {
-  OrganizationCreateForm,
-  Organizations,
-} from "src/sections/organizations/";
+import { YourPendingRequest } from "@sections/organizations";
 
-const PAGE_TITLE = "Create Organization";
+const PAGE_TITLE = "Your Pending Request";
 
-OrganizationPage.getLayout = (page) => (
+YourPendingRequests.getLayout = (page) => (
   <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
     {page}
   </DashboardlayoutwithFooter>
 );
 
-export default function OrganizationPage() {
+export default function YourPendingRequests() {
   return (
     <Page title={PAGE_TITLE}>
-      <OrganizationCreateForm />
+      <YourPendingRequest />
     </Page>
   );
 }

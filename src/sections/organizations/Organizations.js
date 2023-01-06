@@ -27,17 +27,23 @@ export default function Organizations() {
   const handleRequest = () => {
     push(PATH_ORGANIZATION.pendingRequest);
   };
+  const handleYourRequest = () => {
+    push(PATH_ORGANIZATION.yourPendingRequest);
+  };
 
   return (
     <Container>
-      <PrimaryButton sx={{ mt: 2 }} onClick={handleRequest}>
-        Pending requests
-      </PrimaryButton>
       <PrimaryButton sx={{ mt: 2, mb: 2 }} onClick={handleCreate}>
         Create organization
       </PrimaryButton>
       <PrimaryButton sx={{ mb: 2 }} onClick={handleJoin}>
         Join organization
+      </PrimaryButton>
+      <PrimaryButton sx={{ mb: 2 }} onClick={handleRequest}>
+        Approve pending requests
+      </PrimaryButton>
+      <PrimaryButton sx={{ mb: 2 }} onClick={handleYourRequest}>
+        View your pending requests
       </PrimaryButton>
       <hr style={{ border: "0.5px dashed black" }} />
       <Typography

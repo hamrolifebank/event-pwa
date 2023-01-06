@@ -18,12 +18,15 @@ export const PATH_DASHBOARD = {
 
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
+  createEvent: path(ROOTS_EVENTS, "/create"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
   createOrg: path(ROOTS_ORGANIZATION, "/create"),
   joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
   pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
+  upcommingEvents: path(ROOTS_ORGANIZATION, "/upcomming-events"),
+  yourPendingRequest: path(ROOTS_ORGANIZATION, "/view-your-pending-req"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
