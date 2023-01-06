@@ -19,8 +19,7 @@ import { PrimaryButton, SecondaryButton } from "@components/button";
 import { useDispatch, useSelector } from "react-redux";
 
 import { joinOrganization } from "@redux/reducers/yourPendingRequestReducer";
-import { initializeOrganizations } from "@redux/reducers/organizationReducer";
-import WarningButton from "@components/button/WarningButton";
+
 import {
   initializeYourNotJoinedOrganizations,
   updateOrganizationToBeJoined,

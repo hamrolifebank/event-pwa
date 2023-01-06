@@ -29,13 +29,5 @@ export const addOrganization = (organization) => {
   };
 };
 
-export const joinOrganization = (organizationId) => {
-  return async (dispatch) => {
-    await organizationService.join(organizationId);
-    const data = await organizationService.getAll();
-    await dispatch(getOrganizations(data));
-  };
-};
-
 export const { getOrganizations, setOrganization } = organizationSlice.actions;
 export default organizationSlice.reducer;
