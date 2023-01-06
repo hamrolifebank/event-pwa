@@ -43,7 +43,7 @@ export default async function handler(req, res) {
           startTimeStamp,
           endTimeStamp,
         } = req.body;
-        const event = await prisma.event.create({
+        await prisma.event.create({
           data: {
             creatorId,
             eventEthAddress: eventEthAddress,
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
           startTimeStamp,
           endTimeStamp,
         });
-        console.log("Response from registry: ", registeredEvent.data);
+
         res.status(201).json({ registeredEvent: registeredEvent.data });
       } catch (error) {
         res.status(400).json({ success: false });
