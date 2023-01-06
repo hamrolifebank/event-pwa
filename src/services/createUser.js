@@ -25,12 +25,12 @@ export const checkUser = async (email) => {
   } catch (error) {}
 };
 
-export const googleDrive = async (tokenResponse, userwalletaddress) => {
+export const googleDrive = async (tokenResponse, userWallet) => {
   try {
     const response = await axios.post(`${API}/uploadToDrive`, {
       method: "POST",
       tokenResponse,
-      userwalletaddress,
+      userWallet,
     });
     return response.data;
   } catch (error) {}

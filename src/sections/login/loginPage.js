@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@mui/system";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
@@ -13,14 +13,16 @@ export default function LoginPage() {
   const theme = useTheme();
   var router = useRouter();
   const dispatch = useDispatch();
-  let testclient = {};
-  var userwalletaddress;
+  // const [client, setClient] = useState({});
+  let client = {};
+  const [userWallet, setuserWallet] = useState({});
   const handleCreateWallet = async () => {
     const wallet = await library.createWallet();
     return wallet;
   };
   const uploadDrive = () => {
-    testclient.requestAccessToken();
+    console.log("the uploaddrive", client);
+    client.requestAccessToken();
   };
 
   const handlecallbackresponse = async (response) => {
@@ -30,7 +32,8 @@ export default function LoginPage() {
       dispatch(storeWallet(subscribedUser));
       router.push("/");
     } else {
-      userwalletaddress = await handleCreateWallet();
+      let userwalletaddress = await handleCreateWallet();
+      setuserWallet(userwalletaddress);
       const userTabledata = {
         firstname: decodeddata.given_name,
         lastname: decodeddata.family_name,
@@ -57,12 +60,12 @@ export default function LoginPage() {
       alignItems: "center",
     });
 
-    testclient = google.accounts.oauth2.initTokenClient({
+    client = google.accounts.oauth2.initTokenClient({
       client_id: process.env.clientIdfromgoogle,
       scope: " https://www.googleapis.com/auth/drive",
       callback: async (tokenResponse) => {
         if (tokenResponse && tokenResponse.access_token) {
-          await googleDrive(tokenResponse, userwalletaddress);
+          await googleDrive(tokenResponse, userWallet);
           router.push("/");
         }
       },
