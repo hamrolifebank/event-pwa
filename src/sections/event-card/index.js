@@ -1,1 +1,1 @@
-export { default as eventCard } from "./EventCard";
+export { default as EventCard } from "./EventCard";

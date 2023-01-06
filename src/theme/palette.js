@@ -29,7 +29,7 @@ const PRIMARY = {
 const SECONDARY = {
   lighter: "#f95f7b",
   light: "#ef5573",
-  main: "#e54c6b",
+  main: "#CF3D3C",
   dark: "#db4363",
   darker: "#d1395b",
   contrastText: "#fff",
