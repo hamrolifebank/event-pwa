@@ -34,6 +34,10 @@ export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
 };
 
+export const PATH_AUTH = {
+  login: "/auth/login",
+};
+
 export const PATH_PROFILE = {
   root: ROOTS_PROFILE,
 };
