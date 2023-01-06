@@ -13,29 +13,26 @@ import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PrimaryButton } from "@components/button";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { initializeOrganizations } from "@redux/reducers/organizationReducer";
+import {
+  initializeOrganizations,
+  joinOrganization,
+} from "@redux/reducers/organizationReducer";
 
 export default function JoinOrg() {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
-  const org = useSelector((state) => state.organizations);
+  const organizations = useSelector((state) => state.organizations);
   const { push } = useRouter();
-
-  useEffect(() => {
-    dispatch(initializeOrganizations());
-  }, []);
-
-  if (!org || !org.length) return null; // loading screen can be returned here
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
 
-  const handleJoin = () => {
+  const handleJoin = async (orgId) => {
     console.log("request join");
+    dispatch(joinOrganization(orgId));
   };
 
   const arrowBack = () => {
@@ -44,7 +41,16 @@ export default function JoinOrg() {
 
   const style = { display: "flex", alignItems: "center", flexWrap: "wrap" };
 
-  const filteredList = org.filter((list) => {
+  const notJoinedOrg = organizations.filter(
+    (organization) =>
+      !organization.UserOrganizations.some(
+        (item) => item.userId && item.userId === 1
+      )
+  );
+  console.log("[JoinOrg.js--[49]], notJoinedOrg", notJoinedOrg);
+  if (!notJoinedOrg || !notJoinedOrg.length) return null; // loading screen can be returned here
+
+  const filteredList = notJoinedOrg.filter((list) => {
     if (input === "") {
       return list;
     } else {
@@ -60,7 +66,7 @@ export default function JoinOrg() {
 
       <Autocomplete
         disablePortal
-        options={org.map((list) => list.name)}
+        options={notJoinedOrg.map((list) => list.name)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -87,7 +93,10 @@ export default function JoinOrg() {
               </Typography>
             </Grid>
             <Grid item xs={3}>
-              <PrimaryButton sx={{ height: 25 }} onClick={handleJoin}>
+              <PrimaryButton
+                sx={{ height: 25 }}
+                onClick={() => handleJoin(org.id)}
+              >
                 JOIN
               </PrimaryButton>
             </Grid>

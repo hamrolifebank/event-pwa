@@ -12,4 +12,16 @@ const create = async (organization) => {
   return newOrganization.data.data;
 };
 
-export default { getAll, create };
+const join = async (organizationId) => {
+  console.log("[organizationService.js--[16]], organizationId", organizationId);
+  const joinedOrganization = await api.post(`/organization/join`, {
+    organizationId,
+  });
+  console.log(
+    "[organizationService.js--[19]], joinedOrganization",
+    joinedOrganization
+  );
+  return joinedOrganization.data.data;
+};
+
+export default { getAll, create, join };

@@ -1,13 +1,20 @@
 import { Button, Card, Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import OrgCard from "./OrgCard";
 import { PrimaryButton } from "@components/button";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
+import { useDispatch } from "react-redux";
+import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 
 export default function Organizations() {
   const { push } = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeOrganizations());
+  }, []);
 
   const handleJoin = () => {
     push(PATH_ORGANIZATION.joinOrg);
