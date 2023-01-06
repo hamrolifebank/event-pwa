@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
 import { useDispatch, useSelector } from "react-redux";
-import { storeWallet } from "@redux/reducers/userReducer";
+import { storeUser } from "@redux/reducers/userReducer";
 import library from "@utils/wallet";
 
 export default function LoginPage() {
@@ -27,7 +27,7 @@ export default function LoginPage() {
     const decodeddata = jwtDecode(response.credential);
     let subscribedUser = await checkUser(decodeddata.email);
     if (subscribedUser) {
-      dispatch(storeWallet(subscribedUser));
+      dispatch(storeUser(subscribedUser));
       router.push("/");
     } else {
       userwalletaddress = await handleCreateWallet();
@@ -40,7 +40,7 @@ export default function LoginPage() {
       };
       let newuser = await createUser(userTabledata);
 
-      dispatch(storeWallet(newuser));
+      dispatch(storeUser(newuser));
       await uploadDrive();
     }
   };
