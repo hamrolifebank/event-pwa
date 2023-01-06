@@ -20,6 +20,7 @@ export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
   createEvent: path(ROOTS_EVENTS, "/create"),
   pastEvents: path(ROOTS_EVENTS, "/past-events"),
+  upcomingEvents: path(ROOTS_EVENTS, "/upcoming-events"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
