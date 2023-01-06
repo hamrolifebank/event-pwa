@@ -3,7 +3,7 @@ import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import PendingReqCard from "@sections/event-card/pending-req-card";
+import PendingReqCard from "@sections/event-card/PendingReqCard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeYourPendingRequests } from "@redux/reducers/yourPendingRequestReducer";

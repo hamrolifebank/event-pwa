@@ -19,7 +19,7 @@ model User {
   userethaddress    String
   UserOrganizations UserOrganization[]
 
-  @@index(email)
+  @@index([email, userethaddress])
 }
 
 model Organization {

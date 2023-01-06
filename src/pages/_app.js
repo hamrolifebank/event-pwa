@@ -11,9 +11,7 @@ import ThemeProvider from "../theme";
 import { SettingsProvider } from "@components/settings";
 import store from "@redux/store";
 import { Provider } from "react-redux";
-
-
-
+import AuthGuard from "@guards/AuthGuard";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -31,15 +29,13 @@ export default function MyApp(props) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <Provider store={store}>
         <SettingsProvider>
-         
           <ThemeProvider>
-            {getLayout(<Component {...pageProps} />)}
+            <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard>
           </ThemeProvider>
-          
         </SettingsProvider>
       </Provider>
     </CacheProvider>
