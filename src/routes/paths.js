@@ -19,6 +19,7 @@ export const PATH_DASHBOARD = {
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
   createEvent: path(ROOTS_EVENTS, "/create"),
+  pastEvents: path(ROOTS_EVENTS, "/past-events"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
