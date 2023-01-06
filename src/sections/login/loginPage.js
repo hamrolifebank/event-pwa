@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Container } from "@mui/system";
 import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
@@ -7,18 +7,16 @@ import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
 import { useDispatch, useSelector } from "react-redux";
 import { storeWallet } from "@redux/reducers/userReducer";
-
-var { ethers } = require("ethers");
+import library from "@utils/wallet";
 
 export default function LoginPage() {
   const theme = useTheme();
   var router = useRouter();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
   let testclient = {};
   var userwalletaddress;
   const handleCreateWallet = async () => {
-    const wallet = ethers.Wallet.createRandom();
+    const wallet = await library.createWallet();
     return wallet;
   };
   const uploadDrive = () => {
@@ -73,7 +71,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Container>
+      <Container sx={{ width: "100%" }}>
         <Box
           sx={{
             display: "flex",
@@ -82,14 +80,19 @@ export default function LoginPage() {
             flexDirection: "column",
           }}
         >
-          <Box sx={{ width: "100%", height: "60" }}>
+          <Box sx={{ width: "100%", height: "60%" }}>
             <img
               src="https://assets.rumsan.com/esatya/hlb-blk-rumsan.png"
               alt="logo"
             />
           </Box>
           <Box>
-            <Typography variant="subtitle2">Vein-to-Vein</Typography>
+            <Typography
+              variant="h3"
+              sx={{ color: `${theme.palette.primary.main}` }}
+            >
+              Vein-to-Vein
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -98,21 +101,55 @@ export default function LoginPage() {
             justifyItems: "center",
             alignItems: "center",
             flexDirection: "column",
-            backgroundColor: "#1ab394",
-            color: "white",
-            mt: "20px",
-            pt: "20px",
-            pb: "20px",
-            ml: "30px",
-            mr: "30px",
-            mb: "20px",
+            width: "100%",
           }}
         >
-          <Typography>Your Blood</Typography>
-          <Typography>Donation Journey</Typography>
-          <Typography>is Getting Smarter</Typography>
-        </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyItems: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              backgroundColor: "#1ab394",
+              color: "white",
+              mt: "20px",
+              pt: "20px",
+              pb: "20px",
+              ml: "30px",
+              mr: "30px",
+              mb: "20px",
+            }}
+          >
+            <Typography variant={"body1"}>Your Blood</Typography>
+            <Typography variant={"body1"}>Donation Journey</Typography>
+            <Typography variant={"body1"}>is Getting Smarter</Typography>
+          </Box>
+          <Container
+            sx={{
+              textAlign: "center",
+              borderBottom: "1px solid #a1aaad",
+              lineHeight: " 0.1em",
+              margin: "10px 0 20px",
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                color: `${theme.palette.primary.main}`,
+                background: "#fff",
+                padding: " 0 5px",
+              }}
+            >
+              Please choose login method
+            </Typography>
+          </Container>
 
+          <Button
+            id="signInbutton"
+            onClick={() => handlecallbackresponse()}
+          ></Button>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -120,14 +157,7 @@ export default function LoginPage() {
             alignItems: "center",
             flexDirection: "column",
           }}
-        >
-          <Typography> Please choose login method </Typography>
-
-          <Button
-            id="signInbutton"
-            onClick={() => handlecallbackresponse()}
-          ></Button>
-        </Box>
+        ></Box>
       </Container>
     </>
   );
