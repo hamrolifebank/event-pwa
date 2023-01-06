@@ -11,7 +11,7 @@ import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
 
-const EventCard = ({ event, publicaddress }) => {
+const EventCard = ({ event, user }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
@@ -111,7 +111,7 @@ const EventCard = ({ event, publicaddress }) => {
                   <Box display="flex" justifyContent="center">
                     <QRCode
                       title="Organization QR-code"
-                      value={`${publicaddress}`}
+                      value={`${user.userethaddress}`}
                       level="M"
                       bgColor={"#FFFFFF"}
                       fgColor={"#000000"}

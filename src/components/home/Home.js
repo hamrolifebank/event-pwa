@@ -67,7 +67,7 @@ const Home = () => {
       >
         Your upcoming events
       </Typography>
-      <EventCard publicaddress={user} />
+      <EventCard user={user} />
       <Link
         variant="h6"
         component="h2"
