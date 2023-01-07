@@ -5,8 +5,12 @@ import { PATH_EVENTS } from "@routes/paths";
 import EventCard from "@sections/event-card/EventCard";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Events = () => {
+  let user = useSelector((state) => state.user);
+  user = user ? user : [];
+
   const { push } = useRouter();
   const createEventNavigator = () => {
     push(PATH_EVENTS.createEvent);
@@ -27,9 +31,7 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      <EventCard />
-      <EventCard />
-      <EventCard />
+      <EventCard user={user} />
     </Container>
   );
 };

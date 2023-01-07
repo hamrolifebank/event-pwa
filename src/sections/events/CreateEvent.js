@@ -16,11 +16,14 @@ import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
 
 import library from "@utils/wallet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
+
+  let user = useSelector((state) => state.user);
+  user = user ? user : [];
 
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date("2014-08-18T21:11:54")
@@ -29,9 +32,9 @@ const CreateEvent = () => {
     new Date("2014-08-18T21:09:34")
   );
 
-  const dummyCreatorEthAddress = Math.floor(1000 + Math.random() * 9000);
-  const a = JSON.stringify(dummyCreatorEthAddress);
-  console.log(a);
+  const dummyContractAddress = Math.floor(1000 + Math.random() * 9000);
+  const stringifiedContractAddress = JSON.stringify(dummyContractAddress);
+  console.log(stringifiedContractAddress);
   const [field, setField] = useState({
     creatorId: 3652145,
     benificaryBloodBank: "",
@@ -45,8 +48,8 @@ const CreateEvent = () => {
     longitude: "",
     startTimeStamp: "",
     endTimeStamp: "",
-    createrEthAddress: a,
-    contractAddress: "allj0900jpiert",
+    createrEthAddress: user.userethaddress,
+    contractAddress: stringifiedContractAddress,
   });
 
   const handleInput = (e) => {
