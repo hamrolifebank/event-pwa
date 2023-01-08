@@ -1,9 +1,15 @@
 import { PrismaClient } from "@prisma/client";
+import withToken from "src/middleware/withToken";
 const prisma = new PrismaClient({ log: ["query"] });
 const jwt = require("jsonwebtoken");
-
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method === "GET") {
+    if (req.decodedToken) {
+      let user = await prisma.user.findUnique({
+        where: { email: req.decodedToken.email },
+      });
+      return res.status(200).json(user);
+    }
     const { email } = req.query;
     let user = await prisma.user.findUnique({ where: { email: email } });
     if (!user) {
@@ -29,3 +35,4 @@ export default async function handler(req, res) {
     res.status(203).json({ user, token });
   }
 }
+export default withToken(handler);

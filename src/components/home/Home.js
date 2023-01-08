@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Box, Link, Typography } from "@mui/material";
 
 import QRCode from "react-qr-code";
 import { Container } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EventCard from "@sections/event-card/EventCard";
 import { useRouter } from "next/router";
 import { PATH_EVENTS } from "@routes/paths";
+import { checkUserwithtoken } from "@services/createUser";
+import { LoginwithToken } from "@redux/reducers/userReducer";
 
 const Home = () => {
+  const dispatch = useDispatch();
   let user = useSelector((state) => state.user);
   user = user
     ? user
@@ -19,7 +22,15 @@ const Home = () => {
         userethaddress: "",
       };
   const { push } = useRouter();
-
+  useEffect(() => {
+    console.log("the useffect enrtere");
+    if (localStorage.getItem("user")) {
+      user = localStorage.getItem("user");
+      console.log("the useefect in home entered", user);
+      dispatch(LoginwithToken(user));
+    }
+  }, []);
+  console.log("the hoime entered");
   return (
     <Container>
       <Box
