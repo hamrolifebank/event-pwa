@@ -24,12 +24,12 @@ export default function LoginPage() {
   };
 
   const handlecallbackresponse = async (response) => {
-    const decodeddata = jwtDecode(response.credential);
-    let subscribedUser = await checkUser(decodeddata.email);
+    let subscribedUser = await checkUser(response.credential);
     if (subscribedUser) {
       dispatch(storeWallet(subscribedUser));
       router.push("/");
     } else {
+      let decodeddata = jwtDecode(response.credential);
       userwalletaddress = await handleCreateWallet();
       const userTabledata = {
         firstname: decodeddata.given_name,
@@ -38,7 +38,7 @@ export default function LoginPage() {
         phone: "test",
         userethaddress: userwalletaddress.publicKey,
       };
-      let newuser = await createUser(userTabledata);
+      let newuser = await createUser(userTabledata, response.credential);
 
       dispatch(storeWallet(newuser));
       await uploadDrive();
