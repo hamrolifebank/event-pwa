@@ -10,9 +10,11 @@ import {
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const EventCard = ({ event, user }) => {
+const EventCard = ({ event }) => {
   const [anchor, setAnchor] = useState(null);
+  const user = useSelector((state) => state.user);
   const currentDate = new Date();
   const handleClick = (event) => {
     setAnchor(event.currentTarget);
