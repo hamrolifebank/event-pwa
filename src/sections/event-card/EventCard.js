@@ -6,6 +6,11 @@ import {
   Paper,
   Typography,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
@@ -80,50 +85,41 @@ const EventCard = ({ event }) => {
             >
               QR code
             </Button>
-            <Popover
-              id="QR code"
+            <Dialog
+              sx={{ alignItems: "flex-start" }}
               open={Boolean(anchor)}
-              anchorEl={anchor}
               onClose={() => {
                 setAnchor(null);
               }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              anchorPosition={{
-                vertical: "top ",
-                horizontal: "center",
-              }}
             >
-              <Container>
-                <Box
-                  sx={{
-                    borderRadius: 2,
-                    mb: 3,
-                    mr: 1,
-                    ml: 1,
-                  }}
-                >
-                  <Box display="flex" justifyContent="center">
-                    <Typography variant="h5" sx={{ pb: 1 }}>
-                      SCAN ME
-                    </Typography>
+              <DialogTitle display="flex" justifyContent="center">
+                Event name
+              </DialogTitle>
+              <DialogContent>
+                <Container>
+                  <Box
+                    sx={{
+                      borderRadius: 2,
+                      mb: 3,
+                      mr: 1,
+                      ml: 1,
+                    }}
+                  >
+                    <Box display="flex" justifyContent="center">
+                      <QRCode
+                        title="Organization QR-code"
+                        value={`${user.userethaddress}`}
+                        level="M"
+                        bgColor={"#FFFFFF"}
+                        fgColor={"#000000"}
+                        size={250}
+                        padding={1}
+                      />
+                    </Box>
                   </Box>
-                  <Box display="flex" justifyContent="center">
-                    <QRCode
-                      title="Organization QR-code"
-                      value={`${user.userethaddress}`}
-                      level="M"
-                      bgColor={"#FFFFFF"}
-                      fgColor={"#000000"}
-                      size={180}
-                      padding={1}
-                    />
-                  </Box>
-                </Box>
-              </Container>
-            </Popover>
+                </Container>
+              </DialogContent>
+            </Dialog>
           </Box>
         ) : null}
       </Paper>
