@@ -2,14 +2,11 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
-  Popover,
   Paper,
   Typography,
   Container,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
@@ -129,7 +126,6 @@ const EventCard = ({ event }) => {
 
 EventCard.propTypes = {
   event: PropTypes.object.isRequired,
-  publicaddress: PropTypes.string.isRequired,
 };
 
 export default EventCard;
