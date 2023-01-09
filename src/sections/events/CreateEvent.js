@@ -23,20 +23,17 @@ const CreateEvent = () => {
   const dispatch = useDispatch();
 
   let user = useSelector((state) => state.user);
-  user = user ? user : [];
+  user = user ? user : {};
 
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
-    new Date("2014-08-18T21:11:54")
+    new Date(Date.now())
   );
   const [endDateAndTimevalue, setEndDateAndTimeValue] = useState(
-    new Date("2014-08-18T21:09:34")
+    new Date(Date.now())
   );
 
-  const dummyContractAddress = Math.floor(1000 + Math.random() * 9000);
-  const stringifiedContractAddress = JSON.stringify(dummyContractAddress);
-
   const [field, setField] = useState({
-    creatorId: 3652145,
+    creatorId: user.id,
     benificaryBloodBank: "",
     organization: "",
     eventName: "",
@@ -49,7 +46,7 @@ const CreateEvent = () => {
     startTimeStamp: "",
     endTimeStamp: "",
     createrEthAddress: user.userethaddress,
-    contractAddress: stringifiedContractAddress,
+    contractAddress: "",
   });
 
   const handleInput = (e) => {

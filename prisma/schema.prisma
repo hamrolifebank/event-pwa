@@ -15,9 +15,9 @@ model User {
   firstname      String
   lastname       String
   email          String      @unique
-  phone          String
-  userethaddress String
-  events         UserEvent[]
+  phone          String?
+  userethaddress String      @unique
+  UserEvent      UserEvent[]
 
   @@index([email, userethaddress])
 }

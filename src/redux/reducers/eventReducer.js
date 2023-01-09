@@ -6,22 +6,22 @@ const eventSlice = createSlice({
   name: "event",
   initialState: [],
   reducers: {
-    setEvent(state, action) {
+    appendEvent(state, action) {
       state.push(action.payload);
     },
-    getEvents(state, action) {
+    setEvents(state, action) {
       return action.payload;
     },
   },
 });
 
-export const { setEvent, getEvents } = eventSlice.actions;
+export const { appendEvent, setEvents } = eventSlice.actions;
 
 export const createEvent = (event) => {
   return async (dispatch) => {
     const result = await eventService.create(event);
 
-    await dispatch(setEvent(result));
+    await dispatch(appendEvent(result));
   };
 };
 
@@ -29,7 +29,7 @@ export const getAllEvents = () => {
   return async (dispatch) => {
     const result = await eventService.getAll();
 
-    await dispatch(getEvents(result));
+    await dispatch(setEvents(result));
   };
 };
 

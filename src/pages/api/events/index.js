@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+
 import axios from "axios";
 import library from "@utils/wallet";
 
-const eventRegistrationUrl = "http://localhost:5000/api/events";
+const eventRegistrationUrl = process.env.registryAppApi;
 
 const prisma = new PrismaClient({ log: ["query"] });
 export default async function handler(req, res) {
@@ -20,10 +21,7 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        const createEventWallet = async () => {
-          return await library.createWallet();
-        };
-        let wallet = await createEventWallet();
+        let wallet = await library.createWallet();
         let eventEthAddress = wallet.address;
         let eventPrivateKey = wallet.privateKey;
 
