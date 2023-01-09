@@ -36,3 +36,16 @@ export const googleDrive = async (tokenResponse, userwalletaddress) => {
     return response.data;
   } catch (error) {}
 };
+
+export const checkUserwithtoken = async (token) => {
+  try {
+    const response = await axios.get(`${API}/user`, {
+      method: "GET",
+      headers: {
+        authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {}
+};
