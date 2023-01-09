@@ -8,6 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  DialogContentText,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
@@ -111,6 +112,13 @@ const EventCard = ({ event }) => {
                         padding={2}
                       />
                     </Box>
+                    <DialogContentText
+                      display="flex"
+                      justifyContent="center"
+                      sx={{ wordWrap: "inherit" }}
+                    >
+                      {"publicAddress"}
+                    </DialogContentText>
                   </Box>
                 </Container>
               </DialogContent>

@@ -5,8 +5,8 @@ import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
-import { useDispatch, useSelector } from "react-redux";
-import { storeWallet } from "@redux/reducers/userReducer";
+import { useDispatch } from "react-redux";
+import { storeUser } from "@redux/reducers/userReducer";
 import library from "@utils/wallet";
 
 export default function LoginPage() {
@@ -26,7 +26,7 @@ export default function LoginPage() {
   const handlecallbackresponse = async (response) => {
     let subscribedUser = await checkUser(response.credential);
     if (subscribedUser) {
-      dispatch(storeWallet(subscribedUser));
+      dispatch(storeUser(subscribedUser));
       router.push("/");
     } else {
       let decodeddata = jwtDecode(response.credential);
@@ -38,7 +38,7 @@ export default function LoginPage() {
         userethaddress: userwalletaddress.publicKey,
       };
       let newuser = await createUser(userTabledata, response.credential);
-      dispatch(storeWallet(newuser));
+      dispatch(storeUser(newuser));
       await uploadDrive();
     }
   };
