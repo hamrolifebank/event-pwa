@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id             Int    @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   firstname      String
   lastname       String
-  email          String @unique
-  phone          String
-  userethaddress String @unique
+  email          String  @unique
+  phone          String?
+  userethaddress String  @unique
 
   @@index([email, userethaddress])
 }

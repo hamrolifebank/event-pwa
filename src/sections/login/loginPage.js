@@ -35,11 +35,9 @@ export default function LoginPage() {
         firstname: decodeddata.given_name,
         lastname: decodeddata.family_name,
         email: decodeddata.email,
-        phone: "test",
         userethaddress: userwalletaddress.publicKey,
       };
       let newuser = await createUser(userTabledata, response.credential);
-
       dispatch(storeWallet(newuser));
       await uploadDrive();
     }
