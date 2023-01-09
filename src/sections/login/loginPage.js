@@ -5,7 +5,7 @@ import { useTheme } from "@emotion/react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { checkUser, createUser, googleDrive } from "@services/createUser";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { storeUser } from "@redux/reducers/userReducer";
 import library from "@utils/wallet";
 
@@ -38,7 +38,7 @@ export default function LoginPage() {
         userethaddress: userwalletaddress.publicKey,
       };
       let newuser = await createUser(userTabledata, response.credential);
-      dispatch(storeWallet(newuser));
+      dispatch(storeUser(newuser));
       await uploadDrive();
     }
   };
