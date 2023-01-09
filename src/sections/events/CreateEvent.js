@@ -34,7 +34,7 @@ const CreateEvent = () => {
 
   const dummyContractAddress = Math.floor(1000 + Math.random() * 9000);
   const stringifiedContractAddress = JSON.stringify(dummyContractAddress);
-  console.log(stringifiedContractAddress);
+
   const [field, setField] = useState({
     creatorId: 3652145,
     benificaryBloodBank: "",

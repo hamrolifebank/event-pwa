@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const allEvents = await axios.get(eventRegistrationUrl);
-        console.log(allEvents);
+
         res.status(200).json(allEvents.data);
       } catch (error) {
         res.status(400).json({ success: false });

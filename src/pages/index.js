@@ -15,7 +15,6 @@ Home.getLayout = (page) => (
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("from useEffect");
     dispatch(getAllEvents());
   }, []);
   return (
