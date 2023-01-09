@@ -2,7 +2,7 @@ import api from "./client";
 
 const create = async (eventData) => {
   try {
-    const response = await api.post("/api/event", eventData);
+    const response = await api.post("/api/events", eventData);
 
     return response.data;
   } catch (error) {
@@ -12,7 +12,7 @@ const create = async (eventData) => {
 
 const getAll = async () => {
   try {
-    const response = await api.get("/api/event");
+    const response = await api.get("/api/events");
 
     return response.data;
   } catch (error) {

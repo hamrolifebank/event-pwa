@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import library from "@utils/wallet";
 
-const eventRegistrationUrl = "http://localhost:5000/api/events/register";
+const eventRegistrationUrl = "http://localhost:5000/api/events";
 
 const prisma = new PrismaClient({ log: ["query"] });
 export default async function handler(req, res) {
@@ -11,9 +11,13 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const events = await prisma.event.findMany();
+        // const events = await prisma.event.findMany();
 
-        res.status(200).json({ success: true, data: events });
+        // res.status(200).json({ success: true, data: events });
+
+        const allEvents = await axios.get(eventRegistrationUrl);
+        console.log(allEvents);
+        res.status(200).json(allEvents.data);
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -51,24 +55,27 @@ export default async function handler(req, res) {
           },
         });
 
-        const registeredEvent = await axios.post(eventRegistrationUrl, {
-          benificaryBloodBank,
-          eventEthAddress,
-          createrEthAddress,
-          organization,
-          eventName,
-          contactPerson,
-          contactNumber,
-          contractAddress,
-          noOfTarget,
-          location,
-          latitude,
-          longitude,
-          startTimeStamp,
-          endTimeStamp,
-        });
+        const registeredEvent = await axios.post(
+          `${eventRegistrationUrl}/register`,
+          {
+            benificaryBloodBank,
+            eventEthAddress,
+            createrEthAddress,
+            organization,
+            eventName,
+            contactPerson,
+            contactNumber,
+            contractAddress,
+            noOfTarget,
+            location,
+            latitude,
+            longitude,
+            startTimeStamp,
+            endTimeStamp,
+          }
+        );
 
-        res.status(201).json({ registeredEvent: registeredEvent.data });
+        res.status(201).json(registeredEvent.data);
       } catch (error) {
         res.status(400).json({ success: false });
       }

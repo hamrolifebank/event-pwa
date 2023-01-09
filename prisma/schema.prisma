@@ -40,9 +40,9 @@ model Event {
 }
 
 model UserEvent {
-  User     User   @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
   userId   Int
-  Event    Event  @relation(fields: [eventId], references: [id])
+  event    Event  @relation(fields: [eventId], references: [id])
   eventId  Int
   userType String @db.VarChar(255)
 
