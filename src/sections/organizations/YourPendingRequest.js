@@ -4,9 +4,20 @@ import BorderlessButton from "@components/button/BorderlessButton";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import PendingReqCard from "@sections/event-card/PendingReqCard";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeYourPendingRequests } from "@redux/reducers/yourPendingRequestReducer";
 
 const YourPendingRequest = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const yourPendingRequest = useSelector((state) => state.yourPendingRequests);
+
+  useEffect(() => {
+    dispatch(initializeYourPendingRequests());
+  }, []);
+
+  if (!yourPendingRequest) return "loading..."; // loading screen can be returned here
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
@@ -21,10 +32,9 @@ const YourPendingRequest = () => {
       </Grid>
 
       <Stack spacing={1} mt={2}>
-        <PendingReqCard />
-        <PendingReqCard />
-        <PendingReqCard />
-        <PendingReqCard />
+        {yourPendingRequest.map((item) => (
+          <PendingReqCard key={item.id} item={item} />
+        ))}
       </Stack>
       <BorderlessButton sx={{ mt: 1, color: "error.dark" }}>
         Load more...

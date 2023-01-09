@@ -1,6 +1,6 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import MyPendingRequest from "src/sections/organizations/MyPendingRequest";
+import MyPendingRequest from "@sections/organizations/YourPendingRequest";
 
 const PAGE_TITLE = "pending_req";
 
