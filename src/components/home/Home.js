@@ -22,15 +22,7 @@ const Home = () => {
         userethaddress: "",
       };
   const { push } = useRouter();
-  useEffect(() => {
-    console.log("the useffect enrtere");
-    if (localStorage.getItem("user")) {
-      user = localStorage.getItem("user");
-      console.log("the useefect in home entered", user);
-      dispatch(LoginwithToken(user));
-    }
-  }, []);
-  console.log("the hoime entered");
+
   return (
     <Container>
       <Box

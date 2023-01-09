@@ -12,8 +12,6 @@ const withToken = (handler) => {
       } catch {
         return res.status(401).json({ error: "token invalid" });
       }
-    } else {
-      return res.status(401).json({ error: "token missing" });
     }
     return handler(req, res);
   };

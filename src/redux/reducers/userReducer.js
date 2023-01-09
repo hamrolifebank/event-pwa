@@ -24,9 +24,7 @@ export const storeWallet = (subscribedUser) => {
 
 export const LoginwithToken = (token) => {
   return async (dispatch) => {
-    console.log("the reducer token is", token);
     let response = await checkUserwithtoken(token);
-    console.log("the reposne in reducer", response);
     dispatch(addUser(response));
   };
 };

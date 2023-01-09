@@ -4,24 +4,31 @@ const prisma = new PrismaClient({ log: ["query"] });
 const jwt = require("jsonwebtoken");
 import jwtDecode from "jwt-decode";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method === "GET") {
-    const { token } = req.query;
-    let decodededtoken = jwtDecode(token);
-    if (decodededtoken.email_verified === true) {
+    if (req.decodedToken) {
       let user = await prisma.user.findUnique({
-        where: { email: decodededtoken.email },
+        where: { email: req.decodedToken.email },
       });
-      if (!user) {
-        return res.status(204).end();
-      }
-      const userForToken = {
-        email: user.email,
-        id: user.id,
-      };
+      return res.status(200).json(user);
+    } else {
+      const { token } = req.query;
+      let decodededtoken = jwtDecode(token);
+      if (decodededtoken.email_verified === true) {
+        let user = await prisma.user.findUnique({
+          where: { email: decodededtoken.email },
+        });
+        if (!user) {
+          return res.status(204).end();
+        }
+        const userForToken = {
+          email: user.email,
+          id: user.id,
+        };
 
-      const token = jwt.sign(userForToken, process.env.SECRET);
-      res.status(200).json({ user, token });
+        const token = jwt.sign(userForToken, process.env.SECRET);
+        res.status(200).json({ user, token });
+      }
     }
   }
 
