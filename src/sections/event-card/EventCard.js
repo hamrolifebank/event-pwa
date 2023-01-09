@@ -102,7 +102,7 @@ const EventCard = ({ event }) => {
                   >
                     <Box display="flex" justifyContent="center">
                       <QRCode
-                        title="Organization QR-code"
+                        title="Event QR-code"
                         value={`event.eventEthAddress`}
                         level="M"
                         bgColor={"#FFFFFF"}
