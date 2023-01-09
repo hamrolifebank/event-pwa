@@ -12,11 +12,9 @@ import {
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const EventCard = ({ event }) => {
   const [anchor, setAnchor] = useState(null);
-  const user = useSelector((state) => state.user);
   const currentDate = new Date();
   const handleClick = (event) => {
     setAnchor(event.currentTarget);
@@ -83,7 +81,7 @@ const EventCard = ({ event }) => {
               QR code
             </Button>
             <Dialog
-              sx={{ alignItems: "flex-start" }}
+              sx={{ alignItems: "flex-start", pb: 35 }}
               open={Boolean(anchor)}
               onClose={() => {
                 setAnchor(null);
@@ -105,12 +103,12 @@ const EventCard = ({ event }) => {
                     <Box display="flex" justifyContent="center">
                       <QRCode
                         title="Organization QR-code"
-                        value={`${user.userethaddress}`}
+                        value={`event.eventEthAddress`}
                         level="M"
                         bgColor={"#FFFFFF"}
                         fgColor={"#000000"}
                         size={250}
-                        padding={1}
+                        padding={2}
                       />
                     </Box>
                   </Box>
