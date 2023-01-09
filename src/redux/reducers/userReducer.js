@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { checkUser, checkUserwithtoken } from "@services/createUser";
 import { setPublicKey, setUser } from "@utils/sessionManager";
-import { add } from "date-fns";
-const walletSlice = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState: null,
   reducers: {
@@ -11,9 +10,9 @@ const walletSlice = createSlice({
     },
   },
 });
-export const { addUser } = walletSlice.actions;
-export default walletSlice.reducer;
-export const storeWallet = (subscribedUser) => {
+export const { addUser } = userSlice.actions;
+
+export const storeUser = (subscribedUser) => {
   return async (dispatch) => {
     const { user, token } = subscribedUser;
     setPublicKey(user.userethaddress);
@@ -28,3 +27,5 @@ export const LoginwithToken = (token) => {
     dispatch(addUser(response));
   };
 };
+
+export default userSlice.reducer;
