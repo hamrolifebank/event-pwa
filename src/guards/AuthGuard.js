@@ -20,7 +20,7 @@ export default function AuthGuard({ children }) {
     if (user === null) {
       push(PATH_AUTH.login);
     }
-  }, [user]);
+  }, []);
 
   if (!user) {
     if (pathname === PATH_AUTH.login) {
