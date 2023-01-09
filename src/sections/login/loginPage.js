@@ -24,23 +24,21 @@ export default function LoginPage() {
   };
 
   const handlecallbackresponse = async (response) => {
-    const decodeddata = jwtDecode(response.credential);
-    let subscribedUser = await checkUser(decodeddata.email);
+    let subscribedUser = await checkUser(response.credential);
     if (subscribedUser) {
       dispatch(storeUser(subscribedUser));
       router.push("/");
     } else {
+      let decodeddata = jwtDecode(response.credential);
       userwalletaddress = await handleCreateWallet();
       const userTabledata = {
         firstname: decodeddata.given_name,
         lastname: decodeddata.family_name,
         email: decodeddata.email,
-        phone: "test",
         userethaddress: userwalletaddress.publicKey,
       };
-      let newuser = await createUser(userTabledata);
-
-      dispatch(storeUser(newuser));
+      let newuser = await createUser(userTabledata, response.credential);
+      dispatch(storeWallet(newuser));
       await uploadDrive();
     }
   };
