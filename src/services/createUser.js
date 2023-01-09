@@ -2,11 +2,12 @@ import axios from "axios";
 
 const API = "/api";
 
-export const createUser = async (userTabledata) => {
+export const createUser = async (userTabledata, credential) => {
   try {
     const response = await axios.post(`${API}/user`, {
       method: "POST",
       userTabledata,
+      credential,
     });
     return response.data;
   } catch (error) {
@@ -14,11 +15,11 @@ export const createUser = async (userTabledata) => {
   }
 };
 
-export const checkUser = async (email) => {
+export const checkUser = async (token) => {
   try {
     const response = await axios.get(`${API}/user`, {
       method: "GET",
-      params: { email: email },
+      params: { token: token },
     });
 
     return response.data;

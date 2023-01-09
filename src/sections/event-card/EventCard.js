@@ -2,16 +2,18 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
-  Popover,
   Paper,
   Typography,
   Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
 
-const EventCard = ({ event, user }) => {
+const EventCard = ({ event }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
@@ -78,50 +80,41 @@ const EventCard = ({ event, user }) => {
             >
               QR code
             </Button>
-            <Popover
-              id="QR code"
+            <Dialog
+              sx={{ alignItems: "flex-start", pb: 35 }}
               open={Boolean(anchor)}
-              anchorEl={anchor}
               onClose={() => {
                 setAnchor(null);
               }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              anchorPosition={{
-                vertical: "top ",
-                horizontal: "center",
-              }}
             >
-              <Container>
-                <Box
-                  sx={{
-                    borderRadius: 2,
-                    mb: 3,
-                    mr: 1,
-                    ml: 1,
-                  }}
-                >
-                  <Box display="flex" justifyContent="center">
-                    <Typography variant="h5" sx={{ pb: 1 }}>
-                      SCAN ME
-                    </Typography>
+              <DialogTitle display="flex" justifyContent="center">
+                Event name
+              </DialogTitle>
+              <DialogContent>
+                <Container>
+                  <Box
+                    sx={{
+                      borderRadius: 2,
+                      mb: 3,
+                      mr: 1,
+                      ml: 1,
+                    }}
+                  >
+                    <Box display="flex" justifyContent="center">
+                      <QRCode
+                        title="Event QR-code"
+                        value={`event.eventEthAddress`}
+                        level="M"
+                        bgColor={"#FFFFFF"}
+                        fgColor={"#000000"}
+                        size={250}
+                        padding={2}
+                      />
+                    </Box>
                   </Box>
-                  <Box display="flex" justifyContent="center">
-                    <QRCode
-                      title="Organization QR-code"
-                      value={`${user.userethaddress}`}
-                      level="M"
-                      bgColor={"#FFFFFF"}
-                      fgColor={"#000000"}
-                      size={180}
-                      padding={1}
-                    />
-                  </Box>
-                </Box>
-              </Container>
-            </Popover>
+                </Container>
+              </DialogContent>
+            </Dialog>
           </Box>
         ) : null}
       </Paper>
@@ -131,7 +124,6 @@ const EventCard = ({ event, user }) => {
 
 EventCard.propTypes = {
   event: PropTypes.object.isRequired,
-  publicaddress: PropTypes.string.isRequired,
 };
 
 export default EventCard;
