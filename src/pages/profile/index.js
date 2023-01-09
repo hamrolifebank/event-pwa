@@ -13,16 +13,6 @@ Profile.getLayout = (page) => (
 );
 
 export default function Profile() {
-  //Follow this pattern for all pages
-
-  // const { testFunction, intialValue } = useProfileContext();
-
-  // useEffect(() => {
-  //   testFunction();
-  // }, [testFunction]);
-
-  // console.log("intialValue", intialValue);
-
   return (
     <ProfileContextProvider>
       <Page title={PAGE_TITLE}>

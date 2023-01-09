@@ -11,12 +11,13 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
+  id             Int         @id @default(autoincrement())
   firstname      String
   lastname       String
-  email          String  @unique
+  email          String      @unique
   phone          String?
-  userethaddress String  @unique
+  userethaddress String      @unique
+  UserEvent      UserEvent[]
 
   @@index([email, userethaddress])
 }
@@ -28,4 +29,22 @@ model Organization {
   phone       String
   address     String
   isBloodBank Boolean
+}
+
+model Event {
+  id              Int         @id @default(autoincrement())
+  eventPrivateKey String      @db.VarChar(255)
+  eventEthAddress String      @db.VarChar(255)
+  creatorId       Int
+  users           UserEvent[]
+}
+
+model UserEvent {
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int
+  event    Event  @relation(fields: [eventId], references: [id])
+  eventId  Int
+  userType String @db.VarChar(255)
+
+  @@id([userId, eventId])
 }
