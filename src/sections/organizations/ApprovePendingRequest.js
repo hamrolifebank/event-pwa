@@ -15,7 +15,12 @@ import ApprovePendingReqCard from "@sections/event-card/ApprovePendingReqCard";
 
 const ApprovePendingRequest = () => {
   const [input, setInput] = React.useState("");
+  const [next, setNext] = React.useState(10);
   const router = useRouter();
+
+  const loadMore = () => {
+    setNext(next + 10);
+  };
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
@@ -56,16 +61,18 @@ const ApprovePendingRequest = () => {
       />
 
       <Stack spacing={1} mt={2}>
-        {/* {filteredList.map((list)=>.....)} */}
+        {/* {filteredList?.slice(0,next)?.map((list)=>.....)} */}
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
       </Stack>
-      <BorderlessButton sx={{ mt: 1, color: "error.dark" }}>
+      {/* {next < org?.length && ( */}
+      <BorderlessButton sx={{ mt: 1, color: "error.dark" }} onClick={loadMore}>
         Load more...
       </BorderlessButton>
+      {/* )} */}
     </Container>
   );
 };
