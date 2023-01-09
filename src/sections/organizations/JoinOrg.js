@@ -47,7 +47,6 @@ export default function JoinOrg() {
 
   const handleJoin = async (orgId) => {
     dispatch(joinOrganization(orgId));
-    dispatch(updateOrganizationToBeJoined(orgId));
   };
 
   const arrowBack = () => {

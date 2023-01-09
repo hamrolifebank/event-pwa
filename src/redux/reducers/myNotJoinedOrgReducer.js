@@ -6,11 +6,11 @@ const YourNotJoinedOrganizationSlice = createSlice({
   name: "YourNotJoinedOrganization",
   initialState: [],
   reducers: {
-    getYourNotJoinedOrganizations(state, action) {
-      return action.payload;
-    },
     setYourNotJoinedOrganization(state, action) {
       return action.payload;
+    },
+    removeYourNotJoinedOrganization(state, action) {
+      return state.filter((organization) => organization.id !== action.payload);
     },
   },
 });
@@ -18,20 +18,10 @@ const YourNotJoinedOrganizationSlice = createSlice({
 export const initializeYourNotJoinedOrganizations = () => {
   return async (dispatch) => {
     const data = await organizationService.getMyNotJoinedOrganizations();
-    dispatch(getYourNotJoinedOrganizations(data));
+    dispatch(setYourNotJoinedOrganization(data));
   };
 };
 
-export const updateOrganizationToBeJoined = (organizationId) => {
-  return async (dispatch) => {
-    const data = await organizationService.getMyNotJoinedOrganizations();
-    const updatedNotJoinedOrganization = data.filter(
-      (organization) => organization.id !== organizationId
-    );
-    await dispatch(setYourNotJoinedOrganization(updatedNotJoinedOrganization));
-  };
-};
-
-export const { getYourNotJoinedOrganizations, setYourNotJoinedOrganization } =
+export const { setYourNotJoinedOrganization, removeYourNotJoinedOrganization } =
   YourNotJoinedOrganizationSlice.actions;
 export default YourNotJoinedOrganizationSlice.reducer;

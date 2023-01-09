@@ -12,6 +12,7 @@ export default async function handler(req, res) {
             UserOrganizations: {
               some: {
                 userId: 1,
+                isApproved: true,
               },
             },
           },
