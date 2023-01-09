@@ -8,6 +8,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Events = () => {
+  let events = useSelector((state) => state.events);
+
   let user = useSelector((state) => state.user);
   user = user ? user : [];
 

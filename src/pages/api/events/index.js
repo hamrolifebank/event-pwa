@@ -11,10 +11,6 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        // const events = await prisma.event.findMany();
-
-        // res.status(200).json({ success: true, data: events });
-
         const allEvents = await axios.get(eventRegistrationUrl);
         console.log(allEvents);
         res.status(200).json(allEvents.data);
