@@ -117,7 +117,7 @@ const EventCard = ({ event }) => {
                       justifyContent="center"
                       sx={{ wordWrap: "inherit" }}
                     >
-                      {"publicAddress"}
+                      {event?.eventEthAddress}
                     </DialogContentText>
                   </Box>
                 </Container>
