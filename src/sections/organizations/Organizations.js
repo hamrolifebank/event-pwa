@@ -1,13 +1,20 @@
 import { Button, Card, Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import OrgCard from "./OrgCard";
 import { PrimaryButton } from "@components/button";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
+import { useDispatch } from "react-redux";
+import { initializeMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgReducer";
 
 export default function Organizations() {
   const { push } = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeMyJoinedOrganizations());
+  }, []);
 
   const handleJoin = () => {
     push(PATH_ORGANIZATION.joinOrg);
@@ -47,10 +54,8 @@ export default function Organizations() {
       >
         Your Organizations
       </Typography>
+
       <Grid container item xs={12} gap={0.6}>
-        <Grid item xs={5.9}>
-          <OrgCard />
-        </Grid>
         <Grid item xs={5.9}>
           <OrgCard />
         </Grid>

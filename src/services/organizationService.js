@@ -33,10 +33,16 @@ const join = async (organizationId) => {
   return joinedOrganization.data.data;
 };
 
+const getMyOrganizations = async () => {
+  const myOrganizations = await api.get("/organization/my-organizations");
+  return myOrganizations.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
   create,
   join,
   getMyNotJoinedOrganizations,
+  getMyOrganizations,
 };
