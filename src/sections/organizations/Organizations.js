@@ -1,16 +1,20 @@
-import { Button, Card, Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect } from "react";
-import OrgCard from "./OrgCard";
+import OrgCard from "../organization-cards/OrgCard";
 import { BorderlessButton, PrimaryButton } from "@components/button";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initializeMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgReducer";
 
 export default function Organizations() {
   const { push } = useRouter();
   const dispatch = useDispatch();
+
+  const [next, setNext] = React.useState(5);
+
+  const myOrganizations = useSelector((state) => state.myJoinedOrganizations);
 
   useEffect(() => {
     dispatch(initializeMyJoinedOrganizations());
@@ -31,8 +35,12 @@ export default function Organizations() {
     push(PATH_ORGANIZATION.yourPendingRequest);
   };
 
+  const loadMore = () => {
+    setNext(next + 10);
+  };
+
   return (
-    <Container>
+    <Container sx={{ mb: 3 }}>
       <PrimaryButton sx={{ mt: 2, mb: 2 }} onClick={handleCreate}>
         Create organization
       </PrimaryButton>
@@ -54,8 +62,19 @@ export default function Organizations() {
       >
         Your Organizations
       </Typography>
-
-      <OrgCard />
+      {myOrganizations?.slice(0, next)?.map((org) => (
+        <div key={org.id}>
+          <OrgCard org={org} />
+        </div>
+      ))}
+      {next < myOrganizations?.length && (
+        <BorderlessButton
+          sx={{ mt: 1, color: "error.dark" }}
+          onClick={loadMore}
+        >
+          Load more...
+        </BorderlessButton>
+      )}
     </Container>
   );
 }
