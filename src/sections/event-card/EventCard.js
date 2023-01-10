@@ -42,7 +42,7 @@ const EventCard = ({ event }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            HBL donor center
+            {event?.eventName}
           </Typography>
           <Typography
             sx={{
@@ -54,7 +54,7 @@ const EventCard = ({ event }) => {
             }}
           >
             <Icon icon="mdi:clock-time-eight-outline" />
-            20 Nov 2023
+            {event?.startTimeStamp}
           </Typography>
 
           <Typography
@@ -68,7 +68,7 @@ const EventCard = ({ event }) => {
             }}
           >
             <Icon icon="material-symbols:location-on" />
-            Shankhamul, Kathmandu
+            {event?.location}
           </Typography>
         </Box>
 
@@ -89,7 +89,7 @@ const EventCard = ({ event }) => {
               }}
             >
               <DialogTitle display="flex" justifyContent="center">
-                Event name
+                {event?.eventName}
               </DialogTitle>
               <DialogContent>
                 <Container>

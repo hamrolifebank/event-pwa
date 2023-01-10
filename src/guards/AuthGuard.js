@@ -1,8 +1,9 @@
+import { getAllEvents } from "@redux/reducers/eventReducer";
 import { PATH_AUTH } from "@routes/paths";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,11 @@ export default function AuthGuard({ children }) {
       push(PATH_AUTH.login);
     }
   }, []);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllEvents());
+  }, [dispatch]);
 
   if (!user) {
     if (pathname === PATH_AUTH.login) {

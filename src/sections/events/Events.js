@@ -9,9 +9,10 @@ import { useSelector } from "react-redux";
 
 const Events = () => {
   let events = useSelector((state) => state.events);
+  events = events ? events : [];
 
   let user = useSelector((state) => state.user);
-  user = user ? user : [];
+  user = user ? user : {};
 
   const { push } = useRouter();
   const createEventNavigator = () => {
@@ -38,7 +39,9 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      <EventCard user={user} />
+      {events.length !== 0
+        ? events.map((event) => <EventCard event={event} />)
+        : null}
     </Container>
   );
 };
