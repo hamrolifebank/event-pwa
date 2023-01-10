@@ -1,8 +1,6 @@
 import Page from "@components/Page";
 import DashboardLayout from "@layouts/dashboard";
 import { Card, Container } from "@mui/material";
-import { useEffect } from "react";
-import { ProfileContextProvider, useProfileContext } from "./context";
 import ProfileInfo from "./ProfileInfo";
 import ProfileMenu from "./ProfileMenuList";
 
@@ -14,15 +12,13 @@ Profile.getLayout = (page) => (
 
 export default function Profile() {
   return (
-    <ProfileContextProvider>
-      <Page title={PAGE_TITLE}>
-        <Container maxWidth={"xl"}>
-          <Card sx={{ p: 2 }}>
-            <ProfileInfo />
-            <ProfileMenu />
-          </Card>
-        </Container>
-      </Page>
-    </ProfileContextProvider>
+    <Page title={PAGE_TITLE}>
+      <Container maxWidth={"xl"}>
+        <Card sx={{ p: 2 }}>
+          <ProfileInfo />
+          <ProfileMenu />
+        </Card>
+      </Container>
+    </Page>
   );
 }
