@@ -15,7 +15,6 @@ const MyJoinedOrganizationSlice = createSlice({
 export const initializeMyJoinedOrganizations = () => {
   return async (dispatch) => {
     const data = await organizationService.getMyOrganizations();
-    console.log("reducer data", data);
     dispatch(setMyJoinedOrganization(data));
   };
 };
