@@ -11,7 +11,7 @@ const config = {
 };
 
 const getAll = async () => {
-  const organizations = await axois.get("/api/organization");
+  const organizations = await axios.get("/api/organization");
 
   return organizations.data.data;
 };
