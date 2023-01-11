@@ -5,6 +5,7 @@ import { EventCard } from "@sections/event-card";
 import React from "react";
 
 const UpcomingEvents = () => {
+  const events = useSelector((state) => state.events);
   return (
     <Container>
       <Typography
