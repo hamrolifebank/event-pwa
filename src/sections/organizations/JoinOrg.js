@@ -106,51 +106,6 @@ export default function JoinOrg() {
               >
                 JOIN
               </PrimaryButton>
-              <Modal
-                open={open.isOpen}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "80%",
-                    bgcolor: "background.paper",
-                    boxShadow: 30,
-                    p: 4,
-                  }}
-                >
-                  <Typography id="modal-title" variant="h6" component="h2">
-                    Are you sure you want to join{" "}
-                    <Typography
-                      sx={{
-                        color: "primary.main",
-                        fontWeight: "bold",
-                        display: "inline",
-                      }}
-                    >
-                      {open.org?.name}
-                    </Typography>
-                    ?
-                  </Typography>
-                  <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
-                    <PrimaryButton
-                      onClick={() => {
-                        handleJoin(open.org.id);
-                        handleClose();
-                      }}
-                    >
-                      Join
-                    </PrimaryButton>
-                    <SecondaryButton onClick={handleClose}>
-                      Cancel
-                    </SecondaryButton>
-                  </Stack>
-                </Box>
-              </Modal>
             </Grid>
           </Grid>
           <Typography sx={style} gap={2}>
@@ -165,6 +120,49 @@ export default function JoinOrg() {
           </Typography>
         </Card>
       ))}
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Are you sure you want to join{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              {open.org?.name}
+            </Typography>
+            ?
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
+            <PrimaryButton
+              onClick={() => {
+                handleJoin(open.org.id);
+                handleClose();
+              }}
+            >
+              Join
+            </PrimaryButton>
+            <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 }
