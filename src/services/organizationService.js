@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "./client";
 
 const getAll = async () => {
@@ -34,7 +35,7 @@ const join = async (organizationId) => {
 };
 
 const getMyOrganizations = async () => {
-  const myOrganizations = await api.get("/organization/my-organizations");
+  const myOrganizations = await axios.get("/api/organization/my-organizations");
   return myOrganizations.data.data;
 };
 
