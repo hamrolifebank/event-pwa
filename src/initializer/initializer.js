@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { getAllEvents } from "@redux/reducers/eventReducer";
+import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 
 export default function Initializer({ children }) {
   const dispatch = useDispatch();
@@ -10,8 +11,8 @@ export default function Initializer({ children }) {
   useEffect(() => {
     if (user) {
       dispatch(getAllEvents());
-      dispatch(initializeYourNotJoinedOrganizations());
+      dispatch(initializeOrganizations());
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
   return <>{children}</>;
 }
