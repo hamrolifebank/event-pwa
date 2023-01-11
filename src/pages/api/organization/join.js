@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import withTokenExtractor from "@middleware/withTokenExtractor";
 
 const prisma = new PrismaClient({ log: ["query"] });
-export default async function handler(req, res) {
+async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
@@ -10,7 +11,7 @@ export default async function handler(req, res) {
         const newUserOrganization = await prisma.UserOrganization.create({
           data: {
             user: {
-              connect: { id: 1 },
+              connect: { id: req.user.id },
             },
             organization: {
               connect: { id: Number(req.body.organizationId) },
@@ -27,3 +28,5 @@ export default async function handler(req, res) {
       }
   }
 }
+
+export default withTokenExtractor(handler);

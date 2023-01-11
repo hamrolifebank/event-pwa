@@ -12,6 +12,9 @@ export const setCurrentUser = (value) => {
   localData.setInStorage("user", value);
 };
 
+export const getUserFromLocal = () =>
+  typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) : "";
+
 export const setPublicKey = (value) => {
   localData.setInStorage("publicKey", value);
 };
