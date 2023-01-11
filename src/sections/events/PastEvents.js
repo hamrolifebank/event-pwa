@@ -3,8 +3,10 @@ import { Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import { EventCard } from "@sections/event-card";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const PastEvents = () => {
+  const events = useSelector((state) => state.events);
   return (
     <Container>
       <Typography
@@ -16,9 +18,6 @@ const PastEvents = () => {
       >
         PAST EVENTS
       </Typography>
-      <EventCard />
-      <EventCard />
-      <EventCard />
       <EventCard />
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
