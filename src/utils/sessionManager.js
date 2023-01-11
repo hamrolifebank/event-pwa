@@ -41,6 +41,10 @@ export const getWallet = () => {
   return localData.getFromStorage("wallet");
 };
 
+export const getUserFromLocal = () => {
+  return typeof window !== "undefined" ? localStorage.getItem("user") : "";
+};
+
 export const deletePublicAddressLocal = () =>
   typeof window !== "undefined" ? localStorage.removeItem("publicKey") : "";
 
