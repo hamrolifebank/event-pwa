@@ -35,9 +35,11 @@ export default function MyApp(props) {
       <Provider store={store}>
         <SettingsProvider>
           <ThemeProvider>
-            <Initializer>
-              <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard>
-            </Initializer>
+            <AuthGuard>
+              <Initializer>
+                {getLayout(<Component {...pageProps} />)}
+              </Initializer>
+            </AuthGuard>
           </ThemeProvider>
         </SettingsProvider>
       </Provider>

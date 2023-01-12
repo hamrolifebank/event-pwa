@@ -42,7 +42,7 @@ const EventCard = ({ event }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            HBL donor center
+            {event?.eventName}
           </Typography>
           <Typography
             sx={{
@@ -54,7 +54,7 @@ const EventCard = ({ event }) => {
             }}
           >
             <Icon icon="mdi:clock-time-eight-outline" />
-            20 Nov 2023
+            {new Date(event?.startTimeStamp).toLocaleDateString()}
           </Typography>
 
           <Typography
@@ -68,11 +68,11 @@ const EventCard = ({ event }) => {
             }}
           >
             <Icon icon="material-symbols:location-on" />
-            Shankhamul, Kathmandu
+            {event?.location}
           </Typography>
         </Box>
 
-        {new Date("2023/09/12").getTime() > currentDate.getTime() ? (
+        {new Date(event?.endTimeStamp) >= currentDate ? (
           <Box>
             <Button
               aria-describedby="QR code"
