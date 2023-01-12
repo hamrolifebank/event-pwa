@@ -1,16 +1,19 @@
 import axios from "axios";
 import { getUserFromLocal } from "@utils/sessionManager";
 
-const token = getUserFromLocal();
+const getHeader = () => {
+  const token = getUserFromLocal();
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return config;
 };
 
 const getAll = async () => {
-  const organizations = await axios.get("/api/organization");
+  const organizations = await axios.get("/api/organization", getHeader());
 
   return organizations.data.data;
 };
@@ -18,7 +21,7 @@ const getAll = async () => {
 const getMyPendingRequests = async () => {
   const myPendingRequests = await axios.get(
     "/api/organization/my-pendingrequests",
-    config
+    getHeader()
   );
 
   return myPendingRequests.data.data;
@@ -27,7 +30,7 @@ const getMyPendingRequests = async () => {
 const getMyNotJoinedOrganizations = async () => {
   const myNotJoinedOrganizations = await axios.get(
     "/api/organization/my-notjoinedorg",
-    config
+    getHeader()
   );
   return myNotJoinedOrganizations.data.data;
 };
@@ -36,7 +39,7 @@ const create = async (organization) => {
   const newOrganization = await axios.post(
     "/api/organization",
     organization,
-    config
+    getHeader()
   );
 
   return newOrganization.data.data;
@@ -48,7 +51,7 @@ const join = async (organizationId) => {
     {
       organizationId,
     },
-    config
+    getHeader()
   );
 
   return joinedOrganization.data.data;
@@ -57,7 +60,7 @@ const join = async (organizationId) => {
 const getMyOrganizations = async () => {
   const myOrganizations = await axios.get(
     "/api/organization/my-organizations",
-    config
+    getHeader()
   );
   return myOrganizations.data.data;
 };
