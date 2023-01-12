@@ -14,7 +14,7 @@ import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
 
-const EventCard = ({ event }) => {
+const EventCard = ({ user, event }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
@@ -104,7 +104,7 @@ const EventCard = ({ event }) => {
                     <Box display="flex" justifyContent="center">
                       <QRCode
                         title="Event QR-code"
-                        value={`event.eventEthAddress`}
+                        value={`${event?.eventEthAddress}`}
                         level="M"
                         bgColor={"#FFFFFF"}
                         fgColor={"#000000"}
@@ -115,9 +115,9 @@ const EventCard = ({ event }) => {
                     <DialogContentText
                       display="flex"
                       justifyContent="center"
-                      sx={{ wordWrap: "inherit" }}
+                      sx={{ wordWrap: "inherit", pt: 2 }}
                     >
-                      {"publicAddress"}
+                      `${event?.eventEthAddress}`
                     </DialogContentText>
                   </Box>
                 </Container>
