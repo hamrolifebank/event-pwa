@@ -6,11 +6,6 @@ import {
   Button,
   Checkbox,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   FormControlLabel,
   InputAdornment,
@@ -156,7 +151,7 @@ const OrganizationCreateForm = () => {
             width: "80%",
             bgcolor: "background.paper",
             boxShadow: 30,
-            borderRadius: 4,
+            borderRadius: 2,
             p: 4,
           }}
         >
