@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { m } from "framer-motion";
-// @mui
-import { alpha, styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
-//
-import Logo from "./Logo";
 
-// ----------------------------------------------------------------------
+import { styled } from "@mui/material/styles";
+import { CircularProgress } from "@mui/material";
+
+import React from "react";
+import Image from "next/image";
 
 const RootStyle = styled("div")(({ theme }) => ({
   right: 0,
@@ -21,16 +20,14 @@ const RootStyle = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
-// ----------------------------------------------------------------------
-
-LoadingScreen.propTypes = {
+NewLoadingScreen.propTypes = {
   isDashboard: PropTypes.bool,
 };
 
-export default function LoadingScreen({ isDashboard, ...other }) {
+export default function NewLoadingScreen({ ...other }) {
   return (
     <>
-      {!isDashboard && (
+      {
         <RootStyle {...other}>
           <m.div
             animate={{
@@ -42,53 +39,18 @@ export default function LoadingScreen({ isDashboard, ...other }) {
               ease: "easeInOut",
               repeatDelay: 1,
               repeat: Infinity,
-            }}>
-            <Logo disabledLink sx={{ width: 64, height: 64 }} />
+            }}
+          >
+            <Image
+              src="/assets/images/loading.png"
+              alt="Loading..."
+              width={240}
+              height={163}
+            ></Image>
           </m.div>
-
-          <Box
-            component={m.div}
-            animate={{
-              scale: [1.2, 1, 1, 1.2, 1.2],
-              rotate: [270, 0, 0, 270, 270],
-              opacity: [0.25, 1, 1, 1, 0.25],
-              borderRadius: ["25%", "25%", "50%", "50%", "25%"],
-            }}
-            transition={{ ease: "linear", duration: 3.2, repeat: Infinity }}
-            sx={{
-              width: 100,
-              height: 100,
-              borderRadius: "25%",
-              position: "absolute",
-              border: (theme) =>
-                `solid 3px ${alpha(theme.palette.primary.dark, 0.24)}`,
-            }}
-          />
-
-          <Box
-            component={m.div}
-            animate={{
-              scale: [1, 1.2, 1.2, 1, 1],
-              rotate: [0, 270, 270, 0, 0],
-              opacity: [1, 0.25, 0.25, 0.25, 1],
-              borderRadius: ["25%", "25%", "50%", "50%", "25%"],
-            }}
-            transition={{
-              ease: "linear",
-              duration: 3.2,
-              repeat: Infinity,
-            }}
-            sx={{
-              width: 120,
-              height: 120,
-              borderRadius: "25%",
-              position: "absolute",
-              border: (theme) =>
-                `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`,
-            }}
-          />
+          <CircularProgress />
         </RootStyle>
-      )}
+      }
     </>
   );
 }
