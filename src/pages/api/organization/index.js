@@ -32,7 +32,7 @@ async function handler(req, res) {
         const newUserOrganization = await prisma.UserOrganization.create({
           data: {
             user: {
-              connect: { id: req.user.id },
+              connect: { id: Number(req.user.id) },
             },
             organization: {
               connect: { id: Number(organization.id) },
