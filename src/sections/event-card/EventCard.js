@@ -54,7 +54,10 @@ const EventCard = ({ user, event }) => {
             }}
           >
             <Icon icon="mdi:clock-time-eight-outline" />
-            {new Date(event?.startTimeStamp).toLocaleDateString()}
+            {new Date(event?.startTimeStamp).toLocaleDateString("en-US", {
+              month: "short",
+              day: "2-digit",
+            })}
           </Typography>
 
           <Typography
@@ -89,7 +92,7 @@ const EventCard = ({ user, event }) => {
               }}
             >
               <DialogTitle display="flex" justifyContent="center">
-                Event name
+                {event?.eventName}
               </DialogTitle>
               <DialogContent>
                 <Container>
@@ -117,7 +120,7 @@ const EventCard = ({ user, event }) => {
                       justifyContent="center"
                       sx={{ wordWrap: "inherit", pt: 2 }}
                     >
-                      `${event?.eventEthAddress}`
+                      {`${event?.eventEthAddress}`}
                     </DialogContentText>
                   </Box>
                 </Container>

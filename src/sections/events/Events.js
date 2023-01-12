@@ -3,13 +3,13 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { PATH_EVENTS } from "@routes/paths";
 import EventCard from "@sections/event-card/EventCard";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
 const Events = () => {
   let events = useSelector((state) => state.events);
-
   let user = useSelector((state) => state.user);
   user = user ? user : [];
 
@@ -38,7 +38,15 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      <EventCard user={user} />
+      {events.map((event) => (
+        <Link
+          href={`/event/${event.id}`}
+          style={{ textDecoration: "none" }}
+          key={event.id}
+        >
+          <EventCard user={user} event={event} />
+        </Link>
+      ))}
     </Container>
   );
 };
