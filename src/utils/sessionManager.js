@@ -12,6 +12,10 @@ export const setCurrentUser = (value) => {
   localData.setInStorage("user", value);
 };
 
+export const setUserImg = (value) => {
+  localData.setInStorage("userimg", value);
+};
+
 export const setPublicKey = (value) => {
   localData.setInStorage("publicKey", value);
 };
