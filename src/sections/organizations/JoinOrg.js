@@ -17,7 +17,7 @@ import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import { useDispatch, useSelector } from "react-redux";
-
+import LoadingScreen from "@components/LoadingScreen";
 import { joinOrganization } from "@redux/reducers/yourPendingRequestReducer";
 
 import {
@@ -26,6 +26,7 @@ import {
 } from "@redux/reducers/myNotJoinedOrgReducer";
 
 export default function JoinOrg() {
+  const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState("");
   const [open, setOpen] = React.useState({ isOpen: false, org: null });
 
@@ -35,8 +36,21 @@ export default function JoinOrg() {
   const { push } = useRouter();
 
   useEffect(() => {
-    dispatch(initializeYourNotJoinedOrganizations());
+    const initialize = async () => {
+      await dispatch(initializeYourNotJoinedOrganizations());
+      setIsLoading(false);
+    };
+
+    initialize();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!notJoinedOrg.length)
+    return <div>There is no organization to be joined..</div>;
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
@@ -54,8 +68,6 @@ export default function JoinOrg() {
   };
 
   const style = { display: "flex", alignItems: "center", flexWrap: "wrap" };
-
-  if (!notJoinedOrg || !notJoinedOrg.length) return null; // loading screen can be returned here
 
   const filteredList = notJoinedOrg.filter((list) => {
     if (input === "") {
@@ -106,51 +118,6 @@ export default function JoinOrg() {
               >
                 JOIN
               </PrimaryButton>
-              <Modal
-                open={open.isOpen}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "80%",
-                    bgcolor: "background.paper",
-                    boxShadow: 30,
-                    p: 4,
-                  }}
-                >
-                  <Typography id="modal-title" variant="h6" component="h2">
-                    Are you sure you want to join{" "}
-                    <Typography
-                      sx={{
-                        color: "primary.main",
-                        fontWeight: "bold",
-                        display: "inline",
-                      }}
-                    >
-                      {open.org?.name}
-                    </Typography>
-                    ?
-                  </Typography>
-                  <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
-                    <PrimaryButton
-                      onClick={() => {
-                        handleJoin(open.org.id);
-                        handleClose();
-                      }}
-                    >
-                      Join
-                    </PrimaryButton>
-                    <SecondaryButton onClick={handleClose}>
-                      Cancel
-                    </SecondaryButton>
-                  </Stack>
-                </Box>
-              </Modal>
             </Grid>
           </Grid>
           <Typography sx={style} gap={2}>
@@ -165,6 +132,49 @@ export default function JoinOrg() {
           </Typography>
         </Card>
       ))}
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Are you sure you want to join{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              {open.org?.name}
+            </Typography>
+            ?
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
+            <PrimaryButton
+              onClick={() => {
+                handleJoin(open.org.id);
+                handleClose();
+              }}
+            >
+              Join
+            </PrimaryButton>
+            <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 }

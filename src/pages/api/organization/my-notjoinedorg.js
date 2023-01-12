@@ -1,7 +1,8 @@
+import withTokenExtractor from "@middleware/withTokenExtractor";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({ log: ["query"] });
-export default async function handler(req, res) {
+async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
           await prisma.$queryRaw`select * from "Organization" as "o"
        where "o"."id" not in (
           select distinct "uo"."organizationId" from  "UserOrganization" as "uo" 
-          where "uo"."userId" = 1);
+          where "uo"."userId" = ${Number(req.user.id)});
       `;
         res.status(200).json({ success: true, data: notJoinedOrganization });
       } catch (error) {
@@ -19,3 +20,5 @@ export default async function handler(req, res) {
       }
   }
 }
+
+export default withTokenExtractor(handler);

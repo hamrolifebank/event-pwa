@@ -15,7 +15,8 @@
       "@contexts/*": ["src/contexts/*"],
       "@guards/*": ["src/guards/*"],
       "@redux/*": ["src/redux/*"],
-      "@initializer/*": ["src/initializer/*"]
+      "@initializer/*": ["src/initializer/*"],
+      "@middleware/*": ["src/middleware/*"]
     }
   },
   "include": ["src/**/*"],

@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import localData from "./localData";
 
-export const getCurrentUser = () => {
+export const getUserFromLocal = () => {
   let user = null;
   const data = localData.getFromStorage("user");
   if (data) user = data;
