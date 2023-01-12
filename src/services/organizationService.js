@@ -57,10 +57,19 @@ const join = async (organizationId) => {
   return joinedOrganization.data.data;
 };
 
+const getMyOrganizations = async () => {
+  const myOrganizations = await axios.get(
+    "/api/organization/my-organizations",
+    config
+  );
+  return myOrganizations.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
   create,
   join,
   getMyNotJoinedOrganizations,
+  getMyOrganizations,
 };
