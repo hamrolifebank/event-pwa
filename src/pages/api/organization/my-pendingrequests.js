@@ -1,7 +1,8 @@
+import withTokenExtractor from "@middleware/withTokenExtractor";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({ log: ["query"] });
-export default async function handler(req, res) {
+async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
           where: {
             UserOrganizations: {
               some: {
-                userId: 1,
+                userId: req.user.id,
                 isApproved: false,
               },
             },
@@ -23,3 +24,5 @@ export default async function handler(req, res) {
       }
   }
 }
+
+export default withTokenExtractor(handler);
