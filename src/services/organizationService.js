@@ -1,4 +1,4 @@
-import api from "./client";
+
 import axios from "axios";
 import { getUserFromLocal } from "@utils/sessionManager";
 
