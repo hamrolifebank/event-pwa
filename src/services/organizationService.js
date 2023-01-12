@@ -60,7 +60,7 @@ const join = async (organizationId) => {
 const getMyOrganizations = async () => {
   const myOrganizations = await axios.get(
     "/api/organization/my-organizations",
-    config
+    getHeader()
   );
   return myOrganizations.data.data;
 };
