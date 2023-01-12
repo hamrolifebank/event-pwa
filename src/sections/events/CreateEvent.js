@@ -178,7 +178,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Target"
-            type="text"
+            type="number"
             name="noOfTarget"
             value={field.noOfTarget}
             onChange={handleInput}
@@ -208,7 +208,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Latitude"
-            type="text"
+            type="number"
             name="latitude"
             value={field.latitude}
             onChange={handleInput}
@@ -223,7 +223,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Longitude"
-            type="text"
+            type="number"
             name="longitude"
             value={field.longitude}
             onChange={handleInput}
