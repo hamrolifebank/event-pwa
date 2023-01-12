@@ -1,4 +1,4 @@
-import api from "./client";
+
 import axios from "axios";
 
 const getAll = async () => {
