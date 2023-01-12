@@ -90,8 +90,6 @@ const OrganizationCreateForm = () => {
     };
 
     await dispatch(addOrganization(newOrganization));
-
-    push("/organization");
   };
 
   return (
@@ -135,7 +133,7 @@ const OrganizationCreateForm = () => {
           }
           label="Is Blood Bank?"
         />
-        <PrimaryButton type="submit" onClick={handleOpen}>
+        <PrimaryButton type="submit" onClick={() => handleOpen(field)}>
           submit
         </PrimaryButton>
 
@@ -158,6 +156,7 @@ const OrganizationCreateForm = () => {
             width: "80%",
             bgcolor: "background.paper",
             boxShadow: 30,
+            borderRadius: 4,
             p: 4,
           }}
         >
@@ -175,7 +174,14 @@ const OrganizationCreateForm = () => {
             has been created successfully!
           </Typography>
           <Stack id="modal-description" sx={{ mt: 2 }}>
-            <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+            <SecondaryButton
+              onClick={() => {
+                handleClose();
+                push("/organization");
+              }}
+            >
+              ok
+            </SecondaryButton>
           </Stack>
         </Box>
       </Modal>
