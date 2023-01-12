@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import localData from "./localData";
 
-export const getCurrentUser = () => {
+export const getUserFromLocal = () => {
   let user = null;
   const data = localData.getFromStorage("user");
   if (data) user = data;
@@ -11,9 +11,6 @@ export const getCurrentUser = () => {
 export const setCurrentUser = (value) => {
   localData.setInStorage("user", value);
 };
-
-export const getUserFromLocal = () =>
-  typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) : "";
 
 export const setPublicKey = (value) => {
   localData.setInStorage("publicKey", value);
