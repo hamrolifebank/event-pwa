@@ -12,7 +12,7 @@ async function handler(req, res) {
           await prisma.$queryRaw`select * from "Organization" as "o"
        where "o"."id" not in (
           select distinct "uo"."organizationId" from  "UserOrganization" as "uo" 
-          where "uo"."userId" = ${req.user.id});
+          where "uo"."userId" = ${Number(req.user.id)});
       `;
         res.status(200).json({ success: true, data: notJoinedOrganization });
       } catch (error) {

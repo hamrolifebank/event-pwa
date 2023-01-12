@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { getUserFromLocal } from "@utils/sessionManager";
 
@@ -11,7 +10,7 @@ const config = {
 };
 
 const getAll = async () => {
-  const organizations = await axios.get("/api/organization");
+  const organizations = await axios.get("/api/organization", config);
 
   return organizations.data.data;
 };
