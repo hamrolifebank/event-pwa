@@ -1,14 +1,18 @@
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
 import { getAllEvents } from "@redux/reducers/eventReducer";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 
-const Initializer = ({ children }) => {
+export default function Initializer({ children }) {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(getAllEvents());
-  }, [dispatch]);
+    if (user) {
+      dispatch(getAllEvents());
+      dispatch(initializeOrganizations());
+    }
+  }, [dispatch, user]);
   return <>{children}</>;
-};
-
-export default Initializer;
+}

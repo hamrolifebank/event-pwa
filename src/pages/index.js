@@ -8,7 +8,6 @@ Home.getLayout = (page) => (
     {page}
   </DashboardLayoutwithFooter>
 );
-
 export default function Home() {
   return (
     <Page title={PAGE_TITLE}>

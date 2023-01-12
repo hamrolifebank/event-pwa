@@ -54,7 +54,7 @@ const EventCard = ({ event }) => {
             }}
           >
             <Icon icon="mdi:clock-time-eight-outline" />
-            {event?.startTimeStamp}
+            {new Date(event?.startTimeStamp).toLocaleDateString()}
           </Typography>
 
           <Typography
@@ -72,7 +72,7 @@ const EventCard = ({ event }) => {
           </Typography>
         </Box>
 
-        {new Date("2023/09/12").getTime() > currentDate.getTime() ? (
+        {new Date(event?.endTimeStamp) >= currentDate ? (
           <Box>
             <Button
               aria-describedby="QR code"
