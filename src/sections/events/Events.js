@@ -6,7 +6,6 @@ import EventCard from "@sections/event-card/EventCard";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
-import moment from "moment";
 
 const Events = () => {
   let events = useSelector((state) => state.events);
