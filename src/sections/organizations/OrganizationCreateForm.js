@@ -6,10 +6,15 @@ import {
   Button,
   Checkbox,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
-  dividerClasses,
   FormControlLabel,
   InputAdornment,
+  Modal,
   Stack,
   TextField,
   Typography,
@@ -22,6 +27,11 @@ import { useDispatch } from "react-redux";
 const OrganizationCreateForm = () => {
   const dispatch = useDispatch();
   const { push } = useRouter();
+
+  const [open, setOpen] = useState({ isOpen: false, field: null });
+  const handleOpen = (field) => setOpen({ isOpen: true, field: field });
+  const handleClose = () => setOpen({ isOpen: false, field: null });
+
   const [field, setField] = useState({
     name: "",
     email: "",
@@ -125,12 +135,50 @@ const OrganizationCreateForm = () => {
           }
           label="Is Blood Bank?"
         />
+        <PrimaryButton type="submit" onClick={handleOpen}>
+          submit
+        </PrimaryButton>
 
-        <PrimaryButton type="submit">submit</PrimaryButton>
         <SecondaryButton onClick={() => push("/organization")}>
           cancel
         </SecondaryButton>
       </Stack>
+
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            New organization{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              `{field?.name}`
+            </Typography>{" "}
+            has been created successfully!
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }}>
+            <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 };
