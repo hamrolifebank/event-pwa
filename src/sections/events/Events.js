@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { BorderlessButton, PrimaryButton } from "@components/button";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { PATH_EVENTS } from "@routes/paths";
 import EventCard from "@sections/event-card/EventCard";
@@ -9,18 +9,12 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 const Events = () => {
-  const date = moment(new Date()).format("YYYY/MM/DD");
   let events = useSelector((state) => state.events);
+  const currentDate = new Date();
 
-  const upcomingEvents = [];
-
-  events.length !== 0
-    ? events.map((event) =>
-        moment(event.startTimeStamp).format("YYYY/MM/DD") > date
-          ? upcomingEvents.push(event)
-          : []
-      )
-    : null;
+  const filteredUpcomingEvents = events?.filter(
+    (event) => new Date(event.endTimeStamp) >= currentDate
+  );
 
   let user = useSelector((state) => state.user);
   user = user ? user : {};
@@ -50,9 +44,15 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      {upcomingEvents.length !== 0
-        ? upcomingEvents.map((event) => <EventCard event={event} />)
+      {filteredUpcomingEvents.length !== 0
+        ? filteredUpcomingEvents.map((event) => <EventCard event={event} />)
         : null}
+
+      <Box>
+        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
+          Load More Events
+        </BorderlessButton>
+      </Box>
     </Container>
   );
 };
