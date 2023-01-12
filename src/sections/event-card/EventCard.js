@@ -72,7 +72,7 @@ const EventCard = ({ event }) => {
           </Typography>
         </Box>
 
-        {new Date(event?.endTimeStamp) > currentDate ? (
+        {new Date(event?.endTimeStamp) >= currentDate ? (
           <Box>
             <Button
               aria-describedby="QR code"

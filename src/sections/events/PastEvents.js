@@ -27,7 +27,7 @@ const PastEvents = () => {
           <EventCard key={event.id} event={event} />
         ))
       ) : (
-        <Typography variant="h5">
+        <Typography variant="h6" textAlign="center">
           There are no past events available.
         </Typography>
       )}
