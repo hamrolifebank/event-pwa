@@ -15,24 +15,12 @@ import ApprovePendingReqCard from "@sections/event-card/ApprovePendingReqCard";
 
 const ApprovePendingRequest = () => {
   const [input, setInput] = React.useState("");
-  const [next, setNext] = React.useState(10);
   const router = useRouter();
-
-  const loadMore = () => {
-    setNext(next + 10);
-  };
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
-  let org = [];
-  const filteredList = org.filter((list) => {
-    if (input === "") {
-      return list;
-    } else {
-      return list.label.toLowerCase().includes(input);
-    }
-  });
+
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
@@ -45,11 +33,9 @@ const ApprovePendingRequest = () => {
           </Typography>
         </Grid>
       </Grid>
-
       <Autocomplete
         disablePortal
         id="filter-box"
-        options={org.map((list) => list.label)}
         fullWidth
         sx={{ mt: 2 }}
         renderInput={(params) => (
@@ -61,18 +47,16 @@ const ApprovePendingRequest = () => {
       />
 
       <Stack spacing={1} mt={2}>
-        {/* {filteredList?.slice(0,next)?.map((list)=>.....)} */}
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
         <ApprovePendingReqCard />
       </Stack>
-      {/* {next < org?.length && ( */}
-      <BorderlessButton sx={{ mt: 1, color: "error.dark" }} onClick={loadMore}>
+
+      <BorderlessButton sx={{ mt: 1, color: "error.dark" }}>
         Load more...
       </BorderlessButton>
-      {/* )} */}
     </Container>
   );
 };
