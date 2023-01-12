@@ -65,6 +65,15 @@ const getMyOrganizations = async () => {
   return myOrganizations.data.data;
 };
 
+const getMyApproveRequests = async () => {
+  const myApproveRequests = await axios.get(
+    "/api/organization/my-approve-requests",
+    getHeader()
+  );
+
+  return myApproveRequests.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
@@ -72,4 +81,5 @@ export default {
   join,
   getMyNotJoinedOrganizations,
   getMyOrganizations,
+  getMyApproveRequests,
 };

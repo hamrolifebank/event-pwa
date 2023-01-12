@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import { Stack } from "@mui/system";
 
-const ApprovePendingReqCard = () => {
+const ApprovePendingReqCard = ({ requests }) => {
   const theme = useTheme();
 
   return (
@@ -30,10 +30,10 @@ const ApprovePendingReqCard = () => {
                 lineHeight: "subtitle1.lineHeight",
               }}
             >
-              Sarita Tamang
+              {requests.user.firstname} {requests.user.lastname}
             </Typography>
             <Chip
-              label=" Nepal Red Cross"
+              label={requests.organization.name}
               icon={
                 <Icon
                   icon="ic:sharp-verified"
@@ -53,21 +53,23 @@ const ApprovePendingReqCard = () => {
               }}
             >
               <Icon icon="ic:outline-email" />
-              saritatmg123@gmail.com
+              {requests.user.email}
             </Typography>
 
-            <Typography
-              sx={{
-                fontSize: "subtitle2.fontSize",
-                color: "grey.600",
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-              }}
-            >
-              <Icon icon="material-symbols:call-outline-sharp" />
-              +977 9825543621
-            </Typography>
+            {requests.user.phone && (
+              <Typography
+                sx={{
+                  fontSize: "subtitle2.fontSize",
+                  color: "grey.600",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                }}
+              >
+                <Icon icon="material-symbols:call-outline-sharp" />
+                {requests.user.phone}
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={3}>
             <Stack spacing={1}>
