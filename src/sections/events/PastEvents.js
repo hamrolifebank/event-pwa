@@ -7,6 +7,10 @@ import { useSelector } from "react-redux";
 
 const PastEvents = () => {
   const events = useSelector((state) => state.events);
+  const currentDate = new Date();
+  const filteredPastEvents = events?.filter(
+    (event) => new Date(event.endTimeStamp) < currentDate
+  );
   return (
     <Container>
       <Typography
@@ -18,7 +22,16 @@ const PastEvents = () => {
       >
         PAST EVENTS
       </Typography>
-      <EventCard />
+      {filteredPastEvents.length >= 1 ? (
+        filteredPastEvents.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))
+      ) : (
+        <Typography variant="h5">
+          There are no past events available.
+        </Typography>
+      )}
+
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
           Load More Events
