@@ -19,7 +19,10 @@ import library from "@utils/wallet";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+  const { id } = query;
+  console.log(" id: ", id);
+
   const dispatch = useDispatch();
 
   let user = useSelector((state) => state.user);

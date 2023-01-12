@@ -3,9 +3,9 @@ import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
 import { Grid, Modal, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { PATH_ORGANIZATION } from "@routes/paths";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
@@ -27,7 +27,7 @@ const OrganizationDetail = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ mb: 4 }}>
       <Box
         sx={{
           display: "flex",
@@ -79,7 +79,9 @@ const OrganizationDetail = () => {
       </Grid>
 
       <Stack spacing={2} sx={{ mt: 2 }}>
-        <PrimaryButton>Create event</PrimaryButton>
+        <PrimaryButton onClick={(id) => push(`${asPath}/create-events`)}>
+          Create event
+        </PrimaryButton>
         <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>
