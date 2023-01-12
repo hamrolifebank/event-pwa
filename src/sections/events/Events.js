@@ -6,10 +6,21 @@ import EventCard from "@sections/event-card/EventCard";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const Events = () => {
+  const date = moment(new Date()).format("YYYY/MM/DD");
   let events = useSelector((state) => state.events);
-  events = events ? events : [];
+
+  const upcomingEvents = [];
+
+  events.length !== 0
+    ? events.map((event) =>
+        moment(event.startTimeStamp).format("YYYY/MM/DD") > date
+          ? upcomingEvents.push(event)
+          : []
+      )
+    : null;
 
   let user = useSelector((state) => state.user);
   user = user ? user : {};
@@ -39,8 +50,8 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      {events.length !== 0
-        ? events.map((event) => <EventCard event={event} />)
+      {upcomingEvents.length !== 0
+        ? upcomingEvents.map((event) => <EventCard event={event} />)
         : null}
     </Container>
   );
