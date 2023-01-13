@@ -20,6 +20,7 @@ export const { appendEvent, setEvents } = eventSlice.actions;
 export const createEvent = (event) => {
   return async (dispatch) => {
     const result = await eventService.create(event);
+    console.log(result);
 
     await dispatch(appendEvent(result));
   };
