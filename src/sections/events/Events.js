@@ -16,9 +16,6 @@ const Events = () => {
     (event) => new Date(event.endTimeStamp) >= currentDate
   );
 
-  let user = useSelector((state) => state.user);
-  user = user ? user : {};
-
   const { push } = useRouter();
   const createEventNavigator = () => {
     push(PATH_EVENTS.createEvent);
