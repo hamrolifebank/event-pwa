@@ -10,11 +10,7 @@ async function handler(req, res) {
       try {
         const member = await prisma.UserOrganization.findMany({
           where: {
-            AND: [
-              { userId: req.user.id },
-              { organizationId: req.body.organizationId },
-              { isApproved: true },
-            ],
+            AND: [{ organizationId: 2 }, { isApproved: true }],
           },
           include: { user: true },
         });
