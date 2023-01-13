@@ -17,6 +17,7 @@ export default function AuthGuard({ children }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { pathname, push } = useRouter();
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       let user = localStorage.getItem("user");
