@@ -210,7 +210,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Latitude"
-            type="text"
+            type="number"
             name="latitude"
             value={field.latitude}
             onChange={handleInput}

@@ -69,9 +69,9 @@ export default async function handler(req, res) {
           }
         );
 
-        res.status(201).json(registeredEvent.data);
+        res.status(201).json(registeredEvent);
       } catch (error) {
-        res.status(400).json(error.message);
+        res.status(400).json(error);
       }
       break;
     default:
