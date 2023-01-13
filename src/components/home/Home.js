@@ -12,8 +12,13 @@ import { checkUserwithtoken } from "@services/createUser";
 import { LoginwithToken } from "@redux/reducers/userReducer";
 
 const Home = () => {
-  const dispatch = useDispatch();
   let user = useSelector((state) => state.user);
+  let events = useSelector((state) => state.events);
+  const currentDate = new Date();
+
+  let requiredEvents = events
+    ?.filter((event) => new Date(event.endTimeStamp) >= currentDate)
+    .slice(0, 3);
   user = user
     ? user
     : {
@@ -76,7 +81,16 @@ const Home = () => {
       >
         Your upcoming events
       </Typography>
-      <EventCard user={user} />
+      {requiredEvents.map((event) => (
+        <Link
+          href={`/event/${event.id}`}
+          style={{ textDecoration: "none" }}
+          key={event.id}
+        >
+          <EventCard user={user} event={event} />
+        </Link>
+      ))}
+
       <Link
         variant="h6"
         component="h2"
