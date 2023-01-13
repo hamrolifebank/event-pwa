@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 const Events = () => {
   let events = useSelector((state) => state.events);
   const currentDate = new Date();
+  const num = 3;
 
   const filteredUpcomingEvents = events?.filter(
     (event) => new Date(event.endTimeStamp) >= currentDate
@@ -44,13 +45,16 @@ const Events = () => {
         UPCOMING EVENTS
       </Typography>
       {filteredUpcomingEvents.length !== 0
-        ? filteredUpcomingEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))
+        ? filteredUpcomingEvents
+            .slice(0, 2)
+            .map((event) => <EventCard key={event.id} event={event} />)
         : null}
 
       <Box>
-        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
+        <BorderlessButton
+          onClick={upcomingEventNavigator}
+          sx={{ mt: 2, mb: 2, color: "secondary.main" }}
+        >
           Load More Events
         </BorderlessButton>
       </Box>
