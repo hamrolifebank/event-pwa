@@ -8,6 +8,7 @@ import { checkUser, createUser, googleDrive } from "@services/createUser";
 import { useDispatch } from "react-redux";
 import { storeUser } from "@redux/reducers/userReducer";
 import library from "@utils/wallet";
+import { setUserImg } from "@utils/sessionManager";
 
 export default function LoginPage() {
   const theme = useTheme();
@@ -25,8 +26,10 @@ export default function LoginPage() {
 
   const handlecallbackresponse = async (response) => {
     let subscribedUser = await checkUser(response.credential);
+    let userimg = jwtDecode(response.credential).picture;
     if (subscribedUser) {
       dispatch(storeUser(subscribedUser));
+      setUserImg(userimg);
       router.push("/");
     } else {
       let decodeddata = jwtDecode(response.credential);
@@ -39,6 +42,7 @@ export default function LoginPage() {
       };
       let newuser = await createUser(userTabledata, response.credential);
       dispatch(storeUser(newuser));
+      setUserImg(userimg);
       await uploadDrive();
     }
   };

@@ -89,7 +89,7 @@ const EventCard = ({ event }) => {
               }}
             >
               <DialogTitle display="flex" justifyContent="center">
-                Event name
+                {event?.eventName}
               </DialogTitle>
               <DialogContent>
                 <Container>
@@ -117,7 +117,7 @@ const EventCard = ({ event }) => {
                       justifyContent="center"
                       sx={{ wordWrap: "inherit" }}
                     >
-                      {"publicAddress"}
+                      {event?.eventEthAddress}
                     </DialogContentText>
                   </Box>
                 </Container>

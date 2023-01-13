@@ -19,7 +19,6 @@ import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
 
-import library from "@utils/wallet";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
