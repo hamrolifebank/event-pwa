@@ -31,7 +31,7 @@ const ProfilePage = () => {
       >
         {" "}
         <Avatar
-          alt="Remy Sharp"
+          alt={user.firstname}
           src={JSON.parse(localStorage.getItem("userimg"))}
           sx={{ width: 80, height: 80, mt: 2 }}
         />
