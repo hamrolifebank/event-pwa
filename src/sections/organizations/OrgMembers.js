@@ -1,13 +1,27 @@
 import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
 import MemberCard from "@sections/event-card/MemberCard";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { useSelector } from "react-redux";
+import organizationService from "@services/organizationService";
 
 const OrgMembers = () => {
   const { query } = useRouter();
   const { id } = query;
+
+  const [members, setMembers] = useState([]);
+
+  const myOrganization = useSelector((state) => state.myJoinedOrganizations);
+
+  const selectedOrganization = myOrganization?.find(
+    (org) => org.id === Number(id)
+  );
+
+  useEffect(() => {
+    organizationService.getMemberList(id).then((data) => setMembers(data));
+  }, []);
 
   const router = useRouter();
   return (
@@ -19,7 +33,7 @@ const OrgMembers = () => {
       <Grid container justify="center" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h3" align="center">
-            Bharatpur Redcross society
+            {selectedOrganization.name}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -30,11 +44,7 @@ const OrgMembers = () => {
       </Grid>
 
       <Stack spacing={1} mt={2}>
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
+        <MemberCard members={members} />
       </Stack>
       <BorderlessButton sx={{ color: "error.dark", mt: 1 }}>
         Load more...
