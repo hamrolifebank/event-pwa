@@ -71,6 +71,7 @@ export default async function handler(req, res) {
 
         res.status(201).json(registeredEvent);
       } catch (error) {
+        console.log(error);
         res.status(400).json(error);
       }
       break;
