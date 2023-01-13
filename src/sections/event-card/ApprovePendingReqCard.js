@@ -11,7 +11,6 @@ const ApprovePendingReqCard = ({ requests }) => {
   const dispatch = useDispatch();
 
   const handleAccept = (id) => {
-    console.log(id);
     dispatch(approveRequests(id));
   };
 
