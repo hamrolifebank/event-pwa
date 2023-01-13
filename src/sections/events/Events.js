@@ -44,7 +44,9 @@ const Events = () => {
         UPCOMING EVENTS
       </Typography>
       {filteredUpcomingEvents.length !== 0
-        ? filteredUpcomingEvents.map((event) => <EventCard event={event} />)
+        ? filteredUpcomingEvents.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))
         : null}
 
       <Box>
