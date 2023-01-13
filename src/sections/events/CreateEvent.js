@@ -15,7 +15,6 @@ import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
 
-import library from "@utils/wallet";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
@@ -179,7 +178,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Target"
-            type="text"
+            type="number"
             name="noOfTarget"
             value={field.noOfTarget}
             onChange={handleInput}
@@ -209,7 +208,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Latitude"
-            type="text"
+            type="number"
             name="latitude"
             value={field.latitude}
             onChange={handleInput}
@@ -224,7 +223,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Longitude"
-            type="text"
+            type="number"
             name="longitude"
             value={field.longitude}
             onChange={handleInput}
