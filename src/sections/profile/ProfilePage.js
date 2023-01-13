@@ -14,9 +14,7 @@ const ProfilePage = () => {
     localStorage.clear();
     push("/auth/login");
   };
-  const handleEdit = () => {
-    push("/edit");
-  };
+  const handleEdit = () => {};
   return (
     <Container>
       <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
