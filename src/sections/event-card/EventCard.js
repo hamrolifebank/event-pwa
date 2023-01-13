@@ -18,6 +18,8 @@ const EventCard = ({ user, event }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     setAnchor(event.currentTarget);
   };
   return (
@@ -57,6 +59,7 @@ const EventCard = ({ user, event }) => {
             {new Date(event?.startTimeStamp).toLocaleDateString("en-US", {
               month: "short",
               day: "2-digit",
+              year: "numeric",
             })}
           </Typography>
 
@@ -80,7 +83,9 @@ const EventCard = ({ user, event }) => {
             <Button
               aria-describedby="QR code"
               variant="contained"
-              onClick={handleClick}
+              onClick={(event) => {
+                handleClick(event);
+              }}
             >
               QR code
             </Button>
