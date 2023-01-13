@@ -3,13 +3,19 @@ import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
 import { Grid, Modal, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { PATH_ORGANIZATION } from "@routes/paths";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
   const { id } = query;
+
+  const myOrganization = useSelector((state) => state.myJoinedOrganizations);
+
+  const selectedOrganization = myOrganization?.find(
+    (org) => org.id === Number(id)
+  );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -48,7 +54,7 @@ const OrganizationDetail = () => {
 
       <Grid container justifyContent="center" mt={2}>
         <Grid item>
-          <Typography variant="h3">Bharatpur Redcross society </Typography>
+          <Typography variant="h3">{selectedOrganization.name} </Typography>
         </Grid>
       </Grid>
 
@@ -64,19 +70,25 @@ const OrganizationDetail = () => {
           <Iconify icon="eva:phone-call-fill" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">9808563636</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.phone}
+          </Typography>
         </Grid>
         <Grid item xs={3} md={6}>
           <Iconify icon="material-symbols:mail" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">sudesh7443@gmail.com</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.email}
+          </Typography>
         </Grid>
         <Grid item xs={3} md={6}>
           <Iconify icon="mdi:address-marker" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">Kopundole,Lalitpur</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.address}
+          </Typography>
         </Grid>
       </Grid>
 

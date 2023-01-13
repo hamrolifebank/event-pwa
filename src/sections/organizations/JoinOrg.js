@@ -1,41 +1,66 @@
 import {
   Autocomplete,
+  Box,
   Card,
   Container,
   Grid,
   IconButton,
+  Modal,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PATH_ORGANIZATION } from "@routes/paths";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { PrimaryButton } from "@components/button";
-import { useEffect } from "react";
+import { PrimaryButton, SecondaryButton } from "@components/button";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingScreen from "@components/LoadingScreen";
+import { joinOrganization } from "@redux/reducers/yourPendingRequestReducer";
 
-import { initializeOrganizations } from "@redux/reducers/organizationReducer";
+import {
+  initializeYourNotJoinedOrganizations,
+  updateOrganizationToBeJoined,
+} from "@redux/reducers/myNotJoinedOrgReducer";
 
 export default function JoinOrg() {
+  const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState("");
+  const [open, setOpen] = React.useState({ isOpen: false, org: null });
+
   const dispatch = useDispatch();
-  const org = useSelector((state) => state.organizations);
+  const notJoinedOrg = useSelector((state) => state.myNotJoinedOrganizations);
+
   const { push } = useRouter();
 
   useEffect(() => {
-    dispatch(initializeOrganizations());
+    const initialize = async () => {
+      await dispatch(initializeYourNotJoinedOrganizations());
+      setIsLoading(false);
+    };
+
+    initialize();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!org || !org.length) return null; // loading screen can be returned here
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!notJoinedOrg.length)
+    return <div>There is no organization to be joined..</div>;
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
 
-  const handleJoin = () => {
-    console.log("request join");
+  const handleOpen = (org) => setOpen({ isOpen: true, org: org });
+  const handleClose = () => setOpen({ isOpen: false, org: null });
+
+  const handleJoin = async (orgId) => {
+    dispatch(joinOrganization(orgId));
   };
 
   const arrowBack = () => {
@@ -44,7 +69,7 @@ export default function JoinOrg() {
 
   const style = { display: "flex", alignItems: "center", flexWrap: "wrap" };
 
-  const filteredList = org.filter((list) => {
+  const filteredList = notJoinedOrg.filter((list) => {
     if (input === "") {
       return list;
     } else {
@@ -60,7 +85,7 @@ export default function JoinOrg() {
 
       <Autocomplete
         disablePortal
-        options={org.map((list) => list.name)}
+        options={notJoinedOrg.map((list) => list.name)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -87,7 +112,10 @@ export default function JoinOrg() {
               </Typography>
             </Grid>
             <Grid item xs={3}>
-              <PrimaryButton sx={{ height: 25 }} onClick={handleJoin}>
+              <PrimaryButton
+                sx={{ height: 25 }}
+                onClick={() => handleOpen(org)}
+              >
                 JOIN
               </PrimaryButton>
             </Grid>
@@ -104,6 +132,49 @@ export default function JoinOrg() {
           </Typography>
         </Card>
       ))}
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Are you sure you want to join{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              {open.org?.name}
+            </Typography>
+            ?
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }} spacing={2}>
+            <PrimaryButton
+              onClick={() => {
+                handleJoin(open.org.id);
+                handleClose();
+              }}
+            >
+              Join
+            </PrimaryButton>
+            <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 }

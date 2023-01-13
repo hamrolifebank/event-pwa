@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="manifest" href="/manifest.json" />
+          {/* <link rel="manifest" href="/manifest.json" /> */}
 
           {/* PWA primary color */}
           <meta name="theme-color" content={palette("light").primary.main} />
@@ -38,6 +38,10 @@ export default class MyDocument extends Document {
             type="image/png"
             sizes="16x16"
             href="/favicon/favicon-16x16.png"
+          />
+          <link
+            rel="preconnect"
+            href="https://accounts.google.com/gsi/client"
           />
 
           {/* Fonts */}
