@@ -47,7 +47,7 @@ const create = async (organization) => {
 
 const join = async (organizationId) => {
   const joinedOrganization = await axios.post(
-    `/api/organization/join`,
+    `/api/organization/my-pendingrequests`,
     {
       organizationId,
     },
@@ -74,6 +74,18 @@ const getMyApproveRequests = async () => {
   return myApproveRequests.data.data;
 };
 
+const approveRequests = async (id) => {
+  const approvedRequest = await axios.put(
+    "/api/organization/my-approve-requests",
+    {
+      id,
+    },
+    getHeader()
+  );
+
+  return approvedRequest.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
@@ -82,4 +94,5 @@ export default {
   getMyNotJoinedOrganizations,
   getMyOrganizations,
   getMyApproveRequests,
+  approveRequests,
 };
