@@ -5,6 +5,7 @@ import yourPendingRequestReducer from "./reducers/yourPendingRequestReducer";
 import myNotJoinedOrgReducer from "./reducers/myNotJoinedOrgReducer";
 import eventReducer from "./reducers/eventReducer";
 import myJoinedOrgReducer from "./reducers/myJoinedOrgReducer";
+import myApproveRequestReducer from "./reducers/myApproveRequestReducer";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     yourPendingRequests: yourPendingRequestReducer,
     myNotJoinedOrganizations: myNotJoinedOrgReducer,
     myJoinedOrganizations: myJoinedOrgReducer,
+    myApproveRequests: myApproveRequestReducer,
     events: eventReducer,
   },
 });
