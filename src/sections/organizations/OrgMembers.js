@@ -6,6 +6,10 @@ import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const OrgMembers = () => {
+  const query = useRouter();
+  const { id } = query;
+  console.log("id", id);
+
   const router = useRouter();
   return (
     <Container>
