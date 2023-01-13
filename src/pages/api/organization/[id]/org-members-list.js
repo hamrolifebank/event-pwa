@@ -1,4 +1,5 @@
 import withTokenExtractor from "@middleware/withTokenExtractor";
+import { NumbersSharp } from "@mui/icons-material";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({ log: ["query"] });
@@ -10,7 +11,10 @@ async function handler(req, res) {
       try {
         const member = await prisma.UserOrganization.findMany({
           where: {
-            AND: [{ organizationId: 2 }, { isApproved: true }],
+            AND: [
+              { organizationId: Number(req.query.id) },
+              { isApproved: true },
+            ],
           },
           include: { user: true },
         });

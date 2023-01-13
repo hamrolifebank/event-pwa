@@ -87,7 +87,7 @@ const approveRequests = async (id) => {
 
 const getMemberList = async (id) => {
   const memberList = await axios.get(
-    `/api/organization/${id}/org-members`,
+    `/api/organization/${id}/org-members-list`,
     getHeader()
   );
   return memberList.data.data;
