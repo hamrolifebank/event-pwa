@@ -7,20 +7,22 @@ async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      try {
-        const member = await prisma.user.findMany({
-          where: {
-            UserOrganizations: {
+      // try {
+      const member = await prisma.user.findMany({
+        where: {
+          UserOrganizations: {
+            some: {
               organizationId: req.body.organizationId,
               isApproved: true,
             },
           },
-        });
-        res.status(200).json({ success: true, data: member });
-      } catch (error) {
-        res.status(400).json({ success: false });
-      }
+        },
+      });
+      res.status(200).json({ success: true, data: member });
+    //     } catch (error) {
+    //       res.status(400).json({ success: false });
+    //     }
   }
 }
 
-export default handler;
+export default withTokenExtractor(handler);
