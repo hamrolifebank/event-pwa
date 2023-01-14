@@ -76,10 +76,8 @@ const getMyApproveRequests = async () => {
 
 const approveRequest = async (id) => {
   const approvedRequest = await axios.put(
-    "/api/organization/my-approve-requests",
-    {
-      id,
-    },
+    `/api/organization/my-approve-requests/${id}`,
+    {},
     getHeader()
   );
 
@@ -88,12 +86,8 @@ const approveRequest = async (id) => {
 
 const declineRequest = async (id) => {
   const declinedRequest = await axios.delete(
-    "/api/organization/my-approve-requests",
-    {
-      data: {
-        id,
-      },
-    },
+    `/api/organization/my-approve-requests/${id}`,
+
     getHeader()
   );
   return declinedRequest.data.data;
