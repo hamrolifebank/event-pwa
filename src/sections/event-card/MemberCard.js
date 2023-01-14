@@ -36,7 +36,7 @@ const MemberCard = ({ member }) => {
             }}
           >
             <Icon icon="ic:outline-email" />
-            {member?.user.email}
+            {member.user.email}
           </Typography>
 
           {member.user.phone && (
@@ -50,7 +50,7 @@ const MemberCard = ({ member }) => {
               }}
             >
               <Icon icon="material-symbols:call-outline-rounded" />
-              {member?.user.phone}
+              {member.user.phone}
             </Typography>
           )}
         </Box>

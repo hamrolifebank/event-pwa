@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import organizationService from "@services/organizationService";
 
 const OrgMembers = () => {
+  const router = useRouter();
   const { query } = useRouter();
   const { id } = query;
 
@@ -23,8 +24,6 @@ const OrgMembers = () => {
   useEffect(() => {
     organizationService.getMemberList(id).then((data) => setMembers(data));
   }, []);
-
-  const router = useRouter();
 
   const loadMore = () => {
     setNext(next + 10);
@@ -57,7 +56,10 @@ const OrgMembers = () => {
         ))}
       </Stack>
       {next < members?.length && (
-        <BorderlessButton sx={{ color: "error.dark", mt: 1 }}>
+        <BorderlessButton
+          sx={{ color: "error.dark", mt: 1 }}
+          onClick={loadMore}
+        >
           Load more...
         </BorderlessButton>
       )}
