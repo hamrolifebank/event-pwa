@@ -74,7 +74,7 @@ const getMyApproveRequests = async () => {
   return myApproveRequests.data.data;
 };
 
-const approveRequests = async (id) => {
+const approveRequest = async (id) => {
   const approvedRequest = await axios.put(
     "/api/organization/my-approve-requests",
     {
@@ -86,6 +86,19 @@ const approveRequests = async (id) => {
   return approvedRequest.data.data;
 };
 
+const declineRequest = async (id) => {
+  const declinedRequest = await axios.delete(
+    "/api/organization/my-approve-requests",
+    {
+      data: {
+        id,
+      },
+    },
+    getHeader()
+  );
+  return declinedRequest.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
@@ -94,5 +107,6 @@ export default {
   getMyNotJoinedOrganizations,
   getMyOrganizations,
   getMyApproveRequests,
-  approveRequests,
+  approveRequest,
+  declineRequest,
 };
