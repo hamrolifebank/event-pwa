@@ -83,7 +83,7 @@ const Home = () => {
       </Typography>
       {requiredEvents.map((event) => (
         <Link
-          href={`/event/${event.id}`}
+          onClick={() => push(`/event/${event.id}`)}
           style={{ textDecoration: "none" }}
           key={event.id}
         >
