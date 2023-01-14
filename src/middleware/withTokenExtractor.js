@@ -3,10 +3,7 @@ const jwt = require("jsonwebtoken");
 const withTokenExtractor = (handler) => {
   return async (req, res) => {
     const authorization = req.headers.authorization;
-    console.log(
-      "[withTokenExtractor.js--[7]],     authorization",
-      authorization
-    );
+
     if (authorization && authorization.startsWith("Bearer ")) {
       const token = authorization.split(" ")[1];
       try {
