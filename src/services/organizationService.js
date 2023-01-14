@@ -86,6 +86,15 @@ const approveRequests = async (id) => {
   return approvedRequest.data.data;
 };
 
+const withdrawRequest = async (organizationId) => {
+  const withDrawnRequest = await axios.delete(
+    `/api/organization/my-pendingrequests/${organizationId}`,
+
+    getHeader()
+  );
+  return withDrawnRequest.data.data;
+};
+
 export default {
   getAll,
   getMyPendingRequests,
@@ -95,4 +104,5 @@ export default {
   getMyOrganizations,
   getMyApproveRequests,
   approveRequests,
+  withdrawRequest,
 };
