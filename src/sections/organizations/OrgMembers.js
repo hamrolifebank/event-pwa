@@ -13,7 +13,7 @@ const OrgMembers = () => {
   const { id } = query;
 
   const [members, setMembers] = useState([]);
-  const [next, setNext] = useState(5);
+  const [next, setNext] = useState(10);
 
   const myOrganization = useSelector((state) => state.myJoinedOrganizations);
 
