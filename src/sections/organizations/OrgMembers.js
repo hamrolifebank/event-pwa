@@ -12,6 +12,7 @@ const OrgMembers = () => {
   const { id } = query;
 
   const [members, setMembers] = useState([]);
+  const [next, setNext] = useState(5);
 
   const myOrganization = useSelector((state) => state.myJoinedOrganizations);
 
@@ -24,8 +25,13 @@ const OrgMembers = () => {
   }, []);
 
   const router = useRouter();
+
+  const loadMore = () => {
+    setNext(next + 10);
+  };
+
   return (
-    <Container>
+    <Container sx={{ mb: 3 }}>
       <IconButton color="primary" onClick={() => router.back()}>
         <ArrowBackIosIcon />
       </IconButton>
@@ -44,11 +50,17 @@ const OrgMembers = () => {
       </Grid>
 
       <Stack spacing={1} mt={2}>
-        <MemberCard members={members} />
+        {members?.slice(0, next)?.map((member) => (
+          <div key={member.id}>
+            <MemberCard member={member} />
+          </div>
+        ))}
       </Stack>
-      <BorderlessButton sx={{ color: "error.dark", mt: 1 }}>
-        Load more...
-      </BorderlessButton>
+      {next < members?.length && (
+        <BorderlessButton sx={{ color: "error.dark", mt: 1 }}>
+          Load more...
+        </BorderlessButton>
+      )}
     </Container>
   );
 };
