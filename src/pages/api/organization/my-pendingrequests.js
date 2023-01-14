@@ -22,6 +22,27 @@ async function handler(req, res) {
       } catch (error) {
         res.status(400).json({ success: false });
       }
+
+    case "POST":
+      try {
+        const newUserOrganization = await prisma.UserOrganization.create({
+          data: {
+            user: {
+              connect: { id: req.user.id },
+            },
+            organization: {
+              connect: { id: Number(req.body.organizationId) },
+            },
+          },
+        });
+        const joinedOrganization = await prisma.Organization.findUnique({
+          where: { id: Number(req.body.organizationId) },
+        });
+
+        res.status(201).json({ success: true, data: joinedOrganization });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
   }
 }
 

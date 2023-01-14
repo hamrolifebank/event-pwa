@@ -125,7 +125,7 @@ const EventCard = ({ user, event }) => {
                       justifyContent="center"
                       sx={{ wordWrap: "inherit", pt: 2 }}
                     >
-                      {`${event?.eventEthAddress}`}
+                      {event?.eventEthAddress}
                     </DialogContentText>
                   </Box>
                 </Container>
