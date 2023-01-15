@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { getAllEvents } from "@redux/reducers/eventReducer";
 import { initializeOrganizations } from "@redux/reducers/organizationReducer";
+import { initBenificiaryBloodBanks } from "@redux/reducers/benificiaryBloodBankReducer";
 
 export default function Initializer({ children }) {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function Initializer({ children }) {
     if (user) {
       dispatch(getAllEvents());
       dispatch(initializeOrganizations());
+      dispatch(initBenificiaryBloodBanks());
     }
   }, [dispatch, user]);
   return <>{children}</>;

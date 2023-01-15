@@ -28,12 +28,11 @@ const CreateEvent = () => {
   let user = useSelector((state) => state.user);
   user = user ? user : {};
 
+  let bloodBankOrg = useSelector((state) => state.benificiaryBloodBanks);
+  bloodBankOrg = bloodBankOrg ? bloodBankOrg : [];
+
   let organizations = useSelector((state) => state.organizations);
   organizations = organizations ? organizations : [];
-
-  const bloodBank = organizations.filter(
-    (organization) => organization.isBloodBank
-  );
 
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date(Date.now())
@@ -123,7 +122,7 @@ const CreateEvent = () => {
               label="Benificary"
               onChange={handleInput}
             >
-              {bloodBank?.map((org) => (
+              {bloodBankOrg?.map((org) => (
                 <MenuItem value={org.name}>{org.name}</MenuItem>
               ))}
             </Select>
