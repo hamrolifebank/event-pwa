@@ -1,9 +1,10 @@
 import { PrimaryButton } from "@components/Button";
-import { Typography, Grid, Chip, Stack } from "@mui/material";
+import { Typography, Grid, Chip, Stack, Button, Tab } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import ShowChart from "./ShowChart";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
@@ -57,7 +58,6 @@ const EventDetails = ({ clickedEvents }) => {
           </PrimaryButton>
         </Stack>
       </Box>
-
       <Grid container item xs={12} sx={{ justifyContent: "space-between" }}>
         <Grid item xs={8}>
           <Typography variant="body2">
@@ -130,6 +130,21 @@ const EventDetails = ({ clickedEvents }) => {
           </Grid>
         </Grid>
       </Box>
+      <Stack
+        sx={{ display: "flex", justifyContent: "center", p: 3 }}
+        direction="row"
+      >
+        <Button size="large" variant="contained" color="primary">
+          Donors
+        </Button>
+        <Button size="large" variant="contained" color="primary">
+          Pledgers
+        </Button>
+        <Button size="large" variant="contained" color="primary">
+          MAnagers
+        </Button>
+      </Stack>
+      <ShowChart />
     </Container>
   );
 };
