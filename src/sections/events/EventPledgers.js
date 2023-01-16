@@ -1,10 +1,10 @@
 import { BorderlessButton } from "@components/button";
 import { Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
-import ParticipantCard from "@sections/event-card/ParticipantCard";
+import PledgersCard from "@sections/event-card/PledgersCard";
 import React from "react";
 
-const EventDoners = () => {
+const EventPledgers = () => {
   return (
     <Container>
       <Typography
@@ -27,19 +27,19 @@ const EventDoners = () => {
         }}
         color="grey.600"
       >
-        DONERS
+        PLEDGERS
       </Typography>
-      <ParticipantCard />
-      <ParticipantCard />
-      <ParticipantCard />
+      <PledgersCard />
+      <PledgersCard />
+      <PledgersCard />
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
-          Load More doners
+          Load More Pledgers
         </BorderlessButton>
       </Box>
     </Container>
   );
 };
 
-export default EventDoners;
+export default EventPledgers;

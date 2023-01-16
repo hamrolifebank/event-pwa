@@ -21,7 +21,7 @@ export const PATH_EVENTS = {
   createEvent: path(ROOTS_EVENTS, "/create"),
   pastEvents: path(ROOTS_EVENTS, "/past-events"),
   upcomingEvents: path(ROOTS_EVENTS, "/upcoming-events"),
-  eventDoners: path(ROOTS_EVENTS, "/event-doners"),
+  eventPledgers: path(ROOTS_EVENTS, "/event-pledgers"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,

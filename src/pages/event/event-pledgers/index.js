@@ -1,10 +1,10 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import { EventDoners } from "@sections/events";
+import { EventPledgers } from "@sections/events";
 
 const PAGE_TITLE = "Event Pledgers";
 
-EventDonersPage.getLayout = (page) => {
+EventPledgersPage.getLayout = (page) => {
   return (
     <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
       {page}
@@ -12,10 +12,10 @@ EventDonersPage.getLayout = (page) => {
   );
 };
 
-export default function EventDonersPage() {
+export default function EventPledgersPage() {
   return (
     <Page title={PAGE_TITLE}>
-      <EventDoners />
+      <EventPledgers />
     </Page>
   );
 }

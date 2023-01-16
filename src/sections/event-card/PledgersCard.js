@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const ParticipantCard = () => {
+const PledgersCard = () => {
   return (
     <>
       <Paper
@@ -48,4 +48,4 @@ const ParticipantCard = () => {
   );
 };
 
-export default ParticipantCard;
+export default PledgersCard;

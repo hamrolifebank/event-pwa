@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 const Events = () => {
   let events = useSelector((state) => state.events);
   const currentDate = new Date();
-  const num = 3;
 
   const filteredUpcomingEvents = events?.filter(
     (event) => new Date(event.endTimeStamp) >= currentDate
@@ -28,7 +27,7 @@ const Events = () => {
   };
 
   const eventDonersNavigator = () => {
-    push(PATH_EVENTS.eventDoners);
+    push(PATH_EVENTS.eventPledgers);
   };
   return (
     <Container>
@@ -44,7 +43,7 @@ const Events = () => {
       </PrimaryButton>
 
       <PrimaryButton sx={{ mb: 2 }} onClick={eventDonersNavigator}>
-        View event doners
+        View event pledgers
       </PrimaryButton>
 
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
