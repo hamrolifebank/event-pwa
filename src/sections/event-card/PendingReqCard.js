@@ -1,7 +1,15 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
+import WarningButton from "@components/button/WarningButton";
+import { useDispatch } from "react-redux";
+import { withDrawRequest } from "@redux/reducers/yourPendingRequestReducer";
 
 const PendingReqCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const handleWithdraw = (id) => {
+    dispatch(withDrawRequest(id));
+  };
+
   return (
     <>
       <Paper
@@ -24,7 +32,7 @@ const PendingReqCard = ({ item }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {item.name}
+            {item.organization.name}
           </Typography>
 
           <Typography
@@ -38,17 +46,18 @@ const PendingReqCard = ({ item }) => {
             }}
           >
             <Icon icon="material-symbols:location-on" />
-            {item.address}
+            {item.organization.address}
           </Typography>
         </Box>
         <Box>
-          <Button
+          <WarningButton
             variant="contained"
             size="small"
             sx={{ bgcolor: "error.dark" }}
+            onClick={() => handleWithdraw(item.id)}
           >
             withdraw
-          </Button>
+          </WarningButton>
         </Box>
       </Paper>
     </>

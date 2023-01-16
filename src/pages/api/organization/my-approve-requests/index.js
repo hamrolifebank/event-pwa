@@ -55,20 +55,6 @@ async function handler(req, res) {
         res.status(400).json({ success: false });
       }
       break;
-
-    case "DELETE":
-      try {
-        const deletedUserOrganization = await prisma.UserOrganization.delete({
-          where: {
-            id: Number(req.body.id),
-          },
-        });
-
-        res.status(200).json({ success: true, data: deletedUserOrganization });
-      } catch (error) {
-        res.status(400).json({ success: false });
-      }
-      break;
   }
 }
 

@@ -81,9 +81,12 @@ export default async function handler(req, res) {
           }
         );
 
-        res.status(201).json(registeredEvent.data);
+        res.status(201).json({
+          registeredEvent: registeredEvent.data,
+          status: registeredEvent.status,
+        });
       } catch (error) {
-        res.status(400).json({ success: false });
+        res.status(400).json(error);
       }
       break;
     default:
