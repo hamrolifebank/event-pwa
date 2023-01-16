@@ -20,14 +20,13 @@ const getAll = async () => {
   }
 };
 
-const getAllDoners = async () => {
+const getAllPledgers = async () => {
   try {
-    console.log("hey: I'm called");
-    const response = await api.get("/api/events/event-doners");
+    const response = await api.get("/api/events/event-pledgers");
     return response.data;
   } catch (error) {
     return error.response.data;
   }
 };
 
-export default { create, getAll, getAllDoners };
+export default { create, getAll, getAllPledgers };

@@ -2,7 +2,7 @@ import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
 import { EventDoners } from "@sections/events";
 
-const PAGE_TITLE = "Event Doners";
+const PAGE_TITLE = "Event Pledgers";
 
 EventDonersPage.getLayout = (page) => {
   return (
