@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const allEvents = await axios.get(eventRegistrationUrl);
+        const allEvents = await axios.get(`${eventRegistrationUrl}/api/events`);
 
         res.status(200).json(allEvents.data);
       } catch (error) {
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         });
 
         const registeredEvent = await axios.post(
-          `${eventRegistrationUrl}/register`,
+          `${eventRegistrationUrl}/api/events/register`,
           {
             benificaryBloodBank,
             eventEthAddress,
