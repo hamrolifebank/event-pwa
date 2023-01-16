@@ -1,10 +1,10 @@
-import { PrimaryButton } from "@components/Button";
 import { Typography, Grid, Chip, Stack, Button, Tab } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
-import ShowChart from "./ShowChart";
+// import ShowChart from "./ShowChart";
+import { PrimaryButton } from "@components/button";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
@@ -144,7 +144,7 @@ const EventDetails = ({ clickedEvents }) => {
           MAnagers
         </Button>
       </Stack>
-      <ShowChart />
+      {/* <ShowChart /> */}
     </Container>
   );
 };
