@@ -9,7 +9,7 @@ const myApproveRequestSlice = createSlice({
     setMyApproveRequests(state, action) {
       return action.payload;
     },
-    deleteMyApproveRequests(state, action) {
+    deleteMyApproveRequest(state, action) {
       return state.filter((item) => item.id !== action.payload);
     },
   },
@@ -23,13 +23,20 @@ export const initializeYourApproveRequests = () => {
   };
 };
 
-export const approveRequests = (id) => {
+export const approveRequest = (id) => {
   return async (dispatch) => {
-    await organizationService.approveRequests(id);
-    dispatch(deleteMyApproveRequests(id));
+    await organizationService.approveRequest(id);
+    dispatch(deleteMyApproveRequest(id));
   };
 };
 
-export const { setMyApproveRequests, deleteMyApproveRequests } =
+export const declineRequest = (id) => {
+  return async (dispatch) => {
+    await organizationService.declineRequest(id);
+    dispatch(deleteMyApproveRequest(id));
+  };
+};
+
+export const { setMyApproveRequests, deleteMyApproveRequest } =
   myApproveRequestSlice.actions;
 export default myApproveRequestSlice.reducer;

@@ -38,6 +38,10 @@ const ApprovePendingRequest = () => {
     return <LoadingScreen />;
   }
 
+  if (!myApproveRequests.length) {
+    return "There are no pending requests to approve.";
+  }
+
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
   };
