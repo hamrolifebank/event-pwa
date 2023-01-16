@@ -31,7 +31,7 @@ const CreateEvent = () => {
   let bloodBankOrg = useSelector((state) => state.benificiaryBloodBanks);
   bloodBankOrg = bloodBankOrg ? bloodBankOrg : [];
 
-  let organizations = useSelector((state) => state.organizations);
+  let organizations = useSelector((state) => state.myJoinedOrganizations);
   organizations = organizations ? organizations : [];
 
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
@@ -124,7 +124,9 @@ const CreateEvent = () => {
               onChange={handleInput}
             >
               {bloodBankOrg?.map((org) => (
-                <MenuItem value={org.name}>{org.name}</MenuItem>
+                <MenuItem key={org.id} value={org.name}>
+                  {org.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -141,7 +143,9 @@ const CreateEvent = () => {
               onChange={handleInput}
             >
               {organizations?.map((org) => (
-                <MenuItem value={org.name}>{org.name}</MenuItem>
+                <MenuItem key={org.id} value={org.name}>
+                  {org.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
