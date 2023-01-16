@@ -16,7 +16,6 @@ import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Numbers } from "@mui/icons-material";
 
 const CreateEvent = () => {
   const { push } = useRouter();
