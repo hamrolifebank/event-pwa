@@ -18,6 +18,15 @@ const getAll = async () => {
   return organizations.data.data;
 };
 
+const getBenificiaryBloodBanks = async () => {
+  const benificiaries = await axios.get(
+    "/api/organization/benificiaryBloodBank",
+    getHeader()
+  );
+
+  return benificiaries.data.data;
+};
+
 const getMyPendingRequests = async () => {
   const myPendingRequests = await axios.get(
     "/api/organization/my-pendingrequests",
@@ -111,6 +120,7 @@ const declineRequest = async (id) => {
 
 export default {
   getAll,
+  getBenificiaryBloodBanks,
   getMyPendingRequests,
   create,
   join,
