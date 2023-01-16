@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const PledgersCard = () => {
+const PledgersCard = ({ eventPledger }) => {
   return (
     <>
       <Paper
@@ -26,7 +26,8 @@ const PledgersCard = () => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            Dazy Lama <span style={{ color: "grey" }}>(0-)</span>
+            {eventPledger?.pledgerInfo}{" "}
+            <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
           <Typography
