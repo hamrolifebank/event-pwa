@@ -3,7 +3,6 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
-// import ShowChart from "./ShowChart";
 import { PrimaryButton } from "@components/button";
 
 const EventDetails = ({ clickedEvents }) => {
@@ -144,7 +143,6 @@ const EventDetails = ({ clickedEvents }) => {
           MAnagers
         </Button>
       </Stack>
-      {/* <ShowChart /> */}
     </Container>
   );
 };
