@@ -3,7 +3,10 @@ import { Icon } from "@iconify/react";
 import { useTheme } from "@mui/material/styles";
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import { Stack } from "@mui/system";
-import { approveRequests } from "@redux/reducers/myApproveRequestReducer";
+import {
+  approveRequest,
+  declineRequest,
+} from "@redux/reducers/myApproveRequestReducer";
 import { useDispatch } from "react-redux";
 
 const ApprovePendingReqCard = ({ requests }) => {
@@ -11,7 +14,11 @@ const ApprovePendingReqCard = ({ requests }) => {
   const dispatch = useDispatch();
 
   const handleAccept = (id) => {
-    dispatch(approveRequests(id));
+    dispatch(approveRequest(id));
+  };
+
+  const handleDecline = (id) => {
+    dispatch(declineRequest(id));
   };
 
   return (
@@ -88,7 +95,14 @@ const ApprovePendingReqCard = ({ requests }) => {
               >
                 Accept
               </PrimaryButton>
-              <SecondaryButton size="small">Decline</SecondaryButton>
+              <SecondaryButton
+                size="small"
+                onClick={() => {
+                  handleDecline(requests.id);
+                }}
+              >
+                Decline
+              </SecondaryButton>
             </Stack>
           </Grid>
         </Grid>
