@@ -18,6 +18,15 @@ const getAll = async () => {
   return organizations.data.data;
 };
 
+const getBenificiaryBloodBanks = async () => {
+  const benificiaries = await axios.get(
+    "/api/organization/benificiaryBloodBank",
+    getHeader()
+  );
+
+  return benificiaries.data.data;
+};
+
 const getMyPendingRequests = async () => {
   const myPendingRequests = await axios.get(
     "/api/organization/my-pendingrequests",
@@ -74,25 +83,52 @@ const getMyApproveRequests = async () => {
   return myApproveRequests.data.data;
 };
 
-const approveRequests = async (id) => {
+const approveRequest = async (id) => {
   const approvedRequest = await axios.put(
-    "/api/organization/my-approve-requests",
-    {
-      id,
-    },
+    `/api/organization/my-approve-requests/${id}`,
+    {},
     getHeader()
   );
-
   return approvedRequest.data.data;
+};
+
+const getMemberList = async (id) => {
+  const memberList = await axios.get(
+    `/api/organization/${id}/org-members-list`,
+    getHeader()
+  );
+  return memberList.data.data;
+};
+
+const withdrawRequest = async (organizationId) => {
+  const withDrawnRequest = await axios.delete(
+    `/api/organization/my-pendingrequests/${organizationId}`,
+
+    getHeader()
+  );
+  return withDrawnRequest.data.data;
+};
+
+const declineRequest = async (id) => {
+  const declinedRequest = await axios.delete(
+    `/api/organization/my-approve-requests/${id}`,
+
+    getHeader()
+  );
+  return declinedRequest.data.data;
 };
 
 export default {
   getAll,
+  getBenificiaryBloodBanks,
   getMyPendingRequests,
   create,
   join,
   getMyNotJoinedOrganizations,
   getMyOrganizations,
   getMyApproveRequests,
-  approveRequests,
+  approveRequest,
+  declineRequest,
+  withdrawRequest,
+  getMemberList,
 };
