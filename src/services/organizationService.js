@@ -80,8 +80,15 @@ const approveRequest = async (id) => {
     {},
     getHeader()
   );
-
   return approvedRequest.data.data;
+};
+
+const getMemberList = async (id) => {
+  const memberList = await axios.get(
+    `/api/organization/${id}/org-members-list`,
+    getHeader()
+  );
+  return memberList.data.data;
 };
 
 const withdrawRequest = async (organizationId) => {
@@ -113,4 +120,5 @@ export default {
   approveRequest,
   declineRequest,
   withdrawRequest,
+  getMemberList,
 };
