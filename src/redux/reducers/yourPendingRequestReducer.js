@@ -1,5 +1,8 @@
 import organizationService from "@services/organizationService";
-import { removeYourNotJoinedOrganization } from "./myNotJoinedOrgReducer";
+import {
+  initializeYourNotJoinedOrganizations,
+  removeYourNotJoinedOrganization,
+} from "./myNotJoinedOrgReducer";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -12,6 +15,9 @@ const yourPendingRequestSlice = createSlice({
     },
     appendYourPendingRequest(state, action) {
       state.push(action.payload);
+    },
+    removeYourPendingRequest(state, action) {
+      return state.filter((item) => item.id !== action.payload);
     },
   },
 });
@@ -32,6 +38,16 @@ export const joinOrganization = (organizationId) => {
   };
 };
 
-export const { setYourPendingRequests, appendYourPendingRequest } =
-  yourPendingRequestSlice.actions;
+export const withDrawRequest = (organizationId) => {
+  return async (dispatch) => {
+    await organizationService.withdrawRequest(organizationId);
+    await dispatch(removeYourPendingRequest(organizationId));
+    await dispatch(initializeYourNotJoinedOrganizations());
+  };
+};
+export const {
+  setYourPendingRequests,
+  appendYourPendingRequest,
+  removeYourPendingRequest,
+} = yourPendingRequestSlice.actions;
 export default yourPendingRequestSlice.reducer;
