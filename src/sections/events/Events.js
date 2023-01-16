@@ -26,6 +26,10 @@ const Events = () => {
   const upcomingEventNavigator = () => {
     push(PATH_EVENTS.upcomingEvents);
   };
+
+  const eventDonersNavigator = () => {
+    push(PATH_EVENTS.eventDoners);
+  };
   return (
     <Container>
       <PrimaryButton sx={{ mt: 2 }} onClick={createEventNavigator}>
@@ -38,6 +42,11 @@ const Events = () => {
       <PrimaryButton sx={{ mb: 2 }} onClick={pastEventNavigator}>
         View past event
       </PrimaryButton>
+
+      <PrimaryButton sx={{ mb: 2 }} onClick={eventDonersNavigator}>
+        View event doners
+      </PrimaryButton>
+
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
