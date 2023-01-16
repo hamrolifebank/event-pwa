@@ -120,6 +120,7 @@ const CreateEvent = () => {
               name="benificaryBloodBank"
               value={field.benificaryBloodBank}
               label="Benificary"
+              required
               onChange={handleInput}
             >
               {bloodBankOrg?.map((org) => (
