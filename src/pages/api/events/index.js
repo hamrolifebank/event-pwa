@@ -41,23 +41,11 @@ export default async function handler(req, res) {
           startTimeStamp,
           endTimeStamp,
         } = req.body;
-        const newEvent = await prisma.event.create({
+        await prisma.event.create({
           data: {
             creatorId,
             eventEthAddress: eventEthAddress,
             eventPrivateKey: eventPrivateKey,
-          },
-        });
-
-        await prisma.userEvent.create({
-          data: {
-            user: {
-              connect: { id: creatorId },
-            },
-            event: {
-              connect: { id: newEvent.id },
-            },
-            userType: "member",
           },
         });
 
