@@ -11,6 +11,7 @@ const EventDetails = ({ clickedEvents }) => {
   const { push } = useRouter();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
+  console.log(selectedEvent);
   const currentDate = new Date();
   const eventdate = new Date(selectedEvent.date);
   if (currentDate >= eventdate) {
@@ -32,7 +33,7 @@ const EventDetails = ({ clickedEvents }) => {
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
 
   const eventPledgersNavigator = () => {
-    push(PATH_EVENTS.eventPledgers);
+    push(`/event/event-pledgers/${selectedEvent.id}`);
   };
 
   return (

@@ -5,8 +5,12 @@ import PledgersCard from "@sections/event-card/PledgersCard";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const EventPledgers = () => {
-  const eventPledgers = useSelector((state) => state.eventPledgers);
+const EventPledgers = ({ ClickedEvents }) => {
+  // const eventPledgers = useSelector((state) => state.eventPledgers);
+
+  const pledgersFromClickedEvents = ClickedEvents?.eventPledgers;
+
+  console.log(pledgersFromClickedEvents);
   return (
     <Container>
       <Typography
@@ -16,7 +20,7 @@ const EventPledgers = () => {
         sx={{ mt: 4 }}
         color="black"
       >
-        HBL Doner center
+        {ClickedEvents?.eventName}
       </Typography>
       <Typography
         display="flex"
@@ -31,8 +35,8 @@ const EventPledgers = () => {
       >
         PLEDGERS
       </Typography>
-      {eventPledgers.length !== 0 ? (
-        eventPledgers.map((eventPledger) => (
+      {pledgersFromClickedEvents.length !== 0 ? (
+        pledgersFromClickedEvents.map((eventPledger) => (
           <PledgersCard key={eventPledger.id} eventPledger={eventPledger} />
         ))
       ) : (
