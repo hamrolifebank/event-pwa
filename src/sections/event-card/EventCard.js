@@ -16,7 +16,7 @@ import QRCode from "react-qr-code";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-const EventCard = ({ user, event }) => {
+const EventCard = ({ event }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
