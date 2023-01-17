@@ -10,7 +10,6 @@ const EventPledgers = ({ ClickedEvents }) => {
 
   const pledgersFromClickedEvents = ClickedEvents?.eventPledgers;
 
-  console.log(pledgersFromClickedEvents);
   return (
     <Container>
       <Typography
