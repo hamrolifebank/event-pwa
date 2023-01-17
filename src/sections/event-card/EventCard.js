@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
+  Link,
   Paper,
   Typography,
   Container,
@@ -13,13 +14,18 @@ import {
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
-const EventCard = ({ event }) => {
+const EventCard = ({ user, event }) => {
   const [anchor, setAnchor] = useState(null);
   const currentDate = new Date();
   const handleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     setAnchor(event.currentTarget);
   };
+  const { push } = useRouter();
+
   return (
     <>
       <Paper
@@ -33,51 +39,61 @@ const EventCard = ({ event }) => {
           backgroundColor: "grey.200",
         }}
       >
-        <Box>
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: "subtitle1.fontSize",
-              fontWeight: "subtitle1.fontWeight",
-              lineHeight: "subtitle1.lineHeight",
-            }}
-          >
-            {event?.eventName}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "subtitle2.fontSize",
-              color: "grey.600",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
-          >
-            <Icon icon="mdi:clock-time-eight-outline" />
-            {new Date(event?.startTimeStamp).toLocaleDateString()}
-          </Typography>
+        <Link
+          onClick={() => push(`/event/${event.id}`)}
+          style={{ textDecoration: "none" }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                color: "black",
+                fontSize: "subtitle1.fontSize",
+                fontWeight: "subtitle1.fontWeight",
+                lineHeight: "subtitle1.lineHeight",
+              }}
+            >
+              {event?.eventName}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "subtitle2.fontSize",
+                color: "grey.600",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+            >
+              <Icon icon="mdi:clock-time-eight-outline" />
+              {new Date(event?.startTimeStamp).toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })}
+            </Typography>
 
-          <Typography
-            sx={{
-              fontSize: "subtitle2.fontSize",
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-              textDecoration: "underline",
-              color: "secondary.main",
-            }}
-          >
-            <Icon icon="material-symbols:location-on" />
-            {event?.location}
-          </Typography>
-        </Box>
-
+            <Typography
+              sx={{
+                fontSize: "subtitle2.fontSize",
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                textDecoration: "underline",
+                color: "secondary.main",
+              }}
+            >
+              <Icon icon="material-symbols:location-on" />
+              {event?.location}
+            </Typography>
+          </Box>
+        </Link>
         {new Date(event?.endTimeStamp) >= currentDate ? (
           <Box>
             <Button
               aria-describedby="QR code"
               variant="contained"
-              onClick={handleClick}
+              onClick={(event) => {
+                handleClick(event);
+              }}
             >
               QR code
             </Button>
@@ -104,7 +120,7 @@ const EventCard = ({ event }) => {
                     <Box display="flex" justifyContent="center">
                       <QRCode
                         title="Event QR-code"
-                        value={`event.eventEthAddress`}
+                        value={event?.eventEthAddress}
                         level="M"
                         bgColor={"#FFFFFF"}
                         fgColor={"#000000"}
@@ -115,7 +131,7 @@ const EventCard = ({ event }) => {
                     <DialogContentText
                       display="flex"
                       justifyContent="center"
-                      sx={{ wordWrap: "inherit" }}
+                      sx={{ wordWrap: "inherit", pt: 2 }}
                     >
                       {event?.eventEthAddress}
                     </DialogContentText>
