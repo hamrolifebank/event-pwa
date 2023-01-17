@@ -27,7 +27,6 @@ const Home = () => {
         userethaddress: "",
       };
   const { push } = useRouter();
-
   return (
     <Container>
       <Box
@@ -82,13 +81,9 @@ const Home = () => {
         Your upcoming events
       </Typography>
       {requiredEvents.map((event) => (
-        <Link
-          onClick={() => push(`/event/${event.id}`)}
-          style={{ textDecoration: "none" }}
-          key={event.id}
-        >
-          <EventCard user={user} event={event} />
-        </Link>
+        <>
+          <EventCard key={event.id} user={user} event={event} />
+        </>
       ))}
 
       <Link

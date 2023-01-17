@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
+  Link,
   Paper,
   Typography,
   Container,
@@ -13,6 +14,7 @@ import {
 import { Icon } from "@iconify/react";
 import QRCode from "react-qr-code";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const EventCard = ({ user, event }) => {
   const [anchor, setAnchor] = useState(null);
@@ -22,6 +24,8 @@ const EventCard = ({ user, event }) => {
     event.stopPropagation();
     setAnchor(event.currentTarget);
   };
+  const { push } = useRouter();
+
   return (
     <>
       <Paper
@@ -35,49 +39,53 @@ const EventCard = ({ user, event }) => {
           backgroundColor: "grey.200",
         }}
       >
-        <Box>
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: "subtitle1.fontSize",
-              fontWeight: "subtitle1.fontWeight",
-              lineHeight: "subtitle1.lineHeight",
-            }}
-          >
-            {event?.eventName}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "subtitle2.fontSize",
-              color: "grey.600",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
-          >
-            <Icon icon="mdi:clock-time-eight-outline" />
-            {new Date(event?.startTimeStamp).toLocaleDateString("en-US", {
-              month: "short",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </Typography>
+        <Link
+          onClick={() => push(`/event/${event.id}`)}
+          style={{ textDecoration: "none" }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                color: "black",
+                fontSize: "subtitle1.fontSize",
+                fontWeight: "subtitle1.fontWeight",
+                lineHeight: "subtitle1.lineHeight",
+              }}
+            >
+              {event?.eventName}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "subtitle2.fontSize",
+                color: "grey.600",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+            >
+              <Icon icon="mdi:clock-time-eight-outline" />
+              {new Date(event?.startTimeStamp).toLocaleDateString("en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+              })}
+            </Typography>
 
-          <Typography
-            sx={{
-              fontSize: "subtitle2.fontSize",
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-              textDecoration: "underline",
-              color: "secondary.main",
-            }}
-          >
-            <Icon icon="material-symbols:location-on" />
-            {event?.location}
-          </Typography>
-        </Box>
-
+            <Typography
+              sx={{
+                fontSize: "subtitle2.fontSize",
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                textDecoration: "underline",
+                color: "secondary.main",
+              }}
+            >
+              <Icon icon="material-symbols:location-on" />
+              {event?.location}
+            </Typography>
+          </Box>
+        </Link>
         {new Date(event?.endTimeStamp) >= currentDate ? (
           <Box>
             <Button
