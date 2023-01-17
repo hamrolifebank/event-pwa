@@ -41,7 +41,18 @@ const EventPledgers = ({ ClickedEvents }) => {
         ))
       ) : (
         <>
-          <p>This event have no pledgers yet.</p>
+          <Typography
+            display="flex"
+            justifyContent="center"
+            sx={{
+              mb: 2,
+              fontSize: "h6.fontSize",
+              fontWeight: "h6.fontWeight",
+              lineHeight: "h6.lineHeight",
+            }}
+          >
+            This event have no pledgers yet.
+          </Typography>
         </>
       )}
 

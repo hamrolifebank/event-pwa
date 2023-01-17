@@ -11,7 +11,7 @@ const EventDetails = ({ clickedEvents }) => {
   const { push } = useRouter();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
-  console.log(selectedEvent);
+
   const currentDate = new Date();
   const eventdate = new Date(selectedEvent.date);
   if (currentDate >= eventdate) {
