@@ -29,4 +29,13 @@ const getAllPledgers = async () => {
   }
 };
 
-export default { create, getAll, getAllPledgers };
+const getAllDoners = async () => {
+  try {
+    const response = await api.get("/api/events/event-doners");
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export default { create, getAll, getAllPledgers, getAllDoners };

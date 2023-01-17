@@ -6,7 +6,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const EventDoners = () => {
-  //   const eventDoners = useSelector((state) => state.eventDoners);
+  const eventDoners = useSelector((state) => state.eventDoners);
   return (
     <Container>
       <Typography
@@ -31,7 +31,7 @@ const EventDoners = () => {
       >
         DONERS
       </Typography>
-      {/* {eventDoners.length !== 0 ? (
+      {eventDoners.length !== 0 ? (
         eventDoners.map((eventDoner) => (
           <DonersCard key={eventDoner.id} eventDoner={eventDoner} />
         ))
@@ -39,11 +39,7 @@ const EventDoners = () => {
         <>
           <p>This event have no doners yet.</p>
         </>
-      )} */}
-
-      <DonersCard />
-      <DonersCard />
-      <DonersCard />
+      )}
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>

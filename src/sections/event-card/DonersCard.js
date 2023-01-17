@@ -26,8 +26,7 @@ const DonersCard = ({ eventDoner }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {/* {eventPledger?.pledgerInfo}{" "} */}
-            Sumitra Guragain
+            {eventDoner?.pledgerInfo}{" "}
             <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
