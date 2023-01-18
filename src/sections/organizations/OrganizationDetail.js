@@ -104,7 +104,9 @@ const OrganizationDetail = () => {
       </Grid>
 
       <Stack spacing={2} sx={{ mt: 2 }}>
-        <PrimaryButton>Create event</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/create-events`)}>
+          Create event
+        </PrimaryButton>
         <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>

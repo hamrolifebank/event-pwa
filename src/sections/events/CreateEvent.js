@@ -18,11 +18,12 @@ import { useRouter } from "next/router";
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
-
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+  const { id } = query;
+
   const dispatch = useDispatch();
 
   let user = useSelector((state) => state.user);
@@ -34,6 +35,10 @@ const CreateEvent = () => {
   let organizations = useSelector((state) => state.myJoinedOrganizations);
   organizations = organizations ? organizations : [];
 
+  const selectedOrganization = organizations?.find(
+    (org) => org.id === Number(id)
+  );
+
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date(Date.now())
   );
@@ -44,7 +49,7 @@ const CreateEvent = () => {
   const [field, setField] = useState({
     creatorId: user.id,
     benificaryBloodBank: "",
-    organization: "",
+    organization: selectedOrganization ? selectedOrganization.name : "",
     eventName: "",
     contactPerson: "",
     contactNumber: "",
@@ -131,24 +136,34 @@ const CreateEvent = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Organization</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              type="text"
-              id="demo-simple-select"
-              name="organization"
+          {selectedOrganization ? (
+            <TextField
+              disabled
               value={field.organization}
               label="Organization"
-              onChange={handleInput}
-            >
-              {organizations?.map((org) => (
-                <MenuItem key={org.id} value={org.name}>
-                  {org.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            />
+          ) : (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Organization
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                type="text"
+                id="demo-simple-select"
+                name="organization"
+                value={field.organization}
+                label="Organization"
+                onChange={handleInput}
+              >
+                {organizations?.map((org) => (
+                  <MenuItem key={org.id} value={org.name}>
+                    {org.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
 
           <TextField
             label="Event Name"
