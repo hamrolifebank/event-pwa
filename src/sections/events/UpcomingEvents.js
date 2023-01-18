@@ -8,9 +8,10 @@ import { useSelector } from "react-redux";
 const UpcomingEvents = () => {
   const events = useSelector((state) => state.events);
   const currentDate = new Date();
-  const filteredUpcomingEvents = events?.filter(
-    (event) => new Date(event.endTimeStamp) >= currentDate
-  );
+  const filteredUpcomingEvents =
+    events.length !== 0 && events.success !== false
+      ? events.filter((event) => new Date(event.endTimeStamp) >= currentDate)
+      : [];
   return (
     <Container>
       <Typography
