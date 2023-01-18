@@ -20,13 +20,4 @@ const getAll = async () => {
   }
 };
 
-const getAllPledgers = async () => {
-  try {
-    const response = await api.get("/api/events/event-pledgers");
-    return response.data;
-  } catch (error) {
-    return error.response.data;
-  }
-};
-
-export default { create, getAll, getAllPledgers };
+export default { create, getAll };

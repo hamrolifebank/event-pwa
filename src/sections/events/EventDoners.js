@@ -3,10 +3,8 @@ import { Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import DonersCard from "@sections/event-card/DonersCard";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const EventDoners = () => {
-  //   const eventDoners = useSelector((state) => state.eventDoners);
   return (
     <Container>
       <Typography
@@ -31,15 +29,6 @@ const EventDoners = () => {
       >
         DONERS
       </Typography>
-      {/* {eventDoners.length !== 0 ? (
-        eventDoners.map((eventDoner) => (
-          <DonersCard key={eventDoner.id} eventDoner={eventDoner} />
-        ))
-      ) : (
-        <>
-          <p>This event have no doners yet.</p>
-        </>
-      )} */}
 
       <DonersCard />
       <DonersCard />
