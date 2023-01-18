@@ -16,10 +16,10 @@ const UpcomingEvents = () => {
   const selectedOrganization = myOrganizations?.find(
     (org) => org.id === Number(id)
   );
-  const pastEvents = myevents?.filter(
+  const selectedOrganizationEvents = myevents?.filter(
     (event) => event.organization === selectedOrganization.name
   );
-  const filteredPastEvents = pastEvents?.filter(
+  const filteredPastEvents = selectedOrganizationEvents?.filter(
     (event) => new Date(event.startTimeStamp) < currentDate
   );
 

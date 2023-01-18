@@ -9,6 +9,7 @@ import { PATH_ORGANIZATION } from "@routes/paths";
 
 const UpcomingEvents = () => {
   const { query, push, asPath } = useRouter();
+  const router = useRouter();
   const { id } = query;
   const currentDate = new Date();
   const myOrganizations = useSelector((state) => state.organizations);
@@ -16,20 +17,16 @@ const UpcomingEvents = () => {
   const selectedOrganization = myOrganizations?.find(
     (org) => org.id === Number(id)
   );
-  const upcomingEvents = myevents?.filter(
+  const selectedOrganizationEvents = myevents?.filter(
     (event) => event.organization === selectedOrganization.name
   );
-  const filteredupcomingEvents = upcomingEvents?.filter(
+  const filteredupcomingEvents = selectedOrganizationEvents?.filter(
     (event) => new Date(event.startTimeStamp) >= currentDate
   );
 
-  const arrowBack = () => {
-    push(PATH_ORGANIZATION.root);
-  };
-
   return (
     <Container>
-      <IconButton color="primary" onClick={arrowBack}>
+      <IconButton color="primary" onClick={() => router.back()}>
         <ArrowBackIosIcon />
       </IconButton>
       <Grid container justify="center" mt={2} spacing={1}>
