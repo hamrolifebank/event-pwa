@@ -18,7 +18,6 @@ import { useRouter } from "next/router";
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
-
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
@@ -137,24 +136,34 @@ const CreateEvent = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Organization</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              type="text"
-              id="demo-simple-select"
-              name="organization"
+          {selectedOrganization ? (
+            <TextField
+              disabled
               value={field.organization}
               label="Organization"
-              onChange={handleInput}
-            >
-              {organizations?.map((org) => (
-                <MenuItem key={org.id} value={org.name}>
-                  {org.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            />
+          ) : (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Organization
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                type="text"
+                id="demo-simple-select"
+                name="organization"
+                value={field.organization}
+                label="Organization"
+                onChange={handleInput}
+              >
+                {organizations?.map((org) => (
+                  <MenuItem key={org.id} value={org.name}>
+                    {org.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
 
           <TextField
             label="Event Name"
