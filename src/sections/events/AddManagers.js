@@ -4,7 +4,7 @@ import { Container, Box } from "@mui/system";
 import ManagerCard from "@sections/event-card/ManagerCard";
 import React from "react";
 
-const AddManagers = () => {
+const AddManagers = ({ ClickedEvents }) => {
   return (
     <Container>
       <Typography
@@ -14,7 +14,7 @@ const AddManagers = () => {
         sx={{ mt: 4 }}
         color="black"
       >
-        HBL Doner center
+        {ClickedEvents?.eventName}
       </Typography>
       <PrimaryButton sx={{ mt: 2, mb: 2 }}>Add manager</PrimaryButton>
       <Typography
