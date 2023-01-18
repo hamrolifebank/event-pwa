@@ -1,6 +1,10 @@
 import {
   Container,
+  FormControl,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,7 +19,6 @@ import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
 
-import library from "@utils/wallet";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateEvent = () => {
@@ -27,6 +30,12 @@ const CreateEvent = () => {
 
   let user = useSelector((state) => state.user);
   user = user ? user : {};
+
+  let bloodBankOrg = useSelector((state) => state.benificiaryBloodBanks);
+  bloodBankOrg = bloodBankOrg ? bloodBankOrg : [];
+
+  let organizations = useSelector((state) => state.myJoinedOrganizations);
+  organizations = organizations ? organizations : [];
 
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date(Date.now())
@@ -105,36 +114,45 @@ const CreateEvent = () => {
           sx={{ mb: 2 }}
           onSubmit={handleSubmit}
         >
-          <TextField
-            label="Benificary"
-            type="text"
-            name="benificaryBloodBank"
-            value={field.benificaryBloodBank}
-            onChange={handleInput}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Icon icon="mdi:blood-bag" />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Oragnization"
-            type="text"
-            name="organization"
-            value={field.organization}
-            onChange={handleInput}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Icon icon="octicon:organization-24" />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Benificary</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              type="text"
+              name="benificaryBloodBank"
+              value={field.benificaryBloodBank}
+              label="Benificary"
+              required
+              onChange={handleInput}
+            >
+              {bloodBankOrg?.map((org) => (
+                <MenuItem key={org.id} value={org.name}>
+                  {org.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Organization</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              type="text"
+              id="demo-simple-select"
+              name="organization"
+              value={field.organization}
+              label="Organization"
+              onChange={handleInput}
+            >
+              {organizations?.map((org) => (
+                <MenuItem key={org.id} value={org.name}>
+                  {org.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <TextField
             label="Event Name"
             type="text"
@@ -182,7 +200,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Target"
-            type="text"
+            type="number"
             name="noOfTarget"
             value={field.noOfTarget}
             onChange={handleInput}
@@ -212,7 +230,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Latitude"
-            type="text"
+            type="number"
             name="latitude"
             value={field.latitude}
             onChange={handleInput}
@@ -227,7 +245,7 @@ const CreateEvent = () => {
           />
           <TextField
             label="Longitude"
-            type="text"
+            type="number"
             name="longitude"
             value={field.longitude}
             onChange={handleInput}
