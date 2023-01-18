@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     case "POST":
       try {
         let wallet = await library.createWallet();
-        let eventEthAddress = wallet.address;
+        let eventEthAddress = wallet.publicKey;
         let eventPrivateKey = wallet.privateKey;
 
         const {
