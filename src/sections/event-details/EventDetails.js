@@ -31,12 +31,8 @@ const EventDetails = ({ clickedEvents }) => {
   let chipColor = chipLabel === "Active" ? "success.main" : "warning.main";
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
 
-  const eventPledgersNavigator = () => {
-    push(PATH_EVENTS.eventPledgers);
-  };
-
   const eventDonersNavigator = () => {
-    push(PATH_EVENTS.eventDoners);
+    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
   };
 
   return (
@@ -151,16 +147,11 @@ const EventDetails = ({ clickedEvents }) => {
         >
           Donors
         </Button>
-        <Button
-          onClick={eventPledgersNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
+        <Button size="large" variant="contained" color="primary">
           Pledgers
         </Button>
         <Button size="large" variant="contained" color="primary">
-          MAnagers
+          Managers
         </Button>
       </Stack>
     </Container>

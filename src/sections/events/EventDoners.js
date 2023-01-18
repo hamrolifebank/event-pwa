@@ -4,7 +4,7 @@ import { Container, Box } from "@mui/system";
 import DonersCard from "@sections/event-card/DonersCard";
 import React from "react";
 
-const EventDoners = () => {
+const EventDoners = ({ ClickedEvents }) => {
   return (
     <Container>
       <Typography
@@ -14,7 +14,7 @@ const EventDoners = () => {
         sx={{ mt: 4 }}
         color="black"
       >
-        Nayabasti Yuba club
+        {ClickedEvents?.eventName}
       </Typography>
       <Typography
         display="flex"
