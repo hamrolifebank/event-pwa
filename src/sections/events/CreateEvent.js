@@ -24,7 +24,6 @@ import { useDispatch, useSelector } from "react-redux";
 const CreateEvent = () => {
   const { query, push } = useRouter();
   const { id } = query;
-  console.log(" id: ", id);
 
   const dispatch = useDispatch();
 
@@ -37,6 +36,10 @@ const CreateEvent = () => {
   let organizations = useSelector((state) => state.myJoinedOrganizations);
   organizations = organizations ? organizations : [];
 
+  const selectedOrganization = organizations?.find(
+    (org) => org.id === Number(id)
+  );
+
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date(Date.now())
   );
@@ -47,7 +50,7 @@ const CreateEvent = () => {
   const [field, setField] = useState({
     creatorId: user.id,
     benificaryBloodBank: "",
-    organization: "",
+    organization: selectedOrganization ? selectedOrganization.name : "",
     eventName: "",
     contactPerson: "",
     contactNumber: "",
