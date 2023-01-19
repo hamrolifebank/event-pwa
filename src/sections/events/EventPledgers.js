@@ -3,11 +3,8 @@ import { Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import PledgersCard from "@sections/event-card/PledgersCard";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const EventPledgers = ({ ClickedEvents }) => {
-  // const eventPledgers = useSelector((state) => state.eventPledgers);
-
   const pledgersFromClickedEvents = ClickedEvents?.eventPledgers;
 
   return (
