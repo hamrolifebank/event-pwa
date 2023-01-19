@@ -33,6 +33,9 @@ const OrganizationDetail = () => {
     boxShadow: 30,
     p: 4,
   };
+  const handleEditOrgProfile = () => {
+    push();
+  };
 
   return (
     <Container>
@@ -55,6 +58,9 @@ const OrganizationDetail = () => {
                 color: "info.main",
                 fontSize: "14px",
                 fontWeight: "700",
+              }}
+              onClick={() => {
+                push(`${asPath}/edit-org-profile`);
               }}
             >
               Edit profile
