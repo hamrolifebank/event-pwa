@@ -124,6 +124,9 @@ const OrganizationEditForm = () => {
             <Checkbox
               value={field.isBloodBank}
               name="is-blood-bank"
+              defaultChecked={
+                selectedOrganization ? selectedOrganization.isBloodBank : false
+              }
               onChange={handleFieldChange}
             />
           }
