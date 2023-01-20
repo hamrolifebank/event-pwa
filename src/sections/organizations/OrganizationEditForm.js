@@ -11,16 +11,16 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-// import { addOrganization } from "@redux/reducers/organizationReducer";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { updateOrg } from "@redux/reducers/organizationReducer";
 
 const OrganizationEditForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { query } = useRouter();
+  const { push, query } = useRouter();
   const { id } = query;
 
   const myOrganization = useSelector((state) => state.myJoinedOrganizations);
@@ -84,7 +84,7 @@ const OrganizationEditForm = () => {
       address: field.address,
       isBloodBank: field.isBloodBank,
     };
-    // await dispatch(addOrganization(newOrganization));
+    await dispatch(updateOrg(id, newOrganization));
   };
 
   return (
@@ -129,7 +129,9 @@ const OrganizationEditForm = () => {
           }
           label="Is Blood Bank?"
         />
-        <PrimaryButton type="submit">submit</PrimaryButton>
+        <PrimaryButton type="submit" onClick={() => push("/organization")}>
+          submit
+        </PrimaryButton>
         <SecondaryButton onClick={() => router.back()}>cancel</SecondaryButton>
       </Stack>
     </Container>

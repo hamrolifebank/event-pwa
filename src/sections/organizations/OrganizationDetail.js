@@ -33,9 +33,6 @@ const OrganizationDetail = () => {
     boxShadow: 30,
     p: 4,
   };
-  const handleEditOrgProfile = () => {
-    push();
-  };
 
   return (
     <Container>
