@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     case "POST":
       try {
         let wallet = await library.createWallet();
-        let eventEthAddress = wallet.address;
+        let eventEthAddress = wallet.publicKey;
         let eventPrivateKey = wallet.privateKey;
 
         const {
@@ -69,9 +69,12 @@ export default async function handler(req, res) {
           }
         );
 
-        res.status(201).json(registeredEvent.data);
+        res.status(201).json({
+          registeredEvent: registeredEvent.data,
+          status: registeredEvent.status,
+        });
       } catch (error) {
-        res.status(400).json({ success: false });
+        res.status(400).json(error);
       }
       break;
     default:

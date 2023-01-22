@@ -20,8 +20,9 @@ export const { appendEvent, setEvents } = eventSlice.actions;
 export const createEvent = (event) => {
   return async (dispatch) => {
     const result = await eventService.create(event);
-
-    await dispatch(appendEvent(result));
+    if (result.status === 201) {
+      await dispatch(appendEvent(result.registeredEvent));
+    }
   };
 };
 

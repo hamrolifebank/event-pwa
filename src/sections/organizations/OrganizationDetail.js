@@ -1,14 +1,16 @@
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
-import { Grid, Modal, Stack, Typography } from "@mui/material";
+import { Grid, Modal, Stack, Typography, IconButton } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
+  const router = useRouter();
   const { id } = query;
 
   const myOrganization = useSelector((state) => state.myJoinedOrganizations);
@@ -34,21 +36,32 @@ const OrganizationDetail = () => {
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          mt: 2,
-        }}
-      >
-        <Typography
-          sx={{
-            color: "info.main",
-          }}
-        >
-          Edit profile
-        </Typography>
-      </Box>
+      <Grid container item xs>
+        <Grid item xs>
+          <IconButton color="primary" onClick={() => router.back()}>
+            <ArrowBackIosIcon />
+          </IconButton>
+        </Grid>
+        <Grid item xs>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              mt: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                color: "info.main",
+                fontSize: "14px",
+                fontWeight: "700",
+              }}
+            >
+              Edit profile
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
 
       <Grid container justifyContent="center" mt={2}>
         <Grid item>
@@ -91,12 +104,10 @@ const OrganizationDetail = () => {
       </Grid>
 
       <Stack spacing={2} sx={{ mt: 2 }}>
-        <PrimaryButton>Create event</PrimaryButton>
-        <PrimaryButton
-          onClick={() => {
-            push(`${asPath}/upcoming-events`);
-          }}
-        >
+        <PrimaryButton onClick={() => push(`${asPath}/create-events`)}>
+          Create event
+        </PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>
         <PrimaryButton
@@ -107,7 +118,9 @@ const OrganizationDetail = () => {
           View past events
         </PrimaryButton>
         <PrimaryButton>View donors</PrimaryButton>
-        <PrimaryButton>View members</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/org-members`)}>
+          View members
+        </PrimaryButton>
         <WarningButton onClick={handleOpen}>Leave organization</WarningButton>
         <Modal
           open={open}

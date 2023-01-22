@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { BorderlessButton, PrimaryButton } from "@components/button";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { PATH_EVENTS } from "@routes/paths";
 import EventCard from "@sections/event-card/EventCard";
@@ -9,9 +9,12 @@ import { useSelector } from "react-redux";
 
 const Events = () => {
   let events = useSelector((state) => state.events);
+  const currentDate = new Date();
+  const num = 3;
 
-  let user = useSelector((state) => state.user);
-  user = user ? user : [];
+  const filteredUpcomingEvents = events?.filter(
+    (event) => new Date(event.endTimeStamp) >= currentDate
+  );
 
   const { push } = useRouter();
   const createEventNavigator = () => {
@@ -38,7 +41,20 @@ const Events = () => {
       <Typography display="flex" justifyContent="center" sx={{ mb: 1 }}>
         UPCOMING EVENTS
       </Typography>
-      <EventCard user={user} />
+      {filteredUpcomingEvents.length !== 0
+        ? filteredUpcomingEvents
+            .slice(0, 2)
+            .map((event) => <EventCard key={event.id} event={event} />)
+        : null}
+
+      <Box>
+        <BorderlessButton
+          onClick={upcomingEventNavigator}
+          sx={{ mt: 2, mb: 2, color: "secondary.main" }}
+        >
+          Load More Events
+        </BorderlessButton>
+      </Box>
     </Container>
   );
 };
