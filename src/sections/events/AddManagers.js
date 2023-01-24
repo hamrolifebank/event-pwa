@@ -1,12 +1,18 @@
 import { BorderlessButton, PrimaryButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Container, Box } from "@mui/system";
 import ManagerCard from "@sections/event-card/ManagerCard";
+import { useRouter } from "next/router";
 import React from "react";
 
 const AddManagers = ({ ClickedEvents }) => {
+  const router = useRouter();
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
