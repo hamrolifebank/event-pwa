@@ -1,12 +1,23 @@
-import { Typography, Grid, Chip, Stack, Button, Tab } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Chip,
+  Stack,
+  Button,
+  Tab,
+  IconButton,
+} from "@mui/material";
 import { Box, Container } from "@mui/system";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import { PrimaryButton } from "@components/button";
+import { PATH_EVENTS } from "@routes/paths";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
+  const { push } = useRouter();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
   const currentDate = new Date();
@@ -29,8 +40,19 @@ const EventDetails = ({ clickedEvents }) => {
   let chipColor = chipLabel === "Active" ? "success.main" : "warning.main";
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
 
+  const eventDonersNavigator = () => {
+    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
+  };
+
+  const addManagerNavigator = () => {
+    push(`${PATH_EVENTS.addManager}/${selectedEvent.id}`);
+  };
+
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Box sx={{ display: "flex", justifyContent: "space-between" }} m={1}>
         <Typography variant="h6">{selectedEvent?.eventName}</Typography>{" "}
         <Stack spacing={0} direction="row" item xs={8}>
@@ -133,14 +155,24 @@ const EventDetails = ({ clickedEvents }) => {
         sx={{ display: "flex", justifyContent: "center", p: 3 }}
         direction="row"
       >
-        <Button size="large" variant="contained" color="primary">
+        <Button
+          onClick={eventDonersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
           Donors
         </Button>
         <Button size="large" variant="contained" color="primary">
           Pledgers
         </Button>
-        <Button size="large" variant="contained" color="primary">
-          MAnagers
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={addManagerNavigator}
+        >
+          Managers
         </Button>
       </Stack>
     </Container>

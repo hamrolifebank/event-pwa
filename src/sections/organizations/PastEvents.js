@@ -1,11 +1,10 @@
 import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import EventCard from "@sections/event-card/EventCard";
 import BorderlessButton from "@components/button/BorderlessButton";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { PATH_ORGANIZATION } from "@routes/paths";
 
 const UpcomingEvents = () => {
   const { query, push, asPath } = useRouter();
@@ -20,37 +19,39 @@ const UpcomingEvents = () => {
   const selectedOrganizationEvents = myevents?.filter(
     (event) => event.organization === selectedOrganization.name
   );
-  const filteredupcomingEvents = selectedOrganizationEvents?.filter(
-    (event) => new Date(event.startTimeStamp) >= currentDate
+  const filteredPastEvents = selectedOrganizationEvents?.filter(
+    (event) => new Date(event.startTimeStamp) < currentDate
   );
 
   return (
-    <Container>
+    <>
       <IconButton color="primary" onClick={() => router.back()}>
         <ArrowBackIosIcon />
       </IconButton>
-      <Grid container justify="center" mt={2} spacing={1}>
-        <Grid item xs={12}>
-          <Typography variant="h3" align="center">
-            {selectedOrganization.name}{" "}
-          </Typography>
+      <Container>
+        <Grid container justify="center" mt={2} spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="h3" align="center">
+              {selectedOrganization.name}{" "}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="subtitle2" align="center">
+              PAST EVENTS
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" align="center">
-            UPCOMMING EVENTS
-          </Typography>
-        </Grid>
-      </Grid>
 
-      <Stack spacing={1} mt={2}>
-        {filteredupcomingEvents.map((upcomingEvent, index) => (
-          <EventCard key={index} event={upcomingEvent} />
-        ))}
-      </Stack>
-      <BorderlessButton sx={{ color: "error.dark" }}>
-        Load more...
-      </BorderlessButton>
-    </Container>
+        <Stack spacing={1} mt={2}>
+          {filteredPastEvents.map((pastEvent, index) => (
+            <EventCard key={index} event={pastEvent} />
+          ))}
+        </Stack>
+        <BorderlessButton sx={{ color: "error.dark" }}>
+          Load more...
+        </BorderlessButton>
+      </Container>
+    </>
   );
 };
 

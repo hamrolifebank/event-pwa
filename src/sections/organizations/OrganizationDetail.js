@@ -56,6 +56,9 @@ const OrganizationDetail = () => {
                 fontSize: "14px",
                 fontWeight: "700",
               }}
+              onClick={() => {
+                push(`${asPath}/edit-org-profile`);
+              }}
             >
               Edit profile
             </Typography>
@@ -110,7 +113,13 @@ const OrganizationDetail = () => {
         <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>
-        <PrimaryButton>View past events</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            push(`${asPath}/past-events`);
+          }}
+        >
+          View past events
+        </PrimaryButton>
         <PrimaryButton>View donors</PrimaryButton>
         <PrimaryButton onClick={() => push(`${asPath}/org-members`)}>
           View members
