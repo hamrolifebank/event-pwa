@@ -1,12 +1,12 @@
-import { BorderlessButton } from "@components/button";
+import { BorderlessButton, PrimaryButton } from "@components/button";
 import { IconButton, Typography } from "@mui/material";
-import { Container, Box } from "@mui/system";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import DonersCard from "@sections/event-card/DonersCard";
-import React from "react";
+import { Container, Box } from "@mui/system";
+import ManagerCard from "@sections/event-card/ManagerCard";
 import { useRouter } from "next/router";
+import React from "react";
 
-const EventDoners = ({ ClickedEvents }) => {
+const AddManagers = ({ ClickedEvents }) => {
   const router = useRouter();
   return (
     <Container>
@@ -22,6 +22,7 @@ const EventDoners = ({ ClickedEvents }) => {
       >
         {ClickedEvents?.eventName}
       </Typography>
+      <PrimaryButton sx={{ mt: 2, mb: 2 }}>Add manager</PrimaryButton>
       <Typography
         display="flex"
         justifyContent="center"
@@ -33,15 +34,14 @@ const EventDoners = ({ ClickedEvents }) => {
         }}
         color="grey.600"
       >
-        DONERS
+        CURRENT MANAGER
       </Typography>
-
-      <DonersCard />
-      <DonersCard />
-      <DonersCard />
+      <ManagerCard />
+      <ManagerCard />
+      <ManagerCard />
 
       <Box>
-        <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
+        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
           Load more...
         </BorderlessButton>
       </Box>
@@ -49,4 +49,4 @@ const EventDoners = ({ ClickedEvents }) => {
   );
 };
 
-export default EventDoners;
+export default AddManagers;
