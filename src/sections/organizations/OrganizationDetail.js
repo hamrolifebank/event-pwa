@@ -56,6 +56,9 @@ const OrganizationDetail = () => {
                 fontSize: "14px",
                 fontWeight: "700",
               }}
+              onClick={() => {
+                push(`${asPath}/edit-org-profile`);
+              }}
             >
               Edit profile
             </Typography>

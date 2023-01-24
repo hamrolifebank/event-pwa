@@ -54,6 +54,16 @@ const create = async (organization) => {
   return newOrganization.data.data;
 };
 
+const update = async (id, organization) => {
+  const updatedOrganization = await axios.put(
+    `/api/organization/${id}`,
+    organization,
+    getHeader()
+  );
+
+  return updatedOrganization.data.data;
+};
+
 const join = async (organizationId) => {
   const joinedOrganization = await axios.post(
     `/api/organization/my-pendingrequests`,
@@ -123,6 +133,7 @@ export default {
   getBenificiaryBloodBanks,
   getMyPendingRequests,
   create,
+  update,
   join,
   getMyNotJoinedOrganizations,
   getMyOrganizations,
