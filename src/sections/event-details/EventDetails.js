@@ -49,6 +49,10 @@ const EventDetails = ({ clickedEvents }) => {
     push(`${PATH_EVENTS.addManager}/${selectedEvent.id}`);
   };
 
+  const eventPledgersNavigator = () => {
+    push(`${PATH_EVENTS.eventPledgers}/${selectedEvent.id}`);
+  };
+
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
