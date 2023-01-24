@@ -2,13 +2,14 @@ import { BorderlessButton } from "@components/button";
 import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import DonersCard from "@sections/event-card/DonersCard";
 import React from "react";
 import { useRouter } from "next/router";
 import { PledgersCard } from "@sections/event-card";
 
 const EventPledgers = ({ ClickedEvents }) => {
   const router = useRouter();
+  const eventPledgers = ClickedEvents.eventPledgers;
+
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
@@ -37,9 +38,29 @@ const EventPledgers = ({ ClickedEvents }) => {
         PLEDGERS
       </Typography>
 
-      <PledgersCard />
-      <PledgersCard />
-      <PledgersCard />
+      {eventPledgers.length !== 0 ? (
+        eventPledgers.map((eventPledger) => (
+          <>
+            <PledgersCard key={eventPledger.id} eventPledger={eventPledger} />
+          </>
+        ))
+      ) : (
+        <>
+          <Typography
+            display="flex"
+            justifyContent="center"
+            sx={{
+              mb: 2,
+              fontSize: "h6.fontSize",
+              fontWeight: "h6.fontWeight",
+              lineHeight: "h6.lineHeight",
+            }}
+            color="grey.600"
+          >
+            This event have no pledgers.
+          </Typography>
+        </>
+      )}
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
