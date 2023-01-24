@@ -1,5 +1,14 @@
-import { Typography, Grid, Chip, Stack, Button, Tab } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Chip,
+  Stack,
+  Button,
+  Tab,
+  IconButton,
+} from "@mui/material";
 import { Box, Container } from "@mui/system";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
@@ -35,8 +44,15 @@ const EventDetails = ({ clickedEvents }) => {
     push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
   };
 
+  const addManagerNavigator = () => {
+    push(`${PATH_EVENTS.addManager}/${selectedEvent.id}`);
+  };
+
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Box sx={{ display: "flex", justifyContent: "space-between" }} m={1}>
         <Typography variant="h6">{selectedEvent?.eventName}</Typography>{" "}
         <Stack spacing={0} direction="row" item xs={8}>
@@ -150,7 +166,12 @@ const EventDetails = ({ clickedEvents }) => {
         <Button size="large" variant="contained" color="primary">
           Pledgers
         </Button>
-        <Button size="large" variant="contained" color="primary">
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={addManagerNavigator}
+        >
           Managers
         </Button>
       </Stack>

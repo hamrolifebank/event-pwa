@@ -42,7 +42,7 @@ const AddManagers = ({ ClickedEvents }) => {
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
-          Load More Managers
+          Load more...
         </BorderlessButton>
       </Box>
     </Container>

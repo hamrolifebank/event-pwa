@@ -1,12 +1,18 @@
 import { BorderlessButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DonersCard from "@sections/event-card/DonersCard";
 import React from "react";
+import { useRouter } from "next/router";
 
 const EventDoners = ({ ClickedEvents }) => {
+  const router = useRouter();
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
