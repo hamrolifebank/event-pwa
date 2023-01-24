@@ -5,11 +5,13 @@ import { Grid, Modal, Stack, Typography, IconButton } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useRouter } from "next/router";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { leaveMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgReducer";
 
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
+  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = query;
 
@@ -22,6 +24,12 @@ const OrganizationDetail = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleLeave = () => {
+    console.log("the handele leave ebtered");
+    dispatch(leaveMyJoinedOrganizations(id));
+    push("/organization");
+  };
 
   const style = {
     position: "absolute",
@@ -126,7 +134,9 @@ const OrganizationDetail = () => {
               Are you sure you want to leave Bharatpur Redcross society ?
             </Typography>
             <Typography id="modal-description" sx={{ mt: 3 }}>
-              <WarningButton>Leave organization</WarningButton>
+              <WarningButton onClick={handleLeave}>
+                Leave organization
+              </WarningButton>
               <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
             </Typography>
           </Box>
