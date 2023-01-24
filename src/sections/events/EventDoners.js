@@ -35,8 +35,8 @@ const EventDoners = ({ ClickedEvents }) => {
       <DonersCard />
 
       <Box>
-        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
-          Load More Pledgers
+        <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
+          Load more...
         </BorderlessButton>
       </Box>
     </Container>
