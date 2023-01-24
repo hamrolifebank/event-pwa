@@ -6,12 +6,14 @@ import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useSelector } from "react-redux";
 import organizationService from "@services/organizationService";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const OrgMembers = () => {
   const router = useRouter();
   const { query } = useRouter();
   const { id } = query;
 
+  const [loading, setLoading] = useState(true);
   const [members, setMembers] = useState([]);
   const [next, setNext] = useState(10);
 
@@ -22,7 +24,10 @@ const OrgMembers = () => {
   );
 
   useEffect(() => {
-    organizationService.getMemberList(id).then((data) => setMembers(data));
+    organizationService.getMemberList(id).then((data) => {
+      setMembers(data);
+      setLoading(false);
+    });
   }, []);
 
   const loadMore = () => {
@@ -48,13 +53,27 @@ const OrgMembers = () => {
         </Grid>
       </Grid>
 
-      <Stack spacing={1} mt={2}>
-        {members?.slice(0, next)?.map((member) => (
-          <div key={member.id}>
-            <MemberCard member={member} />
-          </div>
-        ))}
-      </Stack>
+      {loading ? (
+        <CircularProgress
+          disableShrink
+          style={{
+            position: "absolute",
+            top: "40%",
+            left: "40%",
+            transform: "translate(-50%, -50%)",
+            width: "80px",
+            height: "80px",
+          }}
+        />
+      ) : (
+        <Stack spacing={1} mt={2}>
+          {members?.slice(0, next)?.map((member) => (
+            <div key={member.id}>
+              <MemberCard member={member} />
+            </div>
+          ))}
+        </Stack>
+      )}
       {next < members?.length && (
         <BorderlessButton
           sx={{ color: "error.dark", mt: 1 }}

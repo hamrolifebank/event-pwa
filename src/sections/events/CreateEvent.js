@@ -1,9 +1,12 @@
 import {
+  Box,
   Container,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
+  Modal,
   Select,
   TextField,
   Typography,
@@ -16,13 +19,15 @@ import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { PrimaryButton, SecondaryButton } from "@components/button";
-import { PATH_EVENTS } from "@routes/paths";
 import { createEvent } from "@redux/reducers/eventReducer";
-
 import { useDispatch, useSelector } from "react-redux";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const CreateEvent = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+  const router = useRouter();
+  const { id } = query;
+
   const dispatch = useDispatch();
 
   let user = useSelector((state) => state.user);
@@ -34,6 +39,10 @@ const CreateEvent = () => {
   let organizations = useSelector((state) => state.myJoinedOrganizations);
   organizations = organizations ? organizations : [];
 
+  const selectedOrganization = organizations?.find(
+    (org) => org.id === Number(id)
+  );
+
   const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
     new Date(Date.now())
   );
@@ -41,10 +50,14 @@ const CreateEvent = () => {
     new Date(Date.now())
   );
 
+  const [open, setOpen] = useState({ isOpen: false, field: null });
+  const handleOpen = (field) => setOpen({ isOpen: true, field: field });
+  const handleClose = () => setOpen({ isOpen: false, field: null });
+
   const [field, setField] = useState({
     creatorId: user.id,
     benificaryBloodBank: "",
-    organization: "",
+    organization: selectedOrganization ? selectedOrganization.name : "",
     eventName: "",
     contactPerson: "",
     contactNumber: "",
@@ -94,12 +107,15 @@ const CreateEvent = () => {
   };
 
   return (
-    <Container>
+    <Container sx={{ mb: 4 }}>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
         variant="h3"
-        sx={{ mt: 2, mb: 2 }}
+        sx={{ mb: 2 }}
       >
         Create event
       </Typography>
@@ -131,24 +147,34 @@ const CreateEvent = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Organization</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              type="text"
-              id="demo-simple-select"
-              name="organization"
+          {selectedOrganization ? (
+            <TextField
+              disabled
               value={field.organization}
               label="Organization"
-              onChange={handleInput}
-            >
-              {organizations?.map((org) => (
-                <MenuItem key={org.id} value={org.name}>
-                  {org.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            />
+          ) : (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Organization
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                type="text"
+                id="demo-simple-select"
+                name="organization"
+                value={field.organization}
+                label="Organization"
+                onChange={handleInput}
+              >
+                {organizations?.map((org) => (
+                  <MenuItem key={org.id} value={org.name}>
+                    {org.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
 
           <TextField
             label="Event Name"
@@ -268,12 +294,58 @@ const CreateEvent = () => {
             renderInput={(params) => <TextField {...params} />}
           />
 
-          <PrimaryButton type="submit">submit</PrimaryButton>
-          <SecondaryButton onClick={() => push(PATH_EVENTS.root)}>
+          <PrimaryButton type="submit" onClick={() => handleOpen(field)}>
+            submit
+          </PrimaryButton>
+          <SecondaryButton onClick={() => router.back()}>
             cancel
           </SecondaryButton>
         </Stack>
       </LocalizationProvider>
+
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            borderRadius: 2,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            New event{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              {field?.eventName}
+            </Typography>{" "}
+            has been created successfully!
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }}>
+            <SecondaryButton
+              onClick={() => {
+                handleClose();
+                push("/event");
+              }}
+            >
+              ok
+            </SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 };
