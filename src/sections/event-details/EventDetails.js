@@ -8,7 +8,7 @@ import { PATH_EVENTS } from "@routes/paths";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
-  const { push } = router;
+  const { push } = useRouter();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
   const currentDate = new Date();
@@ -31,8 +31,8 @@ const EventDetails = ({ clickedEvents }) => {
   let chipColor = chipLabel === "Active" ? "success.main" : "warning.main";
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
 
-  const addManagersNavigator = () => {
-    push(`${PATH_EVENTS.addManagers}/${selectedEvent.id}`);
+  const eventDonersNavigator = () => {
+    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
   };
 
   return (
@@ -139,18 +139,18 @@ const EventDetails = ({ clickedEvents }) => {
         sx={{ display: "flex", justifyContent: "center", p: 3 }}
         direction="row"
       >
-        <Button size="large" variant="contained" color="primary">
+        <Button
+          onClick={eventDonersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
           Donors
         </Button>
         <Button size="large" variant="contained" color="primary">
           Pledgers
         </Button>
-        <Button
-          onClick={addManagersNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
+        <Button size="large" variant="contained" color="primary">
           Managers
         </Button>
       </Stack>
