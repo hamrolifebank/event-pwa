@@ -4,9 +4,11 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import { PrimaryButton } from "@components/button";
+import { PATH_EVENTS } from "@routes/paths";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
+  const { push } = useRouter();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
   const currentDate = new Date();
@@ -28,6 +30,10 @@ const EventDetails = ({ clickedEvents }) => {
     : null;
   let chipColor = chipLabel === "Active" ? "success.main" : "warning.main";
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
+
+  const eventDonersNavigator = () => {
+    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
+  };
 
   return (
     <Container>
@@ -133,14 +139,19 @@ const EventDetails = ({ clickedEvents }) => {
         sx={{ display: "flex", justifyContent: "center", p: 3 }}
         direction="row"
       >
-        <Button size="large" variant="contained" color="primary">
+        <Button
+          onClick={eventDonersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
           Donors
         </Button>
         <Button size="large" variant="contained" color="primary">
           Pledgers
         </Button>
         <Button size="large" variant="contained" color="primary">
-          MAnagers
+          Managers
         </Button>
       </Stack>
     </Container>
