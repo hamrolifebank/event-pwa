@@ -24,7 +24,7 @@ const MemberCard = ({ member }) => {
               lineHeight: "subtitle2.lineHeight",
             }}
           >
-            {member.user.firstname} {member.user.lastname}
+            {member?.user.firstname} {member?.user.lastname}
           </Typography>
           <Typography
             sx={{
@@ -36,10 +36,10 @@ const MemberCard = ({ member }) => {
             }}
           >
             <Icon icon="ic:outline-email" />
-            {member.user.email}
+            {member?.user.email}
           </Typography>
 
-          {member.user.phone && (
+          {member?.user.phone && (
             <Typography
               sx={{
                 fontSize: "subtitle2.fontSize",

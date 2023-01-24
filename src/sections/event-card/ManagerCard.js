@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const PledgersCard = ({ eventPledger }) => {
+const ManagerCard = () => {
   return (
     <>
       <Paper
@@ -26,7 +26,7 @@ const PledgersCard = ({ eventPledger }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {eventPledger?.pledgerInfo}{" "}
+            Hare Ram
             <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
@@ -49,4 +49,4 @@ const PledgersCard = ({ eventPledger }) => {
   );
 };
 
-export default PledgersCard;
+export default ManagerCard;
