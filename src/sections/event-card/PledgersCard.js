@@ -2,8 +2,16 @@ import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const PledgersCard = ({ eventPledger }) => {
+const PledgersCard = ({ eventPledger, eventEthAddress }) => {
+  console.log("addressFromRegistry: ", eventEthAddress);
+  const eventsFromEventServer = useSelector((state) => state.eventsFromServer);
+
+  const event = eventsFromEventServer.find(
+    (eventFromServer) => eventFromServer.eventEthAddress === eventEthAddress
+  );
+  console.log(event);
   return (
     <>
       <Paper
