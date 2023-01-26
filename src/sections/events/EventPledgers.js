@@ -9,7 +9,7 @@ import { PledgersCard } from "@sections/event-card";
 const EventPledgers = ({ ClickedEvents }) => {
   const router = useRouter();
   const eventPledgers = ClickedEvents.eventPledgers;
-  const eventEthAddress = ClickedEvents.eventEthAddress;
+  // const eventEthAddress = ClickedEvents.eventEthAddress;
 
   return (
     <Container>
@@ -45,7 +45,7 @@ const EventPledgers = ({ ClickedEvents }) => {
             <PledgersCard
               key={eventPledger.id}
               eventPledger={eventPledger}
-              eventEthAddress={eventEthAddress}
+              // eventEthAddress={eventEthAddress}
             />
           </>
         ))
