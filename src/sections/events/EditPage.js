@@ -259,7 +259,7 @@ const EditPage = ({ eventEditDetail }) => {
                 display: "inline",
               }}
             >
-              {field?.eventName}
+              {" " + field?.eventName}
             </Typography>{" "}
             has been updated successfully!
           </Typography>
