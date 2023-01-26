@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     case "DELETE":
       try {
         const allEvents = await axios.get(eventRegistrationUrl);
-        const reqdevent = allEvents.data.find(
+        const reqdEvent = allEvents.data.find(
           (event) => event.id === Number(req.query.id)
         );
         const data = await prisma.event.findFirst({
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             eventEthAddress: reqdevent.eventEthAddress,
           },
         });
-        const deleteLocalServer = await prisma.event.delete({
+        const deleteEvent = await prisma.event.delete({
           where: {
             id: data.id,
           },
