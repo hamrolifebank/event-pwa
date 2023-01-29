@@ -120,7 +120,9 @@ const OrganizationDetail = () => {
         >
           View past events
         </PrimaryButton>
-        <PrimaryButton>View donors</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/donor`)}>
+          View donors
+        </PrimaryButton>
         <PrimaryButton onClick={() => push(`${asPath}/org-members`)}>
           View members
         </PrimaryButton>
