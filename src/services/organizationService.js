@@ -128,6 +128,11 @@ const declineRequest = async (id) => {
   return declinedRequest.data.data;
 };
 
+const getTableEvents = async () => {
+  const events = await axios.get(`/api/event-app-events`, getHeader());
+  return events.data.data;
+};
+
 export default {
   getAll,
   getBenificiaryBloodBanks,
@@ -142,4 +147,5 @@ export default {
   declineRequest,
   withdrawRequest,
   getMemberList,
+  getTableEvents,
 };

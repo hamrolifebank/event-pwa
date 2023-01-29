@@ -4,9 +4,35 @@ import BorderlessButton from "@components/button/BorderlessButton";
 import DonorCard from "@sections/event-card/DonorCard";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { useSelector } from "react-redux";
+import organizationService from "@services/organizationService";
 
 const OrgDonor = () => {
   const router = useRouter();
+  const { query, push, asPath } = useRouter();
+  const organizations = useSelector((state) => state.organizations);
+  const event = useSelector((state) => state.events);
+  const selectedOrganization = organizations?.find(
+    (organization) => organization.id === Number(query.id)
+  );
+  // console.log("the selected otr", selectedOrganization);
+  // event.map((event) => console.log("the org name", event.organization));
+  const organiztionEvents = event?.filter(
+    (orgevent) => orgevent?.organization === selectedOrganization?.name
+  );
+  const getEventAppTableEvents = async () => {
+    const evenstInEventTable = await organizationService.getTableEvents();
+    const matchedEthaddrerss = evenstInEventTable.filter((event) =>
+      organiztionEvents.find(
+        (orgevent) => orgevent.eventEthAddress === event.eventEthAddress
+      )
+    );
+
+    console.log("the matchedEthaddrerss ", matchedEthaddrerss);
+  };
+  const evenstInEventTbl = getEventAppTableEvents();
+  // console.log("the query is", donorOrganization);
+
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
@@ -15,7 +41,7 @@ const OrgDonor = () => {
       <Grid container justify="center" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h3" align="center">
-            Bharatpur Redcross society
+            {selectedOrganization?.name}
           </Typography>
         </Grid>
         <Grid item xs={12}>

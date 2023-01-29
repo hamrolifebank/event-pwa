@@ -22,7 +22,7 @@ export default function AuthGuard({ children }) {
     if (localStorage.getItem("user")) {
       let user = localStorage.getItem("user");
       dispatch(LoginwithToken(user));
-      push("/");
+      // push("/");
     } else {
       if (user === null) {
         push(PATH_AUTH.login);
