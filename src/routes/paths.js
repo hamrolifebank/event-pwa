@@ -19,16 +19,26 @@ export const PATH_DASHBOARD = {
 export const PATH_EVENTS = {
   root: ROOTS_EVENTS,
   createEvent: path(ROOTS_EVENTS, "/create"),
+  pastEvents: path(ROOTS_EVENTS, "/past-events"),
+  upcomingEvents: path(ROOTS_EVENTS, "/upcoming-events"),
+  eventDoners: path(ROOTS_EVENTS, "/event-doners"),
+  addManager: path(ROOTS_EVENTS, "/add-managers"),
+  editEvent: path(ROOTS_EVENTS, "/edit"),
 };
 export const PATH_ORGANIZATION = {
   root: ROOTS_ORGANIZATION,
   createOrg: path(ROOTS_ORGANIZATION, "/create"),
   joinOrg: path(ROOTS_ORGANIZATION, "/join-org"),
-  pendingRequest: path(ROOTS_ORGANIZATION, "/pending-requests"),
+  pendingRequest: path(ROOTS_ORGANIZATION, "/approve-pending-req"),
   upcommingEvents: path(ROOTS_ORGANIZATION, "/upcomming-events"),
+  yourPendingRequest: path(ROOTS_ORGANIZATION, "/view-your-pending-req"),
 };
 export const PATH_ASSETS = {
   root: ROOTS_ASSETS,
+};
+
+export const PATH_AUTH = {
+  login: "/auth/login",
 };
 
 export const PATH_PROFILE = {

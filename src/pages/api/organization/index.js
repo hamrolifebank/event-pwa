@@ -1,13 +1,22 @@
+import withTokenExtractor from "@middleware/withTokenExtractor";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({ log: ["query"] });
-export default async function handler(req, res) {
+async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
     case "GET":
       try {
-        const organizations = await prisma.organization.findMany();
+        const organizations = await prisma.organization.findMany({
+          include: {
+            UserOrganizations: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        });
 
         res.status(200).json({ success: true, data: organizations });
       } catch (error) {
@@ -20,6 +29,18 @@ export default async function handler(req, res) {
           data: req.body,
         });
 
+        const newUserOrganization = await prisma.UserOrganization.create({
+          data: {
+            user: {
+              connect: { id: Number(req.user.id) },
+            },
+            organization: {
+              connect: { id: Number(organization.id) },
+            },
+            isApproved: true,
+          },
+        });
+
         res.status(201).json({ success: true, data: organization });
       } catch (error) {
         res.status(400).json({ success: false });
@@ -30,3 +51,5 @@ export default async function handler(req, res) {
       break;
   }
 }
+
+export default withTokenExtractor(handler);

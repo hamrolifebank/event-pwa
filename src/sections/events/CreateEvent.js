@@ -1,21 +1,63 @@
 import {
+  Box,
   Container,
+  FormControl,
+  IconButton,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import { Stack } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { PrimaryButton, SecondaryButton } from "@components/button";
-import { PATH_EVENTS } from "@routes/paths";
+import { createEvent } from "@redux/reducers/eventReducer";
+import { useDispatch, useSelector } from "react-redux";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const CreateEvent = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+  const router = useRouter();
+  const { id } = query;
+
+  const dispatch = useDispatch();
+
+  let user = useSelector((state) => state.user);
+  user = user ? user : {};
+
+  let bloodBankOrg = useSelector((state) => state.benificiaryBloodBanks);
+  bloodBankOrg = bloodBankOrg ? bloodBankOrg : [];
+
+  let organizations = useSelector((state) => state.myJoinedOrganizations);
+  organizations = organizations ? organizations : [];
+
+  const selectedOrganization = organizations?.find(
+    (org) => org.id === Number(id)
+  );
+
+  const [startDateAndTimevalue, setStartDateAndTimeValue] = useState(
+    new Date(Date.now())
+  );
+  const [endDateAndTimevalue, setEndDateAndTimeValue] = useState(
+    new Date(Date.now())
+  );
+
+  const [open, setOpen] = useState({ isOpen: false, field: null });
+  const handleOpen = (field) => setOpen({ isOpen: true, field: field });
+  const handleClose = () => setOpen({ isOpen: false, field: null });
+
   const [field, setField] = useState({
+    creatorId: user.id,
     benificaryBloodBank: "",
-    organization: "",
+    organization: selectedOrganization ? selectedOrganization.name : "",
     eventName: "",
     contactPerson: "",
     contactNumber: "",
@@ -25,145 +67,285 @@ const CreateEvent = () => {
     longitude: "",
     startTimeStamp: "",
     endTimeStamp: "",
-    eventEthAddress: "",
-    createrEthAddress: "",
+    createrEthAddress: user.userethaddress,
     contractAddress: "",
   });
 
-  const formTextfields = [
-    {
-      label: "Benificary",
-      name: "benificaryBloodBank",
-      value: field.benificaryBloodBank,
-      type: "text",
-      adornmentIcon: "mdi:blood-bag",
-    },
-    {
-      label: "Organization",
-      name: "organization",
-      value: field.organization,
-      type: "text",
-      adornmentIcon: "octicon:organization-24",
-    },
-    {
-      label: "Event",
-      name: "eventName",
-      value: field.eventName,
-      type: "text",
-      adornmentIcon: "material-symbols:event",
-    },
-    {
-      label: "Contact Person",
-      name: "contactPerson",
-      value: field.contactPerson,
-      type: "text",
-      adornmentIcon: "material-symbols:person",
-    },
-    {
-      label: "Contact Number",
-      name: "contactNumber",
-      value: field.contactNumber,
-      type: "text",
-      adornmentIcon: "ic:outline-contact-phone",
-    },
-    {
-      label: "Target",
-      name: "noOfTarget",
-      value: field.noOfTarget,
-      type: "number",
-      adornmentIcon: "mdi:target-arrow",
-    },
-    {
-      label: "Location",
-      name: "location",
-      value: field.location,
-      type: "text",
-      adornmentIcon: "octicon:location-24",
-    },
-    {
-      label: "Latitude",
-      name: "latitude",
-      value: field.latitude,
-      type: "text",
-      adornmentIcon: "mdi:compass-outline",
-    },
-    {
-      label: "Longitude",
-      name: "longitude",
-      value: field.longitude,
-      type: "text",
-      adornmentIcon: "mdi:compass-outline",
-    },
-    {
-      label: "Start Time",
-      name: "startTimeStamp",
-      value: field.startTimeStamp,
-      type: "date",
-      adornmentIcon: "clarity:date-line",
-    },
-    {
-      label: "End Time",
-      name: "endTimeStamp",
-      value: field.endTimeStamp,
-      type: "date",
-      adornmentIcon: "clarity:date-line",
-    },
-    {
-      label: "Event EthAddress",
-      name: "eventEthAddress",
-      value: field.eventEthAddress,
-      type: "text",
-      adornmentIcon: "ic:outline-generating-tokens",
-    },
-    {
-      label: "Creator EthAddress",
-      name: "createrEthAddress",
-      value: field.createrEthAddress,
-      type: "text",
-      adornmentIcon: "ic:outline-generating-tokens",
-    },
-    {
-      label: "Contract EthAddress",
-      name: "contractAddress",
-      value: field.contractAddress,
-      type: "text",
-      adornmentIcon: "ic:outline-generating-tokens",
-    },
-  ];
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setField({ ...field, [name]: value });
+  };
+
+  const handleStart = (newValue) => {
+    setStartDateAndTimeValue(newValue);
+  };
+
+  const handleEnd = (newValue) => {
+    setEndDateAndTimeValue(newValue);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const event = {
+      creatorId: field.creatorId,
+      createrEthAddress: field.createrEthAddress,
+      contractAddress: field.contractAddress,
+      benificaryBloodBank: field.benificaryBloodBank,
+      organization: field.organization,
+      eventName: field.eventName,
+      contactPerson: field.contactPerson,
+      contactNumber: field.contactNumber,
+      noOfTarget: Number(field.noOfTarget),
+      location: field.location,
+      latitude: Number(field.latitude),
+      longitude: Number(field.longitude),
+      startTimeStamp: startDateAndTimevalue,
+      endTimeStamp: endDateAndTimevalue,
+    };
+    await dispatch(createEvent(event));
+  };
+
   return (
-    <Container>
+    <Container sx={{ mb: 4 }}>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
         variant="h3"
-        sx={{ mt: 2, mb: 2 }}
+        sx={{ mb: 2 }}
       >
         Create event
       </Typography>
 
-      <Stack spacing={2} component="form" sx={{ mb: 2 }}>
-        {formTextfields.map((field, i) => (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Stack
+          spacing={2}
+          component="form"
+          sx={{ mb: 2 }}
+          onSubmit={handleSubmit}
+        >
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Benificary</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              type="text"
+              name="benificaryBloodBank"
+              value={field.benificaryBloodBank}
+              label="Benificary"
+              required
+              onChange={handleInput}
+            >
+              {bloodBankOrg?.map((org) => (
+                <MenuItem key={org.id} value={org.name}>
+                  {org.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {selectedOrganization ? (
+            <TextField
+              disabled
+              value={field.organization}
+              label="Organization"
+            />
+          ) : (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Organization
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                type="text"
+                id="demo-simple-select"
+                name="organization"
+                value={field.organization}
+                label="Organization"
+                onChange={handleInput}
+              >
+                {organizations?.map((org) => (
+                  <MenuItem key={org.id} value={org.name}>
+                    {org.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+
           <TextField
-            key={i}
-            label={field.label}
-            name={field.name}
-            type={field.type}
-            value={field.value}
+            label="Event Name"
+            type="text"
+            name="eventName"
+            value={field.eventName}
+            onChange={handleInput}
             required
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Icon icon={field.adornmentIcon} />
+                  <Icon icon="material-symbols:event" />
                 </InputAdornment>
               ),
             }}
           />
-        ))}
-        <PrimaryButton type="submit">submit</PrimaryButton>
-        <SecondaryButton onClick={() => push(PATH_EVENTS.root)}>
-          cancel
-        </SecondaryButton>
-      </Stack>
+          <TextField
+            label="Contact Person"
+            type="text"
+            name="contactPerson"
+            value={field.contactPerson}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="material-symbols:person" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Contact Number"
+            type="text"
+            name="contactNumber"
+            value={field.contactNumber}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="ic:outline-contact-phone" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Target"
+            type="number"
+            name="noOfTarget"
+            value={field.noOfTarget}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="mdi:target-arrow" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Location"
+            type="text"
+            name="location"
+            value={field.location}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="octicon:location-24" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Latitude"
+            type="number"
+            name="latitude"
+            value={field.latitude}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="mdi:compass-outline" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Longitude"
+            type="number"
+            name="longitude"
+            value={field.longitude}
+            onChange={handleInput}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon icon="mdi:compass-outline" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <DateTimePicker
+            label="Start Time"
+            value={startDateAndTimevalue}
+            onChange={handleStart}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <DateTimePicker
+            label="End Time"
+            value={endDateAndTimevalue}
+            onChange={handleEnd}
+            renderInput={(params) => <TextField {...params} />}
+          />
+
+          <PrimaryButton type="submit" onClick={() => handleOpen(field)}>
+            submit
+          </PrimaryButton>
+          <SecondaryButton onClick={() => router.back()}>
+            cancel
+          </SecondaryButton>
+        </Stack>
+      </LocalizationProvider>
+
+      <Modal
+        open={open.isOpen}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            borderRadius: 2,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            New event{" "}
+            <Typography
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                display: "inline",
+              }}
+            >
+              {field?.eventName}
+            </Typography>{" "}
+            has been created successfully!
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }}>
+            <SecondaryButton
+              onClick={() => {
+                handleClose();
+                push("/event");
+              }}
+            >
+              ok
+            </SecondaryButton>
+          </Stack>
+        </Box>
+      </Modal>
     </Container>
   );
 };

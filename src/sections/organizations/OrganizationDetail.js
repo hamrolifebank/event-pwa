@@ -1,15 +1,23 @@
 import { PrimaryButton, SecondaryButton } from "@components/button";
 import WarningButton from "@components/button/WarningButton";
 import Iconify from "@components/iconify/Iconify";
-import { Grid, Modal, Stack, Typography } from "@mui/material";
+import { Grid, Modal, Stack, Typography, IconButton } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { PATH_ORGANIZATION } from "@routes/paths";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const OrganizationDetail = () => {
   const { query, push, asPath } = useRouter();
+  const router = useRouter();
   const { id } = query;
+
+  const myOrganization = useSelector((state) => state.myJoinedOrganizations);
+
+  const selectedOrganization = myOrganization?.find(
+    (org) => org.id === Number(id)
+  );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -28,25 +36,39 @@ const OrganizationDetail = () => {
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          mt: 2,
-        }}
-      >
-        <Typography
-          sx={{
-            color: "info.main",
-          }}
-        >
-          Edit profile
-        </Typography>
-      </Box>
+      <Grid container item xs>
+        <Grid item xs>
+          <IconButton color="primary" onClick={() => router.back()}>
+            <ArrowBackIosIcon />
+          </IconButton>
+        </Grid>
+        <Grid item xs>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              mt: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                color: "info.main",
+                fontSize: "14px",
+                fontWeight: "700",
+              }}
+              onClick={() => {
+                push(`${asPath}/edit-org-profile`);
+              }}
+            >
+              Edit profile
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
 
       <Grid container justifyContent="center" mt={2}>
         <Grid item>
-          <Typography variant="h3">Bharatpur Redcross society </Typography>
+          <Typography variant="h3">{selectedOrganization.name} </Typography>
         </Grid>
       </Grid>
 
@@ -62,32 +84,46 @@ const OrganizationDetail = () => {
           <Iconify icon="eva:phone-call-fill" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">9808563636</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.phone}
+          </Typography>
         </Grid>
         <Grid item xs={3} md={6}>
           <Iconify icon="material-symbols:mail" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">sudesh7443@gmail.com</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.email}
+          </Typography>
         </Grid>
         <Grid item xs={3} md={6}>
           <Iconify icon="mdi:address-marker" sx={{ color: "error.dark" }} />
         </Grid>
         <Grid item xs={9} md={6}>
-          <Typography variant="subtitle1">Kopundole,Lalitpur</Typography>
+          <Typography variant="subtitle1">
+            {selectedOrganization.address}
+          </Typography>
         </Grid>
       </Grid>
 
       <Stack spacing={2} sx={{ mt: 2 }}>
-        <PrimaryButton>Create event</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/create-events`)}>
+          Create event
+        </PrimaryButton>
         <PrimaryButton onClick={() => push(`${asPath}/upcoming-events`)}>
           View upcomming events
         </PrimaryButton>
-        <PrimaryButton>View past events</PrimaryButton>
-        <PrimaryButton onClick={() => push(`${asPath}/donor`)}>
-          View donors
+        <PrimaryButton
+          onClick={() => {
+            push(`${asPath}/past-events`);
+          }}
+        >
+          View past events
         </PrimaryButton>
-        <PrimaryButton>View members</PrimaryButton>
+        <PrimaryButton>View donors</PrimaryButton>
+        <PrimaryButton onClick={() => push(`${asPath}/org-members`)}>
+          View members
+        </PrimaryButton>
         <WarningButton onClick={handleOpen}>Leave organization</WarningButton>
         <Modal
           open={open}
