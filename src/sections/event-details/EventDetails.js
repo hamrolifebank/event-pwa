@@ -103,7 +103,6 @@ const EventDetails = ({ clickedEvents }) => {
             }}
             onClick={() => {
               handleOpen();
-              handleDelete(selectedEvent);
             }}
           >
             Delete
@@ -120,6 +119,7 @@ const EventDetails = ({ clickedEvents }) => {
               <Typography id="modal-description" sx={{ mt: 3 }}>
                 <WarningButton
                   onClick={() => {
+                    handleDelete(selectedEvent);
                     push("/event");
                   }}
                 >
