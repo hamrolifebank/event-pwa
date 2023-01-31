@@ -2,7 +2,7 @@ import { BorderlessButton } from "@components/button";
 import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import DonersCard from "@sections/event-card/DonersCard";
+import DonorsCard from "@sections/event-card/DonorsCard";
 import React from "react";
 import { useRouter } from "next/router";
 
@@ -36,9 +36,9 @@ const EventDoners = ({ ClickedEvents }) => {
         DONORS
       </Typography>
 
-      <DonersCard />
-      <DonersCard />
-      <DonersCard />
+      <DonorsCard />
+      <DonorsCard />
+      <DonorsCard />
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
