@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { PrimaryButton, SecondaryButton } from "@components/button";
+import FileBase from "react-file-base64";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import EthCrypto from "eth-crypto";
@@ -29,9 +30,21 @@ const PledgersCard = ({ pledgers, privateKey }) => {
     { id: 2, type: "Image" },
   ];
 
+  const [consentData, setConsentData] = useState({
+    consentType: "",
+    consentValue: "",
+    bloodBagNumber: "",
+  });
+
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setField({ ...field, [name]: value });
+    setConsentData({ ...consentData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(consentData);
+    handleClose();
   };
 
   const decryptedData = async () => {
@@ -129,7 +142,12 @@ const PledgersCard = ({ pledgers, privateKey }) => {
           >
             Consent Form
           </Typography>
-          <Stack spacing={2} component="form" sx={{ mb: 2 }}>
+          <Stack
+            spacing={2}
+            component="form"
+            sx={{ mb: 2 }}
+            onSubmit={handleSubmit}
+          >
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 Consent Type
@@ -140,7 +158,8 @@ const PledgersCard = ({ pledgers, privateKey }) => {
                 type="text"
                 name="consentType"
                 label="Consent Type"
-                value=""
+                value={consentData.consentType}
+                onChange={handleInput}
                 required
               >
                 {typeOfConsent?.map((consent) => (
@@ -151,7 +170,17 @@ const PledgersCard = ({ pledgers, privateKey }) => {
               </Select>
             </FormControl>
 
-            <TextField
+            <div>
+              <FileBase
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setConsentData({ ...consentData, consentValue: base64 })
+                }
+              />
+            </div>
+
+            {/* <TextField
               label="Consent Value"
               type="text"
               name="concentValue"
@@ -163,13 +192,15 @@ const PledgersCard = ({ pledgers, privateKey }) => {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
 
             <TextField
               label="Blood Bag Number"
               type="number"
               name="bloodBagNumber"
               required
+              value={consentData.bloodBagNumber}
+              onChange={handleInput}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -178,16 +209,9 @@ const PledgersCard = ({ pledgers, privateKey }) => {
                 ),
               }}
             />
-          </Stack>
-
-          <Stack id="modal-description" sx={{ mt: 2 }}>
-            <SecondaryButton
-              onClick={() => {
-                handleClose();
-              }}
-            >
-              Confirm
-            </SecondaryButton>
+            <Stack id="modal-description" sx={{ mt: 2 }}>
+              <SecondaryButton type="submit">Confirm</SecondaryButton>
+            </Stack>
           </Stack>
         </Box>
       </Modal>
