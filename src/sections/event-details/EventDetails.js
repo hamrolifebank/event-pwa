@@ -26,6 +26,7 @@ const EventDetails = ({ clickedEvents }) => {
   const dispatch = useDispatch();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
+
   const currentDate = new Date();
   const eventdate = new Date(selectedEvent.date);
   if (currentDate >= eventdate) {
@@ -62,7 +63,7 @@ const EventDetails = ({ clickedEvents }) => {
   };
 
   const eventDonersNavigator = () => {
-    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
+    push(`${PATH_EVENTS.eventDonors}/${selectedEvent.id}`);
   };
 
   const addManagerNavigator = () => {
@@ -74,6 +75,10 @@ const EventDetails = ({ clickedEvents }) => {
 
   const handleDelete = async (event) => {
     const deleteTheEvent = await dispatch(delEvent(event));
+  };
+
+  const eventPledgersNavigator = () => {
+    push(`${PATH_EVENTS.eventPledgers}/${selectedEvent.id}`);
   };
 
   return (
@@ -221,7 +226,12 @@ const EventDetails = ({ clickedEvents }) => {
         >
           Donors
         </Button>
-        <Button size="large" variant="contained" color="primary">
+        <Button
+          onClick={eventPledgersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
           Pledgers
         </Button>
         <Button

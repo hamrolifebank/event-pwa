@@ -12,9 +12,10 @@ const Events = () => {
   let events = useSelector((state) => state.events);
   const currentDate = new Date();
 
-  const filteredUpcomingEvents = events?.filter(
-    (event) => new Date(event.endTimeStamp) >= currentDate
-  );
+  const filteredUpcomingEvents =
+    events.length !== 0 && events.success !== false
+      ? events.filter((event) => new Date(event.endTimeStamp) >= currentDate)
+      : [];
 
   const { push } = useRouter();
   const createEventNavigator = () => {

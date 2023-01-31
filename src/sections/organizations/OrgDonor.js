@@ -1,9 +1,9 @@
 import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
-import DonorCard from "@sections/event-card/DonorCard";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { DonorsCard } from "@sections/event-card";
 
 const OrgDonor = () => {
   const router = useRouter();
@@ -26,10 +26,9 @@ const OrgDonor = () => {
       </Grid>
 
       <Stack spacing={1} mt={2}>
-        <DonorCard />
-        <DonorCard />
-        <DonorCard />
-        <DonorCard />
+        <DonorsCard />
+        <DonorsCard />
+        <DonorsCard />
       </Stack>
       <BorderlessButton sx={{ mt: 1, color: "error.dark" }}>
         Load more...

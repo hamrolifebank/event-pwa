@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { getUserFromLocal } from "@utils/sessionManager";
 
 const getHeader = () => {
@@ -12,6 +11,7 @@ const getHeader = () => {
   };
   return config;
 };
+
 const create = async (eventData) => {
   try {
     const response = await axios.post("/api/events", eventData);
@@ -65,4 +65,24 @@ const deleteEvent = async (event) => {
   }
 };
 
-export default { create, getAll, updateEvent, deleteEvent, getUserEvents };
+const getEventsFromServer = async () => {
+  try {
+    const response = await axios.get(
+      "/api/events/eventsFromEventServer",
+      getHeader()
+    );
+
+    return response.data.data;
+  } catch (error) {
+    return error.response.data.data;
+  }
+};
+
+export default {
+  create,
+  getAll,
+  getEventsFromServer,
+  deleteEvent,
+  updateEvent,
+  getUserEvents,
+};
