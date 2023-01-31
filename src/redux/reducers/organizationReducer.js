@@ -12,6 +12,15 @@ const organizationSlice = createSlice({
     appendOrganization(state, action) {
       state.push(action.payload);
     },
+    updateOrganization(state, action) {
+      const updatedState = state.map((organization) => {
+        if (organization.id === action.payload.id) {
+          return { ...organization, ...action.payload };
+        }
+        return organization;
+      });
+      return updatedState;
+    },
   },
 });
 
@@ -29,6 +38,16 @@ export const addOrganization = (organization) => {
   };
 };
 
-export const { setOrganizations, appendOrganization } =
+export const updateOrg = (id, organization) => {
+  return async (dispatch) => {
+    const updatedOrganization = await organizationService.update(
+      id,
+      organization
+    );
+    await dispatch(updateOrganization(updatedOrganization));
+  };
+};
+
+export const { setOrganizations, appendOrganization, updateOrganization } =
   organizationSlice.actions;
 export default organizationSlice.reducer;

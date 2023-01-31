@@ -1,14 +1,18 @@
 import { BorderlessButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
-import DonersCard from "@sections/event-card/DonersCard";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import DonorsCard from "@sections/event-card/DonorsCard";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const EventDoners = () => {
   const eventDoners = useSelector((state) => state.eventDoners);
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
@@ -16,7 +20,7 @@ const EventDoners = () => {
         sx={{ mt: 4 }}
         color="black"
       >
-        Nayabasti Yuba club
+        {ClickedEvents?.eventName}
       </Typography>
       <Typography
         display="flex"
@@ -29,7 +33,7 @@ const EventDoners = () => {
         }}
         color="grey.600"
       >
-        DONERS
+        DONORS
       </Typography>
       {eventDoners.length !== 0 ? (
         eventDoners.map((eventDoner) => (
@@ -42,8 +46,8 @@ const EventDoners = () => {
       )}
 
       <Box>
-        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
-          Load More Pledgers
+        <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
+          Load more...
         </BorderlessButton>
       </Box>
     </Container>

@@ -1,14 +1,28 @@
 import { BorderlessButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
-import PledgersCard from "@sections/event-card/PledgersCard";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
+import { useRouter } from "next/router";
+import { PledgersCard } from "@sections/event-card";
+
 import { useSelector } from "react-redux";
 
-const EventPledgers = () => {
-  const eventPledgers = useSelector((state) => state.eventPledgers);
+const EventPledgers = ({ ClickedEvents }) => {
+  const router = useRouter();
+
+  const eventsFromEventServer = useSelector((state) => state.eventsFromServer);
+
+  const event = eventsFromEventServer.find(
+    (eventFromServer) =>
+      eventFromServer.eventEthAddress === ClickedEvents.eventEthAddress
+  );
+
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
@@ -16,7 +30,7 @@ const EventPledgers = () => {
         sx={{ mt: 4 }}
         color="black"
       >
-        HBL Doner center
+        {ClickedEvents?.eventName}
       </Typography>
       <Typography
         display="flex"
@@ -31,19 +45,38 @@ const EventPledgers = () => {
       >
         PLEDGERS
       </Typography>
-      {eventPledgers.length !== 0 ? (
-        eventPledgers.map((eventPledger) => (
-          <PledgersCard key={eventPledger.id} eventPledger={eventPledger} />
+
+      {ClickedEvents.eventPledgers.length !== 0 ? (
+        ClickedEvents.eventPledgers.map((eventPledger) => (
+          <>
+            <PledgersCard
+              key={eventPledger.id}
+              pledgers={eventPledger.pledgerInfo}
+              privateKey={event.eventPrivateKey}
+            />
+          </>
         ))
       ) : (
         <>
-          <p>This event have no pledgers yet.</p>
+          <Typography
+            display="flex"
+            justifyContent="center"
+            sx={{
+              mb: 2,
+              fontSize: "h6.fontSize",
+              fontWeight: "h6.fontWeight",
+              lineHeight: "h6.lineHeight",
+            }}
+            color="grey.600"
+          >
+            This event have no pledgers.
+          </Typography>
         </>
       )}
 
       <Box>
-        <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
-          Load More Pledgers
+        <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
+          Load more...
         </BorderlessButton>
       </Box>
     </Container>

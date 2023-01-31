@@ -6,7 +6,7 @@ import { getAllEvents } from "@redux/reducers/eventReducer";
 import { initializeOrganizations } from "@redux/reducers/organizationReducer";
 import { initBenificiaryBloodBanks } from "@redux/reducers/benificiaryBloodBankReducer";
 import { initializeMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgReducer";
-import { getAllEventPledgers } from "@redux/reducers/eventPledgersReducer";
+import { getEventsFromEventServer } from "@redux/reducers/eventsFromEventServerReducer";
 import { getAllEventDoners } from "@redux/reducers/eventDonersReducer";
 
 export default function Initializer({ children }) {
@@ -15,7 +15,7 @@ export default function Initializer({ children }) {
   useEffect(() => {
     if (user) {
       dispatch(getAllEvents());
-      dispatch(getAllEventPledgers());
+      dispatch(getEventsFromEventServer());
       dispatch(getAllEventDoners());
       dispatch(initializeOrganizations());
       dispatch(initializeMyJoinedOrganizations());

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const allEvents = await axios.get(`${eventRegistrationUrl}/api/events`);
+        const allEvents = await axios.get(eventRegistrationUrl);
 
         res.status(200).json(allEvents.data);
       } catch (error) {
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     case "POST":
       try {
         let wallet = await library.createWallet();
-        let eventEthAddress = wallet.address;
+        let eventEthAddress = wallet.publicKey;
         let eventPrivateKey = wallet.privateKey;
 
         const {
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         });
 
         const registeredEvent = await axios.post(
-          `${eventRegistrationUrl}/api/events/register`,
+          `${eventRegistrationUrl}/register`,
           {
             benificaryBloodBank,
             eventEthAddress,

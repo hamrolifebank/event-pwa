@@ -1,16 +1,32 @@
-import { Typography, Grid, Chip, Stack, Button, Tab } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Chip,
+  Stack,
+  Button,
+  Tab,
+  IconButton,
+  ButtonGroup,
+  Modal,
+} from "@mui/material";
 import { Box, Container } from "@mui/system";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
-import { PrimaryButton } from "@components/button";
+import { PrimaryButton, SecondaryButton } from "@components/button";
 import { PATH_EVENTS } from "@routes/paths";
+import { delEvent } from "@redux/reducers/eventReducer";
+import { useDispatch } from "react-redux";
+import WarningButton from "@components/button/WarningButton";
 
 const EventDetails = ({ clickedEvents }) => {
   const router = useRouter();
   const { push } = useRouter();
+  const dispatch = useDispatch();
 
   const selectedEvent = clickedEvents ? clickedEvents : [];
+
   const currentDate = new Date();
   const eventdate = new Date(selectedEvent.date);
   if (currentDate >= eventdate) {
@@ -31,26 +47,55 @@ const EventDetails = ({ clickedEvents }) => {
   let chipColor = chipLabel === "Active" ? "success.main" : "warning.main";
   let chipTextColor = chipLabel === "Active" ? "grey.0" : "grey.800";
 
-  const eventPledgersNavigator = () => {
-    push(PATH_EVENTS.eventPledgers);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "80%",
+    bgcolor: "background.paper",
+    boxShadow: 30,
+    p: 4,
   };
 
   const eventDonersNavigator = () => {
-    push(PATH_EVENTS.eventDoners);
+    push(`${PATH_EVENTS.eventDonors}/${selectedEvent.id}`);
+  };
+
+  const addManagerNavigator = () => {
+    push(`${PATH_EVENTS.addManager}/${selectedEvent.id}`);
+  };
+  const handleEdit = (id) => {
+    router.push(`${PATH_EVENTS.editEvent}/${selectedEvent.id}`);
+  };
+
+  const handleDelete = async (event) => {
+    const deleteTheEvent = await dispatch(delEvent(event));
+  };
+
+  const eventPledgersNavigator = () => {
+    push(`${PATH_EVENTS.eventPledgers}/${selectedEvent.id}`);
   };
 
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Box sx={{ display: "flex", justifyContent: "space-between" }} m={1}>
         <Typography variant="h6">{selectedEvent?.eventName}</Typography>{" "}
-        <Stack spacing={0} direction="row" item xs={8}>
+        <ButtonGroup spacing={0} direction="row" item xs={8}>
           <PrimaryButton
             sx={{
               p: "3px 11px",
               backgroundColor: "grey.400",
               color: "#3366FF",
             }}
-            onClick={() => handleEdit}
+            onClick={handleEdit}
           >
             Edit
           </PrimaryButton>
@@ -61,11 +106,41 @@ const EventDetails = ({ clickedEvents }) => {
               backgroundColor: "grey.400",
               color: "error.dark",
             }}
-            onClick={() => handleDelete}
+            onClick={() => {
+              handleOpen();
+            }}
           >
             Delete
           </PrimaryButton>
-        </Stack>
+          <Modal
+            open={open}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-title" variant="h6" component="h2">
+                Are you sure you want to delete this event?
+              </Typography>
+              <Typography id="modal-description" sx={{ mt: 3 }}>
+                <WarningButton
+                  onClick={() => {
+                    handleDelete(selectedEvent);
+                    push("/event");
+                  }}
+                >
+                  Yes
+                </WarningButton>
+                <SecondaryButton
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  No
+                </SecondaryButton>
+              </Typography>
+            </Box>
+          </Modal>
+        </ButtonGroup>
       </Box>
       <Grid container item xs={12} sx={{ justifyContent: "space-between" }}>
         <Grid item xs={8}>
@@ -139,7 +214,7 @@ const EventDetails = ({ clickedEvents }) => {
           </Grid>
         </Grid>
       </Box>
-      <Stack
+      <ButtonGroup
         sx={{ display: "flex", justifyContent: "center", p: 3 }}
         direction="row"
       >
@@ -159,10 +234,15 @@ const EventDetails = ({ clickedEvents }) => {
         >
           Pledgers
         </Button>
-        <Button size="large" variant="contained" color="primary">
-          MAnagers
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={addManagerNavigator}
+        >
+          Managers
         </Button>
-      </Stack>
+      </ButtonGroup>
     </Container>
   );
 };

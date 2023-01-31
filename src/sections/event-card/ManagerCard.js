@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const DonersCard = ({ eventDoner }) => {
+const ManagerCard = () => {
   return (
     <>
       <Paper
@@ -26,7 +26,7 @@ const DonersCard = ({ eventDoner }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {eventDoner?.pledgerInfo}{" "}
+            Hare Ram
             <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
@@ -49,4 +49,4 @@ const DonersCard = ({ eventDoner }) => {
   );
 };
 
-export default DonersCard;
+export default ManagerCard;

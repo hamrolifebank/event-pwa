@@ -1,8 +1,20 @@
-import api from "./client";
+import axios from "axios";
+import { getUserFromLocal } from "@utils/sessionManager";
+
+const getHeader = () => {
+  const token = getUserFromLocal();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return config;
+};
 
 const create = async (eventData) => {
   try {
-    const response = await api.post("/api/events", eventData);
+    const response = await axios.post("/api/events", eventData);
 
     return response.data;
   } catch (error) {
@@ -12,7 +24,7 @@ const create = async (eventData) => {
 
 const getAll = async () => {
   try {
-    const response = await api.get("/api/events");
+    const response = await axios.get("/api/events");
 
     return response.data;
   } catch (error) {
@@ -20,22 +32,57 @@ const getAll = async () => {
   }
 };
 
-const getAllPledgers = async () => {
+const getUserEvents = async () => {
   try {
-    const response = await api.get("/api/events/event-pledgers");
+    const response = await axios.get("/api/events/userEvents");
+
     return response.data;
   } catch (error) {
     return error.response.data;
   }
 };
 
-const getAllDoners = async () => {
+const updateEvent = async (id, data) => {
   try {
-    const response = await api.get("/api/events/event-doners");
+    const response = await axios.put(`/api/events/${id}`, data, getHeader());
     return response.data;
   } catch (error) {
     return error.response.data;
   }
 };
 
-export default { create, getAll, getAllPledgers, getAllDoners };
+const deleteEvent = async (event) => {
+  try {
+    const response = await axios.delete(
+      `/api/events/${event.id}`,
+      event,
+      getHeader()
+    );
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getEventsFromServer = async () => {
+  try {
+    const response = await axios.get(
+      "/api/events/eventsFromEventServer",
+      getHeader()
+    );
+
+    return response.data.data;
+  } catch (error) {
+    return error.response.data.data;
+  }
+};
+
+export default {
+  create,
+  getAll,
+  getEventsFromServer,
+  deleteEvent,
+  updateEvent,
+  getUserEvents,
+};

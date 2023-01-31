@@ -1,9 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-import axios from "axios";
-
-const eventPledgersUrl = process.env.registryAppApi;
-
 const prisma = new PrismaClient({ log: ["query"] });
 export default async function handler(req, res) {
   const { method } = req;
@@ -11,11 +7,9 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const allEventPledgers = await axios.get(
-          `${eventPledgersUrl}/api/eventPledgers`
-        );
+        const eventsFromEventServer = await prisma.event.findMany({});
 
-        res.status(200).json(allEventPledgers.data);
+        res.status(200).json({ success: true, data: eventsFromEventServer });
       } catch (error) {
         res.status(400).json({ success: false });
       }

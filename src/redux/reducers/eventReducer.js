@@ -12,10 +12,22 @@ const eventSlice = createSlice({
     setEvents(state, action) {
       return action.payload;
     },
+    updateEvent(state, action) {
+      return state.map((event) => {
+        if (event.id === action.payload.id) {
+          return action.payload;
+        }
+        return event;
+      });
+    },
+    deleteEvent(state, action) {
+      return state.filter((event) => event.id !== action.payload.id);
+    },
   },
 });
 
-export const { appendEvent, setEvents } = eventSlice.actions;
+export const { appendEvent, setEvents, updateEvent, deleteEvent } =
+  eventSlice.actions;
 
 export const createEvent = (event) => {
   return async (dispatch) => {
@@ -29,9 +41,21 @@ export const createEvent = (event) => {
 export const getAllEvents = () => {
   return async (dispatch) => {
     const result = await eventService.getAll();
-
     await dispatch(setEvents(result));
   };
 };
 
+export const updEvent = (id, data) => {
+  return async (dispatch) => {
+    const result = await eventService.updateEvent(id, data);
+    await dispatch(updateEvent(result));
+  };
+};
+
+export const delEvent = (event) => {
+  return async (dispatch) => {
+    await dispatch(deleteEvent(event));
+    const result = eventService.deleteEvent(event);
+  };
+};
 export default eventSlice.reducer;

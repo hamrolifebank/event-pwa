@@ -1,29 +1,9 @@
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
-import React, { useEffect, useState } from "react";
-import EthCrypto from "eth-crypto";
+import React from "react";
 
-const PledgersCard = ({ pledgers, privateKey }) => {
-  const [data, setData] = useState(null);
-  const pledgerInfo = JSON.parse(pledgers);
-
-  const decryptedData = async () => {
-    const random = await EthCrypto.decryptWithPrivateKey(privateKey, {
-      iv: pledgerInfo.iv,
-      ephemPublicKey: pledgerInfo.ephemPublicKey,
-      ciphertext: pledgerInfo.ciphertext,
-      mac: pledgerInfo.mac,
-    });
-    setData(JSON.parse(random));
-  };
-
-  useEffect(() => {
-    decryptedData();
-  }, []);
-
-  if (!data) return "Loading.....";
-
+const DonorsCard = ({ eventDoner }) => {
   return (
     <>
       <Paper
@@ -46,10 +26,8 @@ const PledgersCard = ({ pledgers, privateKey }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {data.fullname}
-            <span style={{ color: "grey", paddingLeft: "5px" }}>
-              {data.bloodGroup}
-            </span>
+            Sumitra Guragain
+            <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
           <Typography
@@ -63,7 +41,7 @@ const PledgersCard = ({ pledgers, privateKey }) => {
             color="grey.600"
           >
             <Icon icon="eva:phone-call-fill" />
-            {data.phone}
+            9845856215
           </Typography>
         </Box>
       </Paper>
@@ -71,4 +49,4 @@ const PledgersCard = ({ pledgers, privateKey }) => {
   );
 };
 
-export default PledgersCard;
+export default DonorsCard;
