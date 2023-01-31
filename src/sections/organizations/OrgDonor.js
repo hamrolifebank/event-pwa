@@ -1,7 +1,7 @@
 import { Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import BorderlessButton from "@components/button/BorderlessButton";
-import DonorCard from "@sections/event-card/DonorCard";
+import DonorCard from "@sections/event-card/DonerCard";
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
