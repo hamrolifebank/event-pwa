@@ -22,6 +22,7 @@ export const PATH_EVENTS = {
   pastEvents: path(ROOTS_EVENTS, "/past-events"),
   upcomingEvents: path(ROOTS_EVENTS, "/upcoming-events"),
   eventDoners: path(ROOTS_EVENTS, "/event-doners"),
+  eventPledgers: path(ROOTS_EVENTS, "/event-pledgers"),
   addManager: path(ROOTS_EVENTS, "/add-managers"),
   editEvent: path(ROOTS_EVENTS, "/edit"),
 };

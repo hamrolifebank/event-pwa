@@ -1,5 +1,4 @@
 import axios from "axios";
-import axios from "axios";
 import { getUserFromLocal } from "@utils/sessionManager";
 
 const getHeader = () => {
@@ -79,4 +78,11 @@ const getEventsFromServer = async () => {
   }
 };
 
-export default { create, getAll, getEventsFromServer };
+export default {
+  create,
+  getAll,
+  getEventsFromServer,
+  deleteEvent,
+  updateEvent,
+  getUserEvents,
+};
