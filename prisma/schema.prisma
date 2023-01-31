@@ -18,7 +18,7 @@ model User {
   phone             String?
   userethaddress    String
   UserOrganizations UserOrganization[]
-  UserEvent      UserEvent[]
+  UserEvent         UserEvent[]
 
   @@index([email, userethaddress])
 }
@@ -43,10 +43,11 @@ model UserOrganization {
 }
 
 model Event {
-  id              Int         @id @default(autoincrement())
-  eventPrivateKey String      @db.VarChar(255)
-  eventEthAddress String      @db.VarChar(255)
+  id              Int             @id @default(autoincrement())
+  eventPrivateKey String          @db.VarChar(255)
+  eventEthAddress String          @db.VarChar(255)
   creatorId       Int
+  EventDonation   EventDonation[]
   users           UserEvent[]
 }
 
@@ -58,4 +59,19 @@ model UserEvent {
   userType String @db.VarChar(255)
 
   @@id([userId, eventId])
+}
+
+model EventDonation {
+  id              Int      @id @default(autoincrement())
+  event           Event    @relation(fields: [eventId], references: [id])
+  eventId         Int
+  donorEthAddress String   @db.VarChar(50)
+  donorName       String   @db.VarChar(50)
+  bloodGroup      String   @db.VarChar(255)
+  phone           String   @db.VarChar(255)
+  dateOfBirth     DateTime
+  gender          String   @db.VarChar(50)
+  consentType     String   @db.VarChar(50)
+  consentValue    String   @db.VarChar(50)
+  bloodBagNumber  Int
 }

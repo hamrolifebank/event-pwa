@@ -1,5 +1,5 @@
 import axios from "axios";
-import api from "./client";
+import axios from "axios";
 import { getUserFromLocal } from "@utils/sessionManager";
 
 const getHeader = () => {
@@ -15,7 +15,7 @@ const getHeader = () => {
 
 const create = async (eventData) => {
   try {
-    const response = await api.post("/api/events", eventData);
+    const response = await axios.post("/api/events", eventData);
 
     return response.data;
   } catch (error) {
@@ -25,7 +25,40 @@ const create = async (eventData) => {
 
 const getAll = async () => {
   try {
-    const response = await api.get("/api/events");
+    const response = await axios.get("/api/events");
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getUserEvents = async () => {
+  try {
+    const response = await axios.get("/api/events/userEvents");
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const updateEvent = async (id, data) => {
+  try {
+    const response = await axios.put(`/api/events/${id}`, data, getHeader());
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const deleteEvent = async (event) => {
+  try {
+    const response = await axios.delete(
+      `/api/events/${event.id}`,
+      event,
+      getHeader()
+    );
 
     return response.data;
   } catch (error) {
