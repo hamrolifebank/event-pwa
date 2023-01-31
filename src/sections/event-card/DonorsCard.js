@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const DonersCard = ({ eventDoner }) => {
+const DonorsCard = ({ eventDoner }) => {
   return (
     <>
       <Paper
@@ -49,4 +49,4 @@ const DonersCard = ({ eventDoner }) => {
   );
 };
 
-export default DonersCard;
+export default DonorsCard;

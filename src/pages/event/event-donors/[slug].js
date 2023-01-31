@@ -1,6 +1,6 @@
 import Page from "@components/Page";
 import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFooter";
-import { EventDoners } from "@sections/events";
+import { EventDonors } from "@sections/events";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
@@ -23,7 +23,7 @@ export default function EventDonersPage() {
 
   return (
     <Page title={PAGE_TITLE}>
-      <EventDoners ClickedEvents={ClickedEvents} />
+      <EventDonors ClickedEvents={ClickedEvents} />
     </Page>
   );
 }

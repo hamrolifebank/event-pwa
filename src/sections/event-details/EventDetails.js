@@ -63,7 +63,7 @@ const EventDetails = ({ clickedEvents }) => {
   };
 
   const eventDonersNavigator = () => {
-    push(`${PATH_EVENTS.eventDoners}/${selectedEvent.id}`);
+    push(`${PATH_EVENTS.eventDonors}/${selectedEvent.id}`);
   };
 
   const addManagerNavigator = () => {
