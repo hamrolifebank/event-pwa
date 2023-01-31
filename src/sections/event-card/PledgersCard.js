@@ -47,7 +47,9 @@ const PledgersCard = ({ pledgers, privateKey }) => {
             }}
           >
             {data.fullname}
-            <span style={{ color: "grey" }}>(0-)</span>
+            <span style={{ color: "grey", paddingLeft: "5px" }}>
+              {data.bloodGroup}
+            </span>
           </Typography>
 
           <Typography
