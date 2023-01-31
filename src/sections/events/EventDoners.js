@@ -33,7 +33,7 @@ const EventDoners = ({ ClickedEvents }) => {
         }}
         color="grey.600"
       >
-        DONERS
+        DONORS
       </Typography>
 
       <DonersCard />

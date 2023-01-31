@@ -6,10 +6,17 @@ import React from "react";
 import { useRouter } from "next/router";
 import { PledgersCard } from "@sections/event-card";
 
+import { useSelector } from "react-redux";
+
 const EventPledgers = ({ ClickedEvents }) => {
   const router = useRouter();
-  const eventPledgers = ClickedEvents.eventPledgers;
-  // const eventEthAddress = ClickedEvents.eventEthAddress;
+
+  const eventsFromEventServer = useSelector((state) => state.eventsFromServer);
+
+  const event = eventsFromEventServer.find(
+    (eventFromServer) =>
+      eventFromServer.eventEthAddress === ClickedEvents.eventEthAddress
+  );
 
   return (
     <Container>
@@ -39,13 +46,13 @@ const EventPledgers = ({ ClickedEvents }) => {
         PLEDGERS
       </Typography>
 
-      {eventPledgers.length !== 0 ? (
-        eventPledgers.map((eventPledger) => (
+      {ClickedEvents.eventPledgers.length !== 0 ? (
+        ClickedEvents.eventPledgers.map((eventPledger) => (
           <>
             <PledgersCard
               key={eventPledger.id}
-              eventPledger={eventPledger}
-              // eventEthAddress={eventEthAddress}
+              pledgers={eventPledger.pledgerInfo}
+              privateKey={event.eventPrivateKey}
             />
           </>
         ))
