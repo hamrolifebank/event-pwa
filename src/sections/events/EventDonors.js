@@ -6,8 +6,8 @@ import DonorsCard from "@sections/event-card/DonorsCard";
 import React from "react";
 import { useRouter } from "next/router";
 
-const EventDoners = () => {
-  const eventDoners = useSelector((state) => state.eventDoners);
+const EventDoners = ({ ClickedEvents }) => {
+  const router = useRouter();
   return (
     <Container>
       <IconButton color="primary" onClick={() => router.back()}>
@@ -35,15 +35,9 @@ const EventDoners = () => {
       >
         DONORS
       </Typography>
-      {eventDoners.length !== 0 ? (
-        eventDoners.map((eventDoner) => (
-          <DonersCard key={eventDoner.id} eventDoner={eventDoner} />
-        ))
-      ) : (
-        <>
-          <p>This event have no doners yet.</p>
-        </>
-      )}
+
+      <DonorsCard />
+      <DonorsCard />
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
