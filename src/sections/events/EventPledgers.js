@@ -53,6 +53,8 @@ const EventPledgers = ({ ClickedEvents }) => {
               key={eventPledger.id}
               pledgers={eventPledger.pledgerInfo}
               privateKey={event.eventPrivateKey}
+              eventId={ClickedEvents.id}
+              ethAddress={eventPledger.pledgerEthAddress}
             />
           </>
         ))

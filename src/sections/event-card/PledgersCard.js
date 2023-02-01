@@ -11,30 +11,58 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { PrimaryButton, SecondaryButton } from "@components/button";
+import { SecondaryButton } from "@components/button";
 import FileBase from "react-file-base64";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import EthCrypto from "eth-crypto";
 
-const PledgersCard = ({ pledgers, privateKey }) => {
+const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId }) => {
   const [data, setData] = useState(null);
   const pledgerInfo = JSON.parse(pledgers);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const typeOfConsent = [
     { id: 1, type: "IPFS" },
     { id: 2, type: "Image" },
   ];
 
+  const decryptedData = async () => {
+    const random = await EthCrypto.decryptWithPrivateKey(privateKey, {
+      iv: pledgerInfo.iv,
+      ephemPublicKey: pledgerInfo.ephemPublicKey,
+      ciphertext: pledgerInfo.ciphertext,
+      mac: pledgerInfo.mac,
+    });
+    setData(JSON.parse(random));
+  };
+
   const [consentData, setConsentData] = useState({
+    eventId: eventId,
+    donorEthAddress: ethAddress,
+    donorName: "",
+    bloodGroup: "",
+    phone: "",
+    dateOfBirth: "",
+    gender: "",
     consentType: "",
     consentValue: "",
     bloodBagNumber: "",
   });
+
+  const handleOpen = () => {
+    setOpen(true);
+    setConsentData({
+      ...consentData,
+      donorName: data.fullname,
+      bloodGroup: data.bloodGroup,
+      phone: data.phone,
+      dateOfBirth: data.dob,
+      gender: data.gender,
+    });
+  };
+  const handleClose = () => setOpen(false);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -45,16 +73,6 @@ const PledgersCard = ({ pledgers, privateKey }) => {
     e.preventDefault();
     console.log(consentData);
     handleClose();
-  };
-
-  const decryptedData = async () => {
-    const random = await EthCrypto.decryptWithPrivateKey(privateKey, {
-      iv: pledgerInfo.iv,
-      ephemPublicKey: pledgerInfo.ephemPublicKey,
-      ciphertext: pledgerInfo.ciphertext,
-      mac: pledgerInfo.mac,
-    });
-    setData(JSON.parse(random));
   };
 
   useEffect(() => {
