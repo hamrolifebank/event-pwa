@@ -7,7 +7,6 @@ const DonorsCard = ({ donor, ethAddresses }) => {
   const donerExist = ethAddresses.find(
     (address) => address.pledgerEthAddress === donor.donorEthAddress
   );
-  console.log("exist: ", donerExist);
   if (donerExist) {
     return (
       <>

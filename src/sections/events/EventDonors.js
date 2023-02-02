@@ -8,11 +8,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 const EventDonors = ({ ClickedEvents }) => {
-  console.log("ClickedEvents: ", ClickedEvents);
-
   const donorList = useSelector((state) => state.eventDonation);
-
-  console.log("lskd", ClickedEvents.eventPledgers);
 
   const router = useRouter();
   return (
