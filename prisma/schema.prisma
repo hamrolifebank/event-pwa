@@ -65,13 +65,13 @@ model EventDonation {
   id              Int      @id @default(autoincrement())
   event           Event    @relation(fields: [eventId], references: [id])
   eventId         Int
-  donorEthAddress String   @db.VarChar(50)
-  donorName       String   @db.VarChar(50)
+  donorEthAddress String   @db.VarChar(255)
+  donorName       String   @db.VarChar(255)
   bloodGroup      String   @db.VarChar(255)
   phone           String   @db.VarChar(255)
   dateOfBirth     DateTime
-  gender          String   @db.VarChar(50)
-  consentType     String   @db.VarChar(50)
-  consentValue    String   @db.VarChar(50)
+  gender          String   @db.VarChar(255)
+  consentType     String   @db.VarChar(255)
+  consentValue    String   @db.VarChar(255)
   bloodBagNumber  Int
 }

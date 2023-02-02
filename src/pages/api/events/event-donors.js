@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const eventDonersUrl = process.env.registryAppApi;
+const eventDonorsUrl = process.env.registryAppApi;
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,11 +8,11 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const allEventDoners = await axios.get(
-          `${eventDonersUrl}/api/eventPledgers`
+        const allEventDonors = await axios.get(
+          `${eventDonorsUrl}/api/eventPledgers`
         );
 
-        res.status(200).json(allEventDoners.data);
+        res.status(200).json(allEventDonors.data);
       } catch (error) {
         res.status(400).json({ success: false });
       }

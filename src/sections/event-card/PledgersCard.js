@@ -16,8 +16,11 @@ import FileBase from "react-file-base64";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import EthCrypto from "eth-crypto";
+import { useDispatch } from "react-redux";
+import { createEventDonation } from "@redux/reducers/eventDonationReducer";
 
-const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId }) => {
+const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId, id }) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState(null);
   const pledgerInfo = JSON.parse(pledgers);
 
@@ -39,7 +42,7 @@ const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId }) => {
   };
 
   const [consentData, setConsentData] = useState({
-    eventId: eventId,
+    eventId: id,
     donorEthAddress: ethAddress,
     donorName: "",
     bloodGroup: "",
@@ -71,7 +74,21 @@ const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(consentData);
+
+    const consent = {
+      eventId: consentData.eventId,
+      donorEthAddress: consentData.donorEthAddress,
+      donorName: consentData.donorName,
+      bloodGroup: consentData.bloodGroup,
+      phone: consentData.phone,
+      dateOfBirth: new Date(consentData.dateOfBirth),
+      gender: consentData.gender,
+      consentType: consentData.consentType,
+      consentValue: consentData.consentValue,
+      bloodBagNumber: Number(consentData.bloodBagNumber),
+    };
+
+    dispatch(createEventDonation(consent));
     handleClose();
   };
 
@@ -197,20 +214,6 @@ const PledgersCard = ({ pledgers, privateKey, ethAddress, eventId }) => {
                 }
               />
             </div>
-
-            {/* <TextField
-              label="Consent Value"
-              type="text"
-              name="concentValue"
-              required
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Icon icon="icon-park-outline:agreement" />
-                  </InputAdornment>
-                ),
-              }}
-            /> */}
 
             <TextField
               label="Blood Bag Number"

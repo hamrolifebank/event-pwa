@@ -62,7 +62,7 @@ const EventDetails = ({ clickedEvents }) => {
     p: 4,
   };
 
-  const eventDonersNavigator = () => {
+  const eventDonorsNavigator = () => {
     push(`${PATH_EVENTS.eventDonors}/${selectedEvent.id}`);
   };
 
@@ -219,7 +219,7 @@ const EventDetails = ({ clickedEvents }) => {
         direction="row"
       >
         <Button
-          onClick={eventDonersNavigator}
+          onClick={eventDonorsNavigator}
           size="large"
           variant="contained"
           color="primary"

@@ -54,6 +54,7 @@ const EventPledgers = ({ ClickedEvents }) => {
               pledgers={eventPledger.pledgerInfo}
               privateKey={event.eventPrivateKey}
               eventId={ClickedEvents.id}
+              id={event.id}
               ethAddress={eventPledger.pledgerEthAddress}
             />
           </>
@@ -71,7 +72,7 @@ const EventPledgers = ({ ClickedEvents }) => {
             }}
             color="grey.600"
           >
-            This event have no pledgers.
+            This event has no pledgers.
           </Typography>
         </>
       )}
