@@ -42,6 +42,7 @@ const EventDonors = ({ ClickedEvents }) => {
       {donorList.length !== 0 ? (
         donorList?.map((donor) => (
           <DonorsCard
+            key={donor.id}
             donor={donor}
             ethAddresses={ClickedEvents.eventPledgers}
           />
