@@ -5,8 +5,11 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DonorsCard from "@sections/event-card/DonorsCard";
 import React from "react";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
-const EventDoners = ({ ClickedEvents }) => {
+const EventDonors = ({ ClickedEvents }) => {
+  const donorList = useSelector((state) => state.eventDonation);
+
   const router = useRouter();
   return (
     <Container>
@@ -36,9 +39,31 @@ const EventDoners = ({ ClickedEvents }) => {
         DONORS
       </Typography>
 
-      <DonorsCard />
-      <DonorsCard />
-      <DonorsCard />
+      {donorList.length !== 0 ? (
+        donorList?.map((donor) => (
+          <DonorsCard
+            key={donor.id}
+            donor={donor}
+            ethAddresses={ClickedEvents.eventPledgers}
+          />
+        ))
+      ) : (
+        <>
+          <Typography
+            display="flex"
+            justifyContent="center"
+            sx={{
+              mb: 2,
+              fontSize: "h6.fontSize",
+              fontWeight: "h6.fontWeight",
+              lineHeight: "h6.lineHeight",
+            }}
+            color="grey.600"
+          >
+            This event has no donors.
+          </Typography>
+        </>
+      )}
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "error.main" }}>
@@ -49,4 +74,4 @@ const EventDoners = ({ ClickedEvents }) => {
   );
 };
 
-export default EventDoners;
+export default EventDonors;

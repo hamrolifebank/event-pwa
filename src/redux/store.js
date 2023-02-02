@@ -8,6 +8,7 @@ import myJoinedOrgReducer from "./reducers/myJoinedOrgReducer";
 import myApproveRequestReducer from "./reducers/myApproveRequestReducer";
 import benificiaryBloodBankReducer from "./reducers/benificiaryBloodBankReducer";
 import eventsFromEventServerReducer from "./reducers/eventsFromEventServerReducer";
+import eventDonationReducer from "./reducers/eventDonationReducer";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     myApproveRequests: myApproveRequestReducer,
     events: eventReducer,
     eventsFromServer: eventsFromEventServerReducer,
+    eventDonation: eventDonationReducer,
   },
 });
 

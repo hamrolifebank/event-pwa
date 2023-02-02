@@ -78,10 +78,36 @@ const getEventsFromServer = async () => {
   }
 };
 
+const eventDonationCreation = async (data) => {
+  try {
+    const response = await axios.post(
+      "/api/events/eventDonation",
+      data,
+      getHeader()
+    );
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getEventDonation = async () => {
+  try {
+    const response = await axios.get("/api/events/eventDonation", getHeader());
+
+    return response.data.data;
+  } catch (error) {
+    return error.response.data.data;
+  }
+};
+
 export default {
   create,
   getAll,
   getEventsFromServer,
+  eventDonationCreation,
+  getEventDonation,
   deleteEvent,
   updateEvent,
   getUserEvents,

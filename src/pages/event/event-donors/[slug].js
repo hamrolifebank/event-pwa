@@ -4,9 +4,9 @@ import { EventDonors } from "@sections/events";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
-const PAGE_TITLE = "Event doners";
+const PAGE_TITLE = "Event Donors";
 
-EventDonersPage.getLayout = (page) => {
+EventDonorsPage.getLayout = (page) => {
   return (
     <DashboardlayoutwithFooter pageTitle={PAGE_TITLE}>
       {page}
@@ -14,7 +14,7 @@ EventDonersPage.getLayout = (page) => {
   );
 };
 
-export default function EventDonersPage() {
+export default function EventDonorsPage() {
   const events = useSelector((state) => state.events);
   const router = useRouter();
   const { slug } = router.query;
