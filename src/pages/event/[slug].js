@@ -23,7 +23,7 @@ export default function EventDetail() {
   return (
     <Page title={PAGE_TITLE}>
       <EventDetails clickedEvents={clickedEvents} />
-      <DisplayStats />
+      <DisplayStats clickedEvents={clickedEvents} />
     </Page>
   );
 }
