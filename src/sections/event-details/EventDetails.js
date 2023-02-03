@@ -86,32 +86,64 @@ const EventDetails = ({ clickedEvents }) => {
       <IconButton color="primary" onClick={() => router.back()}>
         <ArrowBackIosIcon />
       </IconButton>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }} m={1}>
-        <Typography variant="h6">{selectedEvent?.eventName}</Typography>{" "}
-        <ButtonGroup spacing={0} direction="row" item xs={8}>
-          <PrimaryButton
-            sx={{
-              p: "3px 11px",
-              backgroundColor: "grey.400",
-              color: "#3366FF",
-            }}
-            onClick={handleEdit}
-          >
-            Edit
-          </PrimaryButton>
-
-          <PrimaryButton
-            sx={{
-              p: "3px 11px",
-              backgroundColor: "grey.400",
-              color: "error.dark",
-            }}
-            onClick={() => {
-              handleOpen();
-            }}
-          >
-            Delete
-          </PrimaryButton>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+        m={1}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography sx={{ mb: 2, alignSelf: "stretch" }} variant="h4">
+            {selectedEvent?.eventName}
+          </Typography>
+          <Grid item xs={12}>
+            <Typography variant="body2">
+              {new Date(selectedEvent?.startTimeStamp).toLocaleString(
+                "en-US",
+                options
+              )}
+            </Typography>
+            <Typography variant="body2">
+              {new Date(selectedEvent?.startTimeStamp).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+              -
+              {new Date(selectedEvent?.endTimeStamp).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Typography>
+          </Grid>
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", mr: 2 }}>
+          <ButtonGroup spacing={2} direction="row">
+            <PrimaryButton
+              sx={{
+                p: "3px 11px",
+                backgroundColor: "grey.400",
+                color: "#3366FF",
+              }}
+              onClick={handleEdit}
+            >
+              Edit
+            </PrimaryButton>
+            <PrimaryButton
+              sx={{
+                p: "3px 11px",
+                backgroundColor: "grey.400",
+                color: "error.dark",
+              }}
+              onClick={() => {
+                handleOpen();
+              }}
+            >
+              Delete
+            </PrimaryButton>
+          </ButtonGroup>
           <Modal
             open={open}
             aria-labelledby="modal-title"
@@ -140,37 +172,53 @@ const EventDetails = ({ clickedEvents }) => {
               </Typography>
             </Box>
           </Modal>
-        </ButtonGroup>
+          <Grid
+            container
+            item
+            xs={12}
+            sx={{ display: "flex", justifyContent: "flex-end", pt: 3 }}
+          >
+            <Chip
+              label={chipLabel}
+              sx={{
+                p: "0px 6px",
+                backgroundColor: `${chipColor}`,
+                color: `${chipTextColor}`,
+              }}
+            />
+          </Grid>
+        </Box>
       </Box>
-      <Grid container item xs={12} sx={{ justifyContent: "space-between" }}>
-        <Grid item xs={8}>
-          <Typography variant="body2">
-            {new Date(selectedEvent?.startTimeStamp).toLocaleString(
-              "en-US",
-              options
-            )}
-          </Typography>
-          <Typography variant="body2">
-            {new Date(selectedEvent?.startTimeStamp).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-            -{" "}
-            {new Date(selectedEvent?.endTimeStamp).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Typography>
-        </Grid>
-        <Chip
-          label={chipLabel}
-          sx={{
-            p: "0px 6px",
-            backgroundColor: `${chipColor}`,
-            color: `${chipTextColor}`,
-          }}
-        />
-      </Grid>
+
+      <ButtonGroup
+        sx={{ display: "flex", justifyContent: "center", p: 3 }}
+        direction="row"
+      >
+        <Button
+          onClick={eventDonorsNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Donors
+        </Button>
+        <Button
+          onClick={eventPledgersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Pledgers
+        </Button>
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={addManagerNavigator}
+        >
+          Managers
+        </Button>
+      </ButtonGroup>
       <Box sx={{ display: "flex", justifyContent: "space-between" }} pt={3}>
         <Grid container item xs={12}>
           <Grid item xs={6}>
@@ -214,35 +262,6 @@ const EventDetails = ({ clickedEvents }) => {
           </Grid>
         </Grid>
       </Box>
-      <ButtonGroup
-        sx={{ display: "flex", justifyContent: "center", p: 3 }}
-        direction="row"
-      >
-        <Button
-          onClick={eventDonorsNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
-          Donors
-        </Button>
-        <Button
-          onClick={eventPledgersNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
-          Pledgers
-        </Button>
-        <Button
-          size="large"
-          variant="contained"
-          color="primary"
-          onClick={addManagerNavigator}
-        >
-          Managers
-        </Button>
-      </ButtonGroup>
     </Container>
   );
 };
