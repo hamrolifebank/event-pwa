@@ -3,6 +3,7 @@ import DashboardlayoutwithFooter from "@layouts/dashboard/DashboardlayoutwithFoo
 import { useRouter } from "next/router";
 import { EventDetails } from "@sections/event-details";
 import { useSelector } from "react-redux";
+import DisplayStats from "@sections/event-details/DisplayStats";
 
 const PAGE_TITLE = "Event Details";
 
@@ -22,6 +23,7 @@ export default function EventDetail() {
   return (
     <Page title={PAGE_TITLE}>
       <EventDetails clickedEvents={clickedEvents} />
+      <DisplayStats />
     </Page>
   );
 }
