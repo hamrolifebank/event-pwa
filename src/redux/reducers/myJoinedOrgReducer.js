@@ -19,5 +19,12 @@ export const initializeMyJoinedOrganizations = () => {
   };
 };
 
+export const leaveMyJoinedOrganizations = (id) => {
+  return async (dispatch) => {
+    const data = await organizationService.leaveOrginzation(id);
+    dispatch(setMyJoinedOrganization(data));
+  };
+};
+
 export const { setMyJoinedOrganization } = MyJoinedOrganizationSlice.actions;
 export default MyJoinedOrganizationSlice.reducer;

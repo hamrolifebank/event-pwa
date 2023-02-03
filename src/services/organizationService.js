@@ -128,6 +128,15 @@ const declineRequest = async (id) => {
   return declinedRequest.data.data;
 };
 
+const leaveOrginzation = async (id) => {
+  const leaveOrganization = await axios.delete(
+    `/api/organization/leave-organiztion/${id}`,
+
+    getHeader()
+  );
+  return leaveOrganization.data.data;
+};
+
 export default {
   getAll,
   getBenificiaryBloodBanks,
@@ -142,4 +151,5 @@ export default {
   declineRequest,
   withdrawRequest,
   getMemberList,
+  leaveOrginzation,
 };
