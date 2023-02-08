@@ -52,13 +52,12 @@ model Event {
 }
 
 model UserEvent {
+  id       Int    @id @default(autoincrement())
   user     User   @relation(fields: [userId], references: [id])
   userId   Int
   event    Event  @relation(fields: [eventId], references: [id])
   eventId  Int
   userType String @db.VarChar(255)
-
-  @@id([userId, eventId])
 }
 
 model EventDonation {

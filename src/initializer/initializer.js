@@ -8,6 +8,7 @@ import { initBenificiaryBloodBanks } from "@redux/reducers/benificiaryBloodBankR
 import { initializeMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgReducer";
 import { getEventsFromEventServer } from "@redux/reducers/eventsFromEventServerReducer";
 import { getAllEventDonations } from "@redux/reducers/eventDonationReducer";
+import { getAllEventManagers } from "@redux/reducers/eventManagerReducer";
 
 export default function Initializer({ children }) {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function Initializer({ children }) {
       dispatch(initializeOrganizations());
       dispatch(initializeMyJoinedOrganizations());
       dispatch(initBenificiaryBloodBanks());
+      dispatch(getAllEventManagers());
     }
   }, [dispatch, user]);
   return <>{children}</>;

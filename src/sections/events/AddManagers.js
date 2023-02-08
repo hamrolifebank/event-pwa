@@ -18,10 +18,12 @@ import ManagerCard from "@sections/event-card/ManagerCard";
 import { useRouter } from "next/router";
 import { QrReader } from "react-qr-reader";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createEventManager } from "@redux/reducers/eventManagerReducer";
 
 const AddManagers = ({ ClickedEvents }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
@@ -71,8 +73,8 @@ const AddManagers = ({ ClickedEvents }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(createEventManager(manager));
     handleClose();
-    console.log(manager);
   };
 
   return (
