@@ -25,6 +25,8 @@ const AddManagers = ({ ClickedEvents }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const managers = useSelector((state) => state.eventManager);
+
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
@@ -139,9 +141,16 @@ const AddManagers = ({ ClickedEvents }) => {
       >
         CURRENT MANAGER
       </Typography>
-      <ManagerCard />
-      <ManagerCard />
-      <ManagerCard />
+
+      {managers.length !== 0
+        ? managers.map((manager) => (
+            <ManagerCard
+              key={manager.id}
+              manager={manager}
+              ClickedEvents={ClickedEvents}
+            />
+          ))
+        : null}
 
       <Box>
         <BorderlessButton sx={{ mt: 2, mb: 2, color: "secondary.main" }}>
