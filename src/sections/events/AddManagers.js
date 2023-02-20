@@ -25,13 +25,27 @@ const AddManagers = ({ ClickedEvents }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const managers = useSelector((state) => state.eventManager);
+  // const managers = useSelector((state) => state.eventManager);
+  const eventsFromServer = useSelector((state) => state.eventsFromServer);
 
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState("");
   const [open, setOpen] = useState(false);
+
+  const foundEvent = eventsFromServer?.find(
+    (e) => e.eventEthAddress === ClickedEvents.eventEthAddress
+  );
+  console.log("foundEvent: ", foundEvent);
+
+  const managers = foundEvent?.users;
+  console.log("managers: ", managers);
+
+  // const eventManagerList = managers.filter(
+  //   (manager) => manager.eventId === foundEvent.id
+  // );
+  // console.log("eventManger: ", eventManagerList);
 
   const handleOpen = () => {
     setOpen(true);
@@ -144,11 +158,7 @@ const AddManagers = ({ ClickedEvents }) => {
 
       {managers.length !== 0
         ? managers.map((manager) => (
-            <ManagerCard
-              key={manager.id}
-              manager={manager}
-              ClickedEvents={ClickedEvents}
-            />
+            <ManagerCard key={manager.id} manager={manager} />
           ))
         : null}
 

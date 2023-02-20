@@ -9,12 +9,14 @@ import { initializeMyJoinedOrganizations } from "@redux/reducers/myJoinedOrgRedu
 import { getEventsFromEventServer } from "@redux/reducers/eventsFromEventServerReducer";
 import { getAllEventDonations } from "@redux/reducers/eventDonationReducer";
 import { getAllEventManagers } from "@redux/reducers/eventManagerReducer";
+import { getUsers } from "@redux/reducers/userListReducer";
 
 export default function Initializer({ children }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   useEffect(() => {
     if (user) {
+      dispatch(getUsers());
       dispatch(getAllEvents());
       dispatch(getEventsFromEventServer());
       dispatch(getAllEventDonations());

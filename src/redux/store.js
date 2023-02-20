@@ -10,10 +10,12 @@ import benificiaryBloodBankReducer from "./reducers/benificiaryBloodBankReducer"
 import eventsFromEventServerReducer from "./reducers/eventsFromEventServerReducer";
 import eventDonationReducer from "./reducers/eventDonationReducer";
 import eventManagerReducer from "./reducers/eventManagerReducer";
+import userListReducer from "./reducers/userListReducer";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    allUsers: userListReducer,
     organizations: organizationReducer,
     benificiaryBloodBanks: benificiaryBloodBankReducer,
     yourPendingRequests: yourPendingRequestReducer,
