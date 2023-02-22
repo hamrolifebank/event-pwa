@@ -18,7 +18,7 @@ model User {
   phone             String?
   userethaddress    String
   UserOrganizations UserOrganization[]
-  UserEvent         UserEvent[]
+  UserEvents        UserEvent[]
 
   @@index([email, userethaddress])
 }
@@ -48,7 +48,7 @@ model Event {
   eventEthAddress String          @db.VarChar(255)
   creatorId       Int
   EventDonation   EventDonation[]
-  users           UserEvent[]
+  UserEvents      UserEvent[]
 }
 
 model UserEvent {

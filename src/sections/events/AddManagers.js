@@ -26,6 +26,7 @@ const AddManagers = ({ ClickedEvents }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   // const managers = useSelector((state) => state.eventManager);
+  const users = useSelector((state) => state.allUsers);
   const eventsFromServer = useSelector((state) => state.eventsFromServer);
 
   const [selected, setSelected] = useState("environment");
@@ -34,12 +35,15 @@ const AddManagers = ({ ClickedEvents }) => {
   const [data, setData] = useState("");
   const [open, setOpen] = useState(false);
 
-  const foundEvent = eventsFromServer?.find(
-    (e) => e.eventEthAddress === ClickedEvents.eventEthAddress
-  );
+  const foundEvent =
+    eventsFromServer.length !== 0
+      ? eventsFromServer.find(
+          (e) => e.eventEthAddress === ClickedEvents.eventEthAddress
+        )
+      : null;
   console.log("foundEvent: ", foundEvent);
 
-  const managers = foundEvent?.users;
+  const managers = foundEvent !== null ? foundEvent.UserEvents : [];
   console.log("managers: ", managers);
 
   // const eventManagerList = managers.filter(
@@ -75,8 +79,9 @@ const AddManagers = ({ ClickedEvents }) => {
   };
 
   const handleId = () => {
-    if (data.text === user.userethaddress) {
-      manager.userId = user.id;
+    const foundUser = users.find((user) => data.text === user.userethaddress);
+    if (foundUser) {
+      manager.userId = foundUser.id;
     }
   };
 

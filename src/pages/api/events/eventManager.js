@@ -6,21 +6,22 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "POST":
-      try {
-        const { eventId, userId, userType } = req.body;
+      // try {
+      console.log(req.body);
+      const { eventId, userId, userType } = req.body;
 
-        const newManager = await prisma.userEvent.create({
-          data: {
-            userId,
-            eventId,
-            userType,
-          },
-        });
+      const newManager = await prisma.userEvent.create({
+        data: {
+          user: { connect: { id: userId } },
+          event: { connect: { id: eventId } },
+          userType,
+        },
+      });
 
-        res.status(201).json({ success: true, data: newManager });
-      } catch (error) {
-        res.status(400).json({ success: false, msg: error });
-      }
+      res.status(201).json({ success: true, data: newManager });
+      // } catch (error) {
+      //   res.status(400).json({ success: false, msg: error });
+      // }
       break;
     case "GET":
       try {

@@ -6,7 +6,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const ManagerCard = ({ manager }) => {
-  const user = useSelector((state) => state.user);
+  const users = useSelector((state) => state.allUsers);
+
+  const specificManager = users.find((user) => user.id === manager.userId);
 
   return (
     <>
@@ -30,7 +32,7 @@ const ManagerCard = ({ manager }) => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            {manager.userId === user.id ? user.firstname : null}
+            {specificManager.firstname}
             <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
@@ -45,7 +47,7 @@ const ManagerCard = ({ manager }) => {
             color="grey.600"
           >
             <Icon icon="eva:phone-call-fill" />
-            {manager.userId === user.id ? user.email : null}
+            {specificManager.email}
           </Typography>
         </Box>
       </Paper>
