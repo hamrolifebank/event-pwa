@@ -41,15 +41,8 @@ const AddManagers = ({ ClickedEvents }) => {
           (e) => e.eventEthAddress === ClickedEvents.eventEthAddress
         )
       : null;
-  console.log("foundEvent: ", foundEvent);
 
   const managers = foundEvent !== null ? foundEvent.UserEvents : [];
-  console.log("managers: ", managers);
-
-  // const eventManagerList = managers.filter(
-  //   (manager) => manager.eventId === foundEvent.id
-  // );
-  // console.log("eventManger: ", eventManagerList);
 
   const handleOpen = () => {
     setOpen(true);
