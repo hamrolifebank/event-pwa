@@ -6,21 +6,21 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      // try {
-      const eventsFromEventServer = await prisma.event.findMany({
-        include: {
-          UserEvents: {
-            include: {
-              event: true,
+      try {
+        const eventsFromEventServer = await prisma.event.findMany({
+          include: {
+            UserEvents: {
+              include: {
+                event: true,
+              },
             },
           },
-        },
-      });
+        });
 
-      res.status(200).json({ success: true, data: eventsFromEventServer });
-      // } catch (error) {
-      //   res.status(400).json({ success: false });
-      // }
+        res.status(200).json({ success: true, data: eventsFromEventServer });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
       break;
     default:
       res.status(400).json({ success: false });
