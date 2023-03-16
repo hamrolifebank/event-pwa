@@ -102,9 +102,35 @@ const getEventDonation = async () => {
   }
 };
 
+const eventManagerCreation = async (detail) => {
+  try {
+    const response = await axios.post(
+      "/api/events/eventManager",
+      detail,
+      getHeader()
+    );
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getEventManagers = async () => {
+  try {
+    const response = await axios.get("/api/events/eventManager", getHeader());
+
+    return response.data.data;
+  } catch (error) {
+    return error.response.data.data;
+  }
+};
+
 export default {
   create,
   getAll,
+  eventManagerCreation,
+  getEventManagers,
   getEventsFromServer,
   eventDonationCreation,
   getEventDonation,

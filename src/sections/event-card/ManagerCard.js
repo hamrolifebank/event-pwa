@@ -3,7 +3,13 @@ import { Box } from "@mui/system";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const ManagerCard = () => {
+import { useSelector } from "react-redux";
+
+const ManagerCard = ({ manager }) => {
+  const users = useSelector((state) => state.allUsers);
+
+  const specificManager = users.find((user) => user.id === manager.userId);
+
   return (
     <>
       <Paper
@@ -26,7 +32,7 @@ const ManagerCard = () => {
               lineHeight: "subtitle1.lineHeight",
             }}
           >
-            Hare Ram
+            {specificManager.firstname}
             <span style={{ color: "grey" }}>(0-)</span>
           </Typography>
 
@@ -41,7 +47,7 @@ const ManagerCard = () => {
             color="grey.600"
           >
             <Icon icon="eva:phone-call-fill" />
-            9845856215
+            {specificManager.email}
           </Typography>
         </Box>
       </Paper>
