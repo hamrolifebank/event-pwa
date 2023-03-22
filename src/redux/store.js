@@ -9,10 +9,13 @@ import myApproveRequestReducer from "./reducers/myApproveRequestReducer";
 import benificiaryBloodBankReducer from "./reducers/benificiaryBloodBankReducer";
 import eventsFromEventServerReducer from "./reducers/eventsFromEventServerReducer";
 import eventDonationReducer from "./reducers/eventDonationReducer";
+import eventManagerReducer from "./reducers/eventManagerReducer";
+import userListReducer from "./reducers/userListReducer";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    allUsers: userListReducer,
     organizations: organizationReducer,
     benificiaryBloodBanks: benificiaryBloodBankReducer,
     yourPendingRequests: yourPendingRequestReducer,
@@ -22,7 +25,10 @@ const store = configureStore({
     events: eventReducer,
     eventsFromServer: eventsFromEventServerReducer,
     eventDonation: eventDonationReducer,
+    eventManager: eventManagerReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export default store;
