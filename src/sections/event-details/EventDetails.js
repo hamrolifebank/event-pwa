@@ -190,35 +190,6 @@ const EventDetails = ({ clickedEvents }) => {
         </Box>
       </Box>
 
-      <ButtonGroup
-        sx={{ display: "flex", justifyContent: "center", p: 3 }}
-        direction="row"
-      >
-        <Button
-          onClick={eventDonorsNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
-          Donors
-        </Button>
-        <Button
-          onClick={eventPledgersNavigator}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
-          Pledgers
-        </Button>
-        <Button
-          size="large"
-          variant="contained"
-          color="primary"
-          onClick={addManagerNavigator}
-        >
-          Managers
-        </Button>
-      </ButtonGroup>
       <Box sx={{ display: "flex", justifyContent: "space-between" }} pt={3}>
         <Grid container item xs={12}>
           <Grid item xs={6}>
@@ -262,6 +233,35 @@ const EventDetails = ({ clickedEvents }) => {
           </Grid>
         </Grid>
       </Box>
+      <ButtonGroup
+        sx={{ display: "flex", justifyContent: "center", p: 3 }}
+        direction="row"
+      >
+        <Button
+          onClick={eventDonorsNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Donors
+        </Button>
+        <Button
+          onClick={eventPledgersNavigator}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Pledgers
+        </Button>
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={addManagerNavigator}
+        >
+          Managers
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 };
