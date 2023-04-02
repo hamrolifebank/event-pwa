@@ -1,18 +1,25 @@
 import { BorderlessButton, PrimaryButton } from "@components/button";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import { EventCard } from "@sections/event-card";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const PastEvents = () => {
+  const router = useRouter();
   const events = useSelector((state) => state.events);
   const currentDate = new Date();
-  const filteredPastEvents = events?.filter(
-    (event) => new Date(event.endTimeStamp) < currentDate
-  );
+  const filteredPastEvents =
+    events.length !== 0 && events.success !== false
+      ? events.filter((event) => new Date(event.endTimeStamp) < currentDate)
+      : [];
   return (
     <Container>
+      <IconButton color="primary" onClick={() => router.back()}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Typography
         display="flex"
         justifyContent="center"
