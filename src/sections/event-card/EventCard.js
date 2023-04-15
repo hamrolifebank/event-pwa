@@ -129,9 +129,15 @@ const EventCard = ({ user, event }) => {
                       />
                     </Box>
                     <DialogContentText
-                      display="flex"
+                      display="wrap"
                       justifyContent="center"
-                      sx={{ wordWrap: "inherit", pt: 2 }}
+                      sx={{
+                        wordWrap: "break-word",
+                        pt: 3,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
                     >
                       {event?.eventEthAddress}
                     </DialogContentText>
