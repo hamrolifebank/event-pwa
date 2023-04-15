@@ -79,7 +79,7 @@ const Home = () => {
           color: "grey.600",
         }}
       >
-        Your upcoming events
+        Events
       </Typography>
       {requiredEvents.map((event) => (
         <Link
@@ -94,7 +94,12 @@ const Home = () => {
       <Link
         variant="h6"
         component="h2"
-        sx={{ color: "#CF3D3C", textAlign: "center", underline: "hover" }}
+        sx={{
+          color: "#CF3D3C",
+          textAlign: "center",
+          underline: "hover",
+          mb: 2,
+        }}
         onClick={() => push(PATH_EVENTS.root)}
       >
         Load more events
