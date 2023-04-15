@@ -79,7 +79,7 @@ const Home = () => {
           color: "grey.600",
         }}
       >
-        Events
+        Upcoming Events
       </Typography>
       {requiredEvents.map((event) => (
         <Link
