@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   Container,
+  Divider,
   Grid,
   IconButton,
   Modal,
@@ -82,7 +83,15 @@ export default function JoinOrg() {
       <IconButton color="primary" onClick={arrowBack}>
         <ArrowBackIosIcon />
       </IconButton>
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="h4">Join Organization</Typography>
+      </Box>
+      <Divider />
       <Autocomplete
         disablePortal
         options={notJoinedOrg.map((list) => list.name)}
