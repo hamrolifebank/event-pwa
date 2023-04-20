@@ -52,7 +52,7 @@ const Events = () => {
               style={{ textDecoration: "none" }}
               key={event.id}
             >
-              <EventCard key={event.id} event={event} />{" "}
+              <EventCard key={event.id} event={event} />
             </Link>
           ))
         : null}
