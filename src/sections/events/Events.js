@@ -46,13 +46,13 @@ const Events = () => {
       </Typography>
 
       {filteredUpcomingEvents.length !== 0
-        ? filteredUpcomingEvents.slice(0, 2).map((event) => (
+        ? filteredUpcomingEvents.slice(0, 4).map((event) => (
             <Link
               href={`/event/${event.id}`}
               style={{ textDecoration: "none" }}
               key={event.id}
             >
-              <EventCard key={event.id} event={event} />{" "}
+              <EventCard key={event.id} event={event} />
             </Link>
           ))
         : null}
