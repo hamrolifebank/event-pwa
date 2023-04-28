@@ -34,6 +34,7 @@ const AddManagers = ({ ClickedEvents }) => {
   const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState("");
   const [open, setOpen] = useState(false);
+  const [openRestrictionModel, setOpenRestrictionModel] = useState(false);
 
   const foundEvent =
     eventsFromServer.length !== 0
@@ -50,6 +51,14 @@ const AddManagers = ({ ClickedEvents }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleRestrictionModelOpen = () => {
+    setOpenRestrictionModel(true);
+  };
+
+  const handleRestrictionModelClose = () => {
+    setOpenRestrictionModel(false);
   };
 
   const [manager, setManager] = useState({
@@ -108,7 +117,11 @@ const AddManagers = ({ ClickedEvents }) => {
       <PrimaryButton
         sx={{ mt: 2, mb: 2 }}
         onClick={() => {
-          setStartScan(!startScan);
+          if (foundEvent) {
+            setStartScan(!startScan);
+          } else {
+            handleRestrictionModelOpen();
+          }
         }}
       >
         {startScan ? "Stop Scan" : "Add Manager"}
@@ -246,6 +259,39 @@ const AddManagers = ({ ClickedEvents }) => {
             <Stack id="modal-description" sx={{ mt: 2 }}>
               <SecondaryButton type="submit">Add</SecondaryButton>
             </Stack>
+          </Stack>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openRestrictionModel}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "background.paper",
+            boxShadow: 30,
+            borderRadius: 2,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Oops you can not add manager.
+          </Typography>
+          <Stack id="modal-description" sx={{ mt: 2 }}>
+            <SecondaryButton
+              onClick={() => {
+                handleRestrictionModelClose();
+              }}
+            >
+              ok
+            </SecondaryButton>
           </Stack>
         </Box>
       </Modal>
