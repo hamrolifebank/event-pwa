@@ -63,7 +63,7 @@ const AddManagers = ({ ClickedEvents }) => {
 
   const [manager, setManager] = useState({
     userId: 0,
-    eventId: ClickedEvents?.id,
+    eventId: foundEvent?.id,
     userType: "Manager",
   });
 
