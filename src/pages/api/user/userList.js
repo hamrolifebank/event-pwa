@@ -7,7 +7,15 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const allUsers = await prisma.user.findMany({});
+        const allUsers = await prisma.user.findMany({
+          include: {
+            UserEvents: {
+              include: {
+                event: true,
+              },
+            },
+          },
+        });
 
         res.status(200).json({ success: true, data: allUsers });
       } catch (error) {
